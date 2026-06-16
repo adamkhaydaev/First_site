@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Документы для поступления</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-page: #eeeeee;
+            --bg-white: #ffffff;
+            --bg-soft: #eef1f7;
+            --bg-soft-alt: #f8fbff;
+            --border: #cfd6e2;
+            --border-light: #e4e7ef;
+            --text-main: #1f1f1f;
+            --text-muted: #555555;
+            --text-soft: #777777;
+            --brand-blue: #2d2b76;
+            --brand-blue-dark: #171b48;
+            --brand-red: #ff0000;
+            --brand-gold: #d7a520;
+            --shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.15);
+            --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--bg-page);
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000000;
+        }
+
+        /* ================= ВЕРХНЯЯ ПАНЕЛЬ (ИЗ ВАШЕГО СТАРОГО КОДА) ================= */
+        .top-bar {
+            background-color: #ffffff;
+            background-image: url('kud_line.png');
+            background-repeat: repeat-x;
+            background-position: top center;
+            background-size: auto 100%;
+            color: white;
+            padding: 15px 0;
+        }
+
+        .top-bar-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .top-left {
+            display: flex;
+            gap: 30px;
+            font-size: 18px;
+            font-weight: 500;
+            flex-wrap: wrap;
+        }
+
+        .top-left a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+        }
+
+        .top-left a:hover {
+            opacity: 0.8;
+        }
+
+        /* ================= МЕНЮ ================= */
+        .menu {
+            background-color: #fff;
+            border-bottom: 1px solid #e8e8e8;
+            position: relative;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .menu-content {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            font-size: 20px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin-left: 55px;
+            gap: 36px;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: inline-block;
+            color: var(--brand-blue);
+            padding: 36px 0;
+            font-size: 20px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: #c4951a;
+        }
+
+        .nav-item.has-mega:hover .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 22px;
+            width: 100%;
+            height: 4px;
+            background: var(--brand-gold);
+            border-radius: 2px;
+        }
+
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 980px;
+            background: white;
+            border-top: 1px solid #f0f0f0;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+            padding: 34px 34px 28px;
+            display: flex;
+            gap: 40px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: 0.25s;
+        }
+
+        .nav-item.has-mega:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .mega-column {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mega-column a {
+            display: block;
+            color: #555;
+            font-size: 16px;
+            line-height: 1.55;
+            margin-bottom: 10px;
+            transition: 0.2s;
+        }
+
+        .mega-column a:hover {
+            color: rgb(40, 60, 120);
+        }
+
+        .menu-icons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .menu-icon-link {
+            width: 52px;
+            height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: #eef1f7;
+            color: #2d2b76;
+            font-size: 24px;
+            transition: 0.2s;
+        }
+
+        .menu-icon-link:hover {
+            background: #2d2b76;
+            color: #ffffff;
+        }
+
+        .menu-icon-link img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .info-section {
+            max-width: 1200px;
+            margin-bottom: 20px;
+            margin-left: 200px;
+            padding: 20px;
+        }
+
+        .page-section {
+            width: 100%;
+        }
+
+        .table-card {
+            background: var(--bg-white);
+            padding: 30px;
+            margin-bottom: 34px;
+            margin-left: 90px;
+            margin-top: 0;
+            border-radius: 18px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .title-card {
+            background: #ffffff;
+            padding: 20px;
+            margin-right: 100px;
+            margin-bottom: 20px;
+            width: calc(100% - 90px);
+            box-sizing: border-box;
+        }
+
+        .title-card h2 {
+            font-size: 32px;
+            color: #171b48;
+            font-weight: 700;
+        }
+
+        .official-layout {
+            display: flex;
+            align-items: flex-start;
+            gap: 28px;
+        }
+
+        /* ================= ЛЕВАЯ БОКОВАЯ ПАНЕЛЬ (ИЗ ВАШЕГО СТАРОГО КОДА) ================= */
+        .mini-sveden-fixed {
+            position: absolute;
+            top: 165px;
+            width: 290px;
+            margin-left: -330px;
+            margin-top: 0px;
+            z-index: 100;
+        }
+
+        .mini-sveden-card {
+            background: #eef1f7;
+            border: 1px solid #cfd6e2;
+            border-left: none;
+            border-radius: 0 16px 16px 0;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .mini-sveden-title {
+            padding: 18px 18px 16px;
+            color: #ff0000;
+            font-size: 22px;
+            font-weight: 500;
+            border-bottom: 1px solid #cfd6e2;
+        }
+
+        .mini-sveden-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .mini-sveden-table td {
+            border-bottom: 1px solid #e4e7ef;
+            padding: 12px 14px;
+            font-size: 15px;
+            line-height: 1.35;
+            vertical-align: top;
+            background: #fff;
+        }
+
+        .mini-sveden-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .mini-sveden-table a {
+            color: #000000;
+            font-size: 17px;
+            display: block;
+            line-height: 15px;
+        }
+
+        .mini-sveden-table a:hover {
+            color: #ff0000;
+        }
+
+        .mini-sveden-table .active-link td {
+            background: #f3f6fd;
+        }
+
+        .mini-sveden-table tr.active-link a {
+            color: #ff0000;
+            background: #f7f8fc;
+        }
+
+        .official-content {
+            width: 100%;
+            flex: 1;
+            min-width: 0;
+            margin-top: 460px;
+        }
+
+        .table-inner {
+            margin: -480px auto 0;
+            position: relative;
+            z-index: 50;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--brand-blue);
+            margin: 35px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            color: var(--brand-red);
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: #fff;
+            margin: 20px 0 30px;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .info-table th {
+            background: var(--brand-blue);
+            color: white;
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: left;
+            border: none;
+            border-bottom: 1px solid #3d3b86;
+            border-right: 1px solid #3d3b86;
+        }
+
+        .info-table th:last-child {
+            border-right: none;
+        }
+
+        .info-table td {
+            padding: 15px 20px;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            vertical-align: top;
+            font-size: 15px;
+            line-height: 1.55;
+            color: #333;
+        }
+
+        .info-table td:last-child {
+            border-right: none;
+        }
+
+        .info-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .info-table tr:nth-child(even) {
+            background: var(--bg-soft-alt);
+        }
+
+        .info-table td:first-child {
+            font-weight: 600;
+            color: var(--brand-blue);
+            width: 34%;
+        }
+
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin: 18px 0 8px;
+        }
+
+        .doc-card {
+            background: var(--bg-soft-alt);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: 0.2s;
+        }
+
+        .doc-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            background: #ffffff;
+        }
+
+        .doc-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--brand-red);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .doc-icon i {
+            font-size: 28px;
+            color: white;
+        }
+
+        .doc-info {
+            flex: 1;
+        }
+
+        .doc-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--brand-blue);
+            margin-bottom: 8px;
+        }
+
+        .doc-title2 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--brand-blue);
+            line-height: 22px;
+            margin-bottom: 10px;
+        }
+
+        .doc-meta {
+            font-size: 14px;
+            color: var(--text-soft);
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .doc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--brand-blue);
+            font-weight: 600;
+            padding: 8px 16px;
+            background: var(--bg-soft);
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .doc-link:hover {
+            background: var(--brand-blue);
+            color: white;
+        }
+
+        .notes-list {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .notes-list li {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--brand-red);
+            border-radius: 12px;
+            padding: 16px 18px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        /* ================= НИЖНЯЯ ПАНЕЛЬ ================= */
+        .contacts-block {
+            background: #ffffff;
+            padding: 60px 0;
+        }
+
+        .contacts-container {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .contacts-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            max-width: 600px;
+        }
+
+        .contacts-logo {
+            width: 140px;
+            border-radius: 12px;
+        }
+
+        .contacts-subtitle {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .contacts-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: -10px;
+        }
+
+        .contacts-right {
+            flex: 1;
+        }
+
+        .contacts-heading {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .contacts-columns {
+            display: flex;
+            gap: 40px;
+            border-left: 2px solid #ccc;
+            padding-left: 30px;
+        }
+
+        .contacts-col p {
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .contacts-col i {
+            margin-right: 8px;
+        }
+
+        /* ================= ВЫПАДАЮЩЕЕ МЕНЮ "О КОЛЛЕДЖЕ" ================= */
+        .nav-item.has-dropdown {
+            position: relative;
+        }
+
+        .nav-item.has-dropdown:hover .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 22px;
+            width: 100%;
+            height: 4px;
+            background: #d7a520;
+            border-radius: 2px;
+        }
+
+        .dropdown-about {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            background: white;
+            border-top: 3px solid #d7a520;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.25s ease;
+            border-radius: 0 0 14px 14px;
+            z-index: 1001;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-about {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .dropdown-about a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #444;
+            font-size: 17px;
+            padding: 13px 18px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .dropdown-about a:last-child {
+            margin-bottom: 0;
+        }
+
+        .dropdown-about a:hover {
+            background: #f5f7ff;
+            color: #171b48;
+            transform: translateX(6px);
+        }
+
+        .dropdown-about a i {
+            width: 22px;
+            text-align: center;
+            color: #d7a520;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+/* ================= МОБИЛЬНАЯ АДАПТАЦИЯ @480px ================= */
+@media (max-width: 480px) {
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    }
+
+    .top-bar {
+        padding: 10px 0;
+    }
+
+    .top-bar-content {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .top-left {
+        width: 100%;
+        justify-content: center;
+        font-size: 12px;
+        gap: 10px;
+        flex-direction: column;
+    }
+
+    .menu {
+        position: static;
+        z-index: 999;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-content {
+        width: 100%;
+        padding: 10px 8px;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .nav-list {
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        margin: 0;
+        padding: 0;
+        margin-left: 0;
+    }
+
+    .nav-item {
+        width: 100%;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .nav-link {
+        width: 100%;
+        padding: 16px 12px;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .nav-item.has-mega:hover .mega-menu,
+    .nav-item.has-dropdown:hover .dropdown-about {
+        position: static;
+        transform: none;
+        width: 100%;
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
+        border: none;
+        border-top: 1px solid #f0f0f0;
+        padding: 12px 0;
+        margin-top: 0;
+        border-radius: 0;
+        background: #f9f9f9;
+    }
+
+    .mega-menu, .dropdown-about {
+        display: none;
+    }
+
+    .mega-column {
+        flex: none;
+        width: 100%;
+        margin-bottom: 16px;
+    }
+
+    .mega-column a {
+        padding: 12px 24px;
+        font-size: 15px;
+    }
+
+    .menu-icons {
+        width: 100%;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .menu-icon-link {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+    }
+
+    .info-section {
+        margin-bottom: 20px;
+        margin-left: 0;
+        margin-top: 0;
+        padding: 12px;
+        max-width: 100%;
+    }
+
+    .title-card {
+        background: #ffffff;
+        padding: 16px;
+        margin-left: 0;
+        margin-bottom: 16px;
+        width: 100%;
+        margin-right: 0;
+        box-sizing: border-box;
+    }
+
+    .title-card h2 {
+        font-size: 22px;
+        margin-bottom: 12px;
+    }
+
+    .table-card {
+        background: #ffffff;
+        padding: 16px;
+        margin-bottom: 20px;
+        margin-left: 0;
+        margin-top: 0;
+        border-radius: 12px;
+    }
+
+    .official-layout {
+        display: block;
+    }
+
+    .mini-sveden-fixed {
+        position: static;
+        width: 100%;
+        margin: 0 0 16px 0 !important;
+        top: auto !important;
+        margin-left: 0 !important;
+    }
+
+    .mini-sveden-card {
+        border-left: 1px solid #d7dbe6;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .mini-sveden-title {
+        padding: 14px 14px 12px;
+        font-size: 18px;
+    }
+
+    .mini-sveden-table td {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .mini-sveden-table a {
+        font-size: 14px;
+    }
+
+    .official-content {
+        margin-top: 0 !important;
+        width: 100%;
+    }
+
+    .table-inner {
+        margin: 0 !important;
+    }
+
+    .section-title {
+        font-size: 18px;
+        margin: 20px 0 14px 0;
+        padding-bottom: 8px;
+    }
+
+    .section-title i {
+        margin-right: 8px;
+    }
+
+    /* ТАБЛИЦЫ */
+    .info-table {
+        width: 100%;
+        margin: 16px 0 24px;
+        border-radius: 10px;
+        border: 1px solid #cfd6e2;
+    }
+
+    .info-table thead {
+        display: none;
+    }
+
+    .info-table tr {
+        display: block;
+        background: #ffffff;
+        border: 1px solid #cfd6e2;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        overflow: hidden;
+    }
+
+    .info-table tr:nth-child(even) {
+        background: #ffffff;
+    }
+
+    .info-table td {
+        display: block;
+        padding: 10px 12px;
+        text-align: left;
+        border: none;
+        border-bottom: 1px solid #f0f0f0;
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .info-table td:last-child {
+        border-bottom: none;
+    }
+
+    .info-table td:first-child {
+        font-weight: 700;
+        color: #2d2b76;
+        background: #eef1f7;
+        padding: 10px 12px;
+    }
+
+    .info-table th {
+        display: none;
+    }
+
+    /* КАРТОЧКИ ДОКУМЕНТОВ */
+    .doc-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin: 16px 0;
+    }
+
+    .doc-card {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px;
+        border-radius: 10px;
+    }
+
+    .doc-icon {
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
+        border-radius: 10px;
+        font-size: 22px;
+    }
+
+    .doc-info {
+        flex: 1;
+    }
+
+    .doc-title {
+        font-size: 15px;
+        margin-bottom: 6px;
+    }
+
+    .doc-title2 {
+        font-size: 14px;
+        margin-bottom: 6px;
+        line-height: 1.4;
+    }
+
+    .doc-meta {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .doc-link {
+        padding: 6px 12px;
+        font-size: 13px;
+        border-radius: 6px;
+        display: inline-flex;
+    }
+
+    .doc-link i {
+        font-size: 12px;
+    }
+
+    /* СПИСОК ВАЖНЫХ СВЕДЕНИЙ */
+    .notes-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 14px;
+        list-style: none;
+    }
+
+    .notes-list li {
+        padding: 12px 14px;
+        border-radius: 10px;
+        border-left-width: 3px;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .contacts-block {
+        padding: 40px 0;
+        margin-top: 30px;
+    }
+
+    .contacts-container {
+        width: 100%;
+        padding: 0 12px;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .contacts-left {
+        width: 100%;
+        gap: 15px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contacts-logo {
+        width: 100px;
+    }
+
+    .contacts-text {
+        text-align: center;
+    }
+
+    .contacts-subtitle {
+        font-size: 14px;
+    }
+
+    .contacts-title {
+        font-size: 18px;
+    }
+
+    .contacts-heading {
+        font-size: 22px;
+        margin-bottom: 16px;
+    }
+
+    .contacts-columns {
+        flex-direction: column;
+        gap: 16px;
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .contacts-col p {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .nav-item.has-mega:hover .nav-link::after,
+    .nav-item.has-dropdown:hover .nav-link::after {
+        display: none;
+    }
+}
+
+/* ================= ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ @380px ================= */
+@media (max-width: 380px) {
+    .title-card h2 {
+        font-size: 19px;
+        margin-bottom: 10px;
+    }
+
+    .section-title {
+        font-size: 16px;
+        margin: 16px 0 12px 0;
+    }
+
+    .section-title i {
+        margin-right: 6px;
+    }
+
+    .info-table td {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .info-table td:first-child {
+        font-size: 12px;
+    }
+
+    .doc-grid {
+        gap: 10px;
+        margin: 12px 0;
+    }
+
+    .doc-card {
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .doc-icon {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        font-size: 18px;
+    }
+
+    .doc-title {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .doc-title2 {
+        font-size: 13px;
+        margin-bottom: 4px;
+    }
+
+    .doc-meta {
+        font-size: 11px;
+        margin-bottom: 6px;
+    }
+
+    .doc-link {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+
+    .notes-list {
+        gap: 8px;
+        margin-top: 12px;
+    }
+
+    .notes-list li {
+        padding: 10px 12px;
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .mini-sveden-title {
+        font-size: 16px;
+        padding: 12px 12px 10px;
+    }
+
+    .mini-sveden-table td {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .mini-sveden-table a {
+        font-size: 13px;
+    }
+
+    .contacts-col p {
+        font-size: 13px;
+    }
+}
+        
+    </style>
+</head>
+<body>
+    <!-- ================= ВЕРХНЯЯ ПАНЕЛЬ (ИЗ ВАШЕГО СТАРОГО КОДА) ================= -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="top-left">
+                <a href="mailto:college-95@mail.ru"><i class="fa-solid fa-eye"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= МЕНЮ ================= -->
+    <div class="menu">
+        <div class="menu-content">
+            <a href="index.html" style="color: #2d2b76;"><i class="fa-solid fa-house"></i></a>
+
+            <ul class="nav-list">
+                <!-- Пункт "О колледже" с выпадающим меню -->
+                <li class="nav-item has-dropdown">
+                    <a class="nav-link">О колледже</a>
+                    <div class="dropdown-menu dropdown-about">
+                        <a href="about.html">
+                            <i class="fa-solid fa-building-columns"></i> О колледже
+                        </a>
+                        <a href="news.html">
+                            <i class="fa-solid fa-newspaper"></i> Новости
+                        </a>
+                        <a href="gallery.html">
+                            <i class="fa-solid fa-bullhorn"></i> Фотогалерея
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item has-mega">
+                    <a href="basic_information.html" class="nav-link">Сведения об ОО</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="basic_information.html"><i class="fa-solid fa-circle-info"></i> Основные сведения</a>
+                            <a href="information_founder.html"><i class="fa-solid fa-sitemap"></i> Структура и органы управления</a>
+                            <a href="document.html"><i class="fa-solid fa-file-lines"></i> Документы</a>
+                            <a href="education.html"><i class="fa-solid fa-graduation-cap"></i> Образование</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="management.html"><i class="fa-solid fa-user-tie"></i> Руководство</a>
+                            <a href="teaching_staff.html"><i class="fa-solid fa-chalkboard-user"></i> Педагогический состав</a>
+                            <a href="logistics.html"><i class="fa-solid fa-building"></i> Материально-техническое обеспечение</a>
+                            <a href="paid_services.html"><i class="fa-solid fa-credit-card"></i> Платные образовательные услуги</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="activities.html"><i class="fa-solid fa-chart-line"></i> Финансово-хозяйственная деятельность</a>
+                            <a href="vacancies.html"><i class="fa-solid fa-user-plus"></i> Вакантные места</a>
+                            <a href="international_cooperation.html"><i class="fa-solid fa-globe"></i> Международное сотрудничество</a>
+                            <a href="catering.html"><i class="fa-solid fa-utensils"></i> Организация питания</a>
+                            <a href="scholarship.html"><i class="fa-solid fa-hand-holding-heart"></i> Образовательные стандарты и требования</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item has-mega">
+                    <a href="company.html" class="nav-link">Поступающим</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="company.html"><i class="fa-solid fa-clipboard-list"></i> Приёмная кампания 2026</a>
+                            <a href="direction_training.html"><i class="fa-solid fa-compass"></i> Направления подготовки</a>
+                            <a href="open_door.html"><i class="fa-solid fa-calendar-check"></i> Дни открытых дверей</a>
+                            <a href="accept_doc.html"><i class="fa-solid fa-file-lines"></i> Документы для поступления</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="paid_services2.html"><i class="fa-solid fa-ruble-sign"></i> Платное обучение</a>
+                            <a href="translation.html"><i class="fa-solid fa-rotate"></i> Перевод и восстановление</a>
+                            <a href="question.html"><i class="fa-solid fa-circle-question"></i> Часто задаваемые вопросы</a>
+                            <a href="professional.html"><i class="fa-solid fa-person-chalkboard"></i> Профориентация</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="order.html"><i class="fa-solid fa-file-circle-check"></i> Приказы о зачислении</a>
+                            <a href="full_education.html"><i class="fa-solid fa-bullseye"></i> Целевое обучение</a>
+                            <a href="Образовательное кредитование.pdf"><i class="fa-solid fa-sack-dollar"></i> Образовательный кредит</a>
+                            <a href="capital.html"><i class="fa-solid fa-hand-holding-heart"></i> О материнском капитале</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="ordering_certificates.html">Студентам</a></li>
+                <li class="nav-item"><a class="nav-link" href="graduates.html">Выпускникам</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Контакты</a></li>
+            </ul>
+
+            <div class="menu-icons">
+                <a class="menu-icon-link" href="https://vk.ru/business_college95" aria-label="ВКонтакте">
+                    <i class="fa-brands fa-vk"></i>
+                </a>
+                <a class="menu-icon-link" href="https://max.ru/u/f9LHodD0cOITJW3XHPLMW4Rd8XyF5o___UQuasgI59JfFIf45iwgcq-7UDM" aria-label="MAX">
+                    <img src="max-icon.png" alt="MAX" style="width: 26px; height: 26px; object-fit: contain;">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= ОСНОВНОЙ КОНТЕНТ ================= -->
+    <section class="info-section">
+        <div class="page-section">
+            <div class="table-card">
+                <div class="title-card">
+                    <h2>Документы для поступления</h2>
+                </div>                
+                <div class="official-layout">
+                    <!-- ================= ЛЕВАЯ БОКОВАЯ ПАНЕЛЬ (ИЗ ВАШЕГО СТАРОГО КОДА) ================= -->
+                    <div class="mini-sveden-fixed">
+                        <aside class="mini-sveden-card">
+                            <div class="mini-sveden-title">Поступающим</div>
+                            <table class="mini-sveden-table">
+                                <tr><td><a href="company.html">Приёмная кампания 2026</a></td></tr>
+                                <tr><td><a href="direction_training.html">Направления подготовки</a></td></tr>
+                                <tr><td><a href="open_door.html">Дни открытых дверей</a></td></tr>
+                                <tr class="active-link"><td><a href="accept_doc.html">Документы для поступления</a></td></tr>
+                                <tr><td><a href="paid_services2.html">Платное обучение</a></td></tr>
+                                <tr><td><a href="translation.html">Перевод и восстановление</a></td></tr>
+                                <tr><td><a href="question.html">Часто задаваемые вопросы</a></td></tr>
+                                <tr><td><a href="professional.html">Профориентация</a></td></tr>
+                                <tr><td><a href="order.html">Приказы о зачислении</a></td></tr>
+                                <tr><td><a href="full_education.html">Целевое обучение</a></td></tr>
+                                <tr><td><a href="Образовательное кредитование.pdf">Образовательный кредит</a></td></tr>
+                                <tr><td><a href="capital.html">О материнском капитале</a></td></tr>
+                            </table>
+                        </aside>
+                    </div>
+
+                    <!-- ================= ПРАВАЯ ЧАСТЬ ================= -->
+                    <div class="official-content">
+                        <div class="table-inner">
+
+                            <h3 class="section-title">
+                                <i class="fa-solid fa-folder-open"></i>
+                                Обязательные документы для поступления
+                            </h3>
+
+                            <table class="info-table">
+                                <tr><th>Документ</th><th>Что требуется</th></tr>
+                                <tr><td>Заявление о приёме</td><td>Подаётся лично, заполняется в приёмной комиссии</td></tr>
+                                <tr><td>Паспорт</td><td>Оригинал + копия</td></tr>
+                                <tr><td>Аттестат / диплом</td><td>Оригинал + копия документа об образовании</td></tr>
+                                <tr><td>СНИЛС</td><td>Копия страхового свидетельства</td></tr>
+                                <tr><td>Фотографии</td><td>6 шт., 3×4 см, матовые</td></tr>
+                                <tr><td>Договор об оказании платных услуг</td><td>2 экземпляра, заключается при подаче</td></tr>
+                            </table>
+
+                            <h3 class="section-title">
+                                <i class="fa-solid fa-download"></i>
+                                Формы и образцы
+                            </h3>
+
+                            <div class="doc-grid">
+                                <div class="doc-card">
+                                    <div class="doc-icon"><i class="fa-regular fa-file-lines"></i></div>
+                                    <div class="doc-info">
+                                        <div class="doc-title">Заявление о приёме (бланк)</div>
+                                        <div class="doc-meta">PDF, 120 КБ</div>
+                                        <a href="Заявление 2026.pdf" class="doc-link"><i class="fa-solid fa-download"></i> Скачать</a>
+                                    </div>
+                                </div>
+                                <div class="doc-card">
+                                    <div class="doc-icon"><i class="fa-regular fa-file-lines"></i></div>
+                                    <div class="doc-info">
+                                        <div class="doc-title">Договор на 2026/2027 54.02.01 Дизайн (по отрослям)</div>
+                                        <div class="doc-meta"> Утверждена: 01.03.2026 | PDF, 320 КБ</div>
+                                        <a href="ДОГОВОР ДИЗАЙН 2026.pdf" class="doc-link"><i class="fa-solid fa-download"></i> Скачать</a>
+                                    </div>
+                                </div>
+                                <div class="doc-card">
+                                    <div class="doc-icon"><i class="fa-regular fa-file-lines"></i></div>
+                                    <div class="doc-info">
+                                        <div class="doc-title">Договор на 2026/2027 42.02.01 Реклама</div>
+                                        <div class="doc-meta"> Утверждена: 01.03.2026 | PDF, 320 КБ</div>
+                                        <a href="ДОГОВОР РЕКЛАМА 2026.pdf" class="doc-link"><i class="fa-solid fa-download"></i> Скачать</a>
+                                    </div>
+                                </div>
+                                <div class="doc-card">
+                                    <div class="doc-icon"><i class="fa-regular fa-file-lines"></i></div>
+                                    <div class="doc-info">
+                                        <div class="doc-title2">Согласие на обработку персональных данных для несовершеннолетних (до 18 лет)</div>
+                                        <div class="doc-meta">PDF, 95 КБ</div>
+                                        <a href="СОГЛАСИЕ  до 18 лет 2026.pdf" class="doc-link"><i class="fa-solid fa-download"></i> Скачать</a>
+                                    </div>
+                                </div>
+                                <div class="doc-card">
+                                    <div class="doc-icon"><i class="fa-regular fa-file-lines"></i></div>
+                                    <div class="doc-info">
+                                        <div class="doc-title2">Согласие на обработку персональных данных для совершеннолетних (после 18 лет)</div>
+                                        <div class="doc-meta">PDF, 95 КБ</div>
+                                        <a href="СОГЛАСИЕ после 18 лет 2026.pdf" class="doc-link"><i class="fa-solid fa-download"></i> Скачать</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 class="section-title">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                                Важно знать
+                            </h3>
+
+                            <ul class="notes-list">
+                                <li>Оригинал документа об образовании возвращается по письменному заявлению не позднее следующего рабочего дня.</li>
+                                <li>Медицинская справка <strong>не требуется</strong>.</li>
+                                <li>Документы можно подать лично, по почте или в электронной форме.</li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= НИЖНЯЯ ПАНЕЛЬ ================= -->
+    <div class="contacts-block">
+        <div class="contacts-container">
+            <div class="contacts-left">
+                <a href="index.html">
+                    <img src="favicon.png" alt="Лого" class="contacts-logo">
+                </a>
+                <div class="contacts-text">
+                    <p class="contacts-subtitle">Частное профессиональное образовательное учреждение</p>
+                    <h2 class="contacts-title">Колледж управления<br>и дизайна</h2>
+                </div>
+            </div>
+            <div class="contacts-right">
+                <h2 class="contacts-heading">Контакты</h2>
+                <div class="contacts-columns">
+                    <div class="contacts-col">
+                        <p><i class="fa-solid fa-location-dot"></i> г. Грозный, ул. Старопромысловское шоссе, д.26 Б</p>
+                        <p><i class="fa-solid fa-phone"></i> +7 (938) 902-12-22</p>
+                        <p><i class="fa-solid fa-phone"></i> +7 (929) 890-22-22</p>
+                    </div>
+                    <div class="contacts-col">
+                        <p><i class="fa-regular fa-envelope"></i> <b>Приёмная комиссия:</b><br>college-95@mail.ru</p>
+                        <p><i class="fa-regular fa-envelope"></i> <b>Директор:</b><br>college-95@yandex.ru</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

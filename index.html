@@ -1,0 +1,2602 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Колледж управления и дизайна</title>
+
+    <link rel="icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: #1f1f1f;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* ================= ВЕРХНЯЯ ПАНЕЛЬ ================= */
+        .top-bar {
+            background-color: #ffffff;
+            background-image: url('kud_line.png');
+            background-repeat: repeat-x;
+            background-position: top center;
+            background-size: auto 100%;
+            color: white;
+            padding: 15px 0;
+        }
+
+        .top-bar-content {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-left {
+            display: flex;
+            gap: 30px;
+            font-size: 18px;
+            font-weight: 500;
+            flex-wrap: wrap;
+        }
+
+        .top-left a,
+        .top-right a {
+            color: white;
+        }
+
+        .top-left a:hover {
+            opacity: 0.8;
+        }
+
+        .top-right {
+            font-size: 22px;
+        }
+
+        .top-right a:hover {
+            opacity: 0.8;
+        }
+
+        /* ================= ПОИСК ================= */
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-input {
+            padding: 10px 16px;
+            border: 2px solid rgba(255,255,255,0.5);
+            border-radius: 8px;
+            font-size: 16px;
+            width: 200px;
+            transition: all 0.3s;
+            outline: none;
+            font-family: Arial, sans-serif;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            backdrop-filter: blur(5px);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .search-input:focus {
+            border-color: #fff;
+            width: 250px;
+            background: rgba(255,255,255,0.25);
+        }
+
+        .search-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.5);
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s;
+            white-space: nowrap;
+            backdrop-filter: blur(5px);
+        }
+
+        .search-btn:hover {
+            background: rgba(255,255,255,0.35);
+            border-color: #fff;
+        }
+
+        /* ================= МОДАЛЬНОЕ ОКНО ПОИСКА ================= */
+        .search-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+        }
+
+        .search-modal.active {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 80px;
+        }
+
+        .search-modal-box {
+            background: white;
+            width: 700px;
+            max-width: 95%;
+            max-height: 75vh;
+            border-radius: 16px;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .search-modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #e8e8e8;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-modal-header input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 18px;
+            outline: none;
+            font-family: Arial, sans-serif;
+        }
+
+        .search-modal-header input:focus {
+            border-color: #d7a520;
+        }
+
+        .search-modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #666;
+            padding: 5px 10px;
+            transition: 0.2s;
+        }
+
+        .search-modal-close:hover {
+            color: #e61e4d;
+        }
+
+        .search-results {
+            padding: 15px 25px 25px;
+        }
+
+        .search-result-item {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: 0.2s;
+            border-radius: 8px;
+            margin-bottom: 4px;
+        }
+
+        .search-result-item:hover {
+            background: #f8f9fc;
+        }
+
+        .search-result-item a {
+            color: #171b48;
+            font-size: 17px;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .search-result-item a:hover {
+            color: #d7a520;
+        }
+
+        .search-result-item .search-url {
+            color: #888;
+            font-size: 13px;
+        }
+
+        .search-result-item .search-snippet {
+            color: #555;
+            font-size: 14px;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+        .search-no-results {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            font-size: 17px;
+        }
+
+        .search-highlight {
+            background: #fff3b0;
+            padding: 1px 3px;
+            border-radius: 3px;
+        }
+
+        /* ================= МЕНЮ ================= */
+        .menu {
+            background-color: rgb(255, 255, 255);
+            border-bottom: 1px solid #e8e8e8;
+            position: relative;
+            z-index: 1000;
+            box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu-content {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            font-size: 20px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .menu-icons {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-icons a {
+            color: rgb(40, 60, 120);
+            font-size: 24px;
+        }
+
+        .menu-logo img {
+            width: 175px;
+            height: 175px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin-left: 55px;
+            gap: 36px;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: inline-block;
+            color: rgb(40, 60, 120);
+            padding: 36px 0;
+            font-size: 20px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: #c4951a;
+        }
+
+        /* Подчёркивание для пунктов с выпадающим меню */
+        .nav-item.has-mega:hover .nav-link::after,
+        .nav-item.has-dropdown:hover .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 22px;
+            width: 100%;
+            height: 4px;
+            background: #d7a520;
+            border-radius: 2px;
+        }
+
+        /* ================= МЕГА-МЕНЮ (Сведения об ОО, Поступающим) ================= */
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            transform: none;
+            width: 800px;
+            background: white;
+            border-top: 1px solid #f0f0f0;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+            padding: 25px;
+            display: flex;
+            gap: 30px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: 0.25s;
+        }
+
+        .nav-item.has-mega:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .mega-column {
+            flex: 1;
+        }
+
+        .mega-column h3 {
+            font-size: 18px;
+            color: #1c1c1c;
+            margin-bottom: 18px;
+            font-weight: 700;
+        }
+
+        .mega-column a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 12px;
+            transition: 0.2s;
+        }
+
+        .mega-column a:hover {
+            color: rgb(40, 60, 120);
+        }
+
+        /* ================= ВЫПАДАЮЩЕЕ МЕНЮ "О КОЛЛЕДЖЕ" ================= */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 320px;
+            background: white;
+            border-top: 1px solid #f0f0f0;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: 0.25s;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #444;
+            font-size: 17px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: 0.2s;
+            margin-bottom: 4px;
+        }
+
+        .dropdown-menu a:last-child {
+            margin-bottom: 0;
+        }
+
+        .dropdown-menu a:hover {
+            background: #f5f7ff;
+            color: #171b48;
+            transform: translateX(5px);
+        }
+
+        .dropdown-menu a i {
+            width: 24px;
+            text-align: center;
+            color: #d7a520;
+            font-size: 16px;
+        }
+
+        /* ================= КАРТОЧКИ ================= */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px;
+            margin: 40px 20px;
+        }
+
+        .card {
+            width: 100%;
+            height: 180px;
+            background: #171b48;
+            color: white;
+            border-radius: 12px;
+            text-align: center;
+            transition: 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+        }
+
+        .card-icon {
+            width: 58px;
+            height: 58px;
+            border: 2px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            position: absolute;
+            top: 12px;
+            left: 12px;
+        }
+
+        .card-icon i {
+            color: white;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            padding: 0 10px;
+            color: white;
+        }
+
+        .card-line {
+            width: 45px;
+            height: 4px;
+            background: white;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+        /* ================= БАННЕР ================= */
+        .static-banner {
+            width: 100%;
+            max-width: 1300px;
+            margin: 50px auto;
+            margin-left: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            padding: 0 30px;
+        }
+
+        .banner-image {
+            flex: 0 0 auto;
+        }
+
+        .banner-image img {
+            width: 850px;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+        }
+
+        .banner-text {
+            flex: 1;
+            max-width: 800px;
+            color: #171b48;
+            text-align: left;
+        }
+
+        .banner-text h2 {
+            font-size: 46px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .banner-text p {
+            font-size: 24px;
+            line-height: 1.5;
+            font-weight: 400;
+            color: #1a2a4a;
+        }
+
+        /* ================= ДИРЕКТОР ================= */
+        .director-block {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 70px;
+            margin: 50px 0 0 0;
+            background: #fff;
+        }
+
+        .director-image {
+            flex: 0 0 530px;
+        }
+
+        .director-image-bg {
+            width: 530px;
+            height: 520px;
+            background: #f3f3f3;
+            border-top-right-radius: 280px;
+            border-bottom-right-radius: 280px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .director-image img {
+            position: absolute;
+            bottom: 0;
+            left: 35px;
+            width: 390px;
+            height: auto;
+        }
+
+        .director-text {
+            flex: 1;
+            max-width: 1250px;
+            padding-top: 20px;
+            padding-right: 40px;
+        }
+
+        .director-role {
+            display: block;
+            font-size: 18px;
+            color: #222;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .director-text h1 {
+            font-size: 42px;
+            line-height: 1.1;
+            margin: 0 0 14px 0;
+            font-weight: 800;
+            color: #000;
+        }
+
+        .director-line {
+            width: 790px;
+            max-width: 100%;
+            height: 2px;
+            background: #e61e4d;
+            margin-bottom: 24px;
+        }
+
+        .director-text p {
+            font-size: 22px;
+            line-height: 1.35;
+            margin-bottom: 18px;
+            color: #000;
+        }
+
+        .menu-icon-link {
+            width: 52px;
+            height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: #eef1f7;
+            color: #2d2b76;
+            font-size: 24px;
+            transition: 0.2s;
+        }
+
+        .menu-icon-link:hover {
+            background: #2d2b76;
+            color: #ffffff;
+        }
+
+        .menu-icon-link img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* ================= БАННЕР "ЗАБРОНИРУЙТЕ МЕСТО" ================= */
+        .booking-banner {
+            width: 100%;
+            background: #171b48;
+            padding: 50px 30px;
+            text-align: center;
+            margin: 0 0 40px 0;
+        }
+
+        .booking-banner__title {
+            color: #ffffff;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+
+        .booking-banner__btn {
+            display: inline-block;
+            background: #ffffff;
+            color: #171b48;
+            padding: 16px 40px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .booking-banner__btn:hover {
+            background: #e61e4d;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ================= БАННЕР "ЕСТЬ ВОПРОС?" ================= */
+        .question-banner {
+            width: 100%;
+            height: 184px;
+            margin: 40px 0;
+            display: grid;
+            grid-template-columns: 50% 50%;
+            overflow: hidden;
+            background: #f0ebe7;
+        }
+
+        .question-banner__left {
+            background: #171b48;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .question-banner__content h2 {
+            color: #ffffff;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 28px;
+            line-height: 1.2;
+        }
+
+        .question-banner__btn {
+            background: #ffffff;
+            color: #111827;
+            border: none;
+            border-radius: 6px;
+            padding: 15px 34px;
+            font-size: 16px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .question-banner__btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+        }
+
+        .question-banner__right {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #f0ebe7;
+        }
+
+        .question-banner__right img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: right center;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .modal-box {
+            background: white;
+            width: 600px;
+            max-width: 95%;
+            height: 90vh;
+            margin: 40px auto;
+            border-radius: 12px;
+            padding: 25px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-box h2 {
+            margin-bottom: 20px;
+        }
+
+        .modal-box textarea {
+            width: 100%;
+            height: 120px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .modal-box input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+        }
+
+        .hint {
+            margin: 15px 0;
+            color: #666;
+        }
+
+        .upload {
+            border: 2px dashed #4a7cff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .upload button {
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: #4a7cff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+        }
+
+        .checks {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            border: 2px solid #4a7cff;
+            border-radius: 10px;
+            color: #4a7cff;
+            font-weight: 500;
+        }
+
+        .close {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* ================= НОВОСТИ ================= */
+        .spbkap-news {
+            width: 100%;
+            margin: 48px 0 20px;
+            padding: 0 24px;
+            font-family: Arial, sans-serif;
+        }
+
+        .spbkap-news__top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            margin-bottom: 18px;
+        }
+
+        .spbkap-news__title {
+            color: #000000;
+            font-size: 36px;
+            line-height: 1;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            margin: 0;
+        }
+
+        .spbkap-news__all {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 52px;
+            padding: 0 28px;
+            background: #171b48;
+            color: #ffffff;
+            border-radius: 7px;
+            font-size: 17px;
+            font-weight: 700;
+            line-height: 1;
+            transition: 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .spbkap-news__all:hover {
+            background: #202b80;
+            transform: translateY(-1px);
+        }
+
+        .spbkap-news__grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.72fr) minmax(0, 0.72fr);
+            grid-auto-rows: auto;
+            gap: 18px;
+            align-items: start;
+        }
+
+        .spbkap-news__main,
+        .spbkap-news__card {
+            background: #ffffff;
+            border: 1px solid #e7e7e7;
+            border-radius: 12px;
+            overflow: hidden;
+            color: #171b48;
+        }
+
+        .spbkap-news__main {
+            grid-row: span 2;
+            min-height: 100%;
+        }
+
+        .spbkap-news__main-img,
+        .spbkap-news__card-img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .spbkap-news__main-img {
+            height: 385px;
+        }
+
+        .spbkap-news__card-img {
+            height: 218px;
+        }
+
+        .spbkap-news__main-body {
+            padding: 26px 28px 32px;
+        }
+
+        .spbkap-news__main-title {
+            color: #171b48;
+            font-size: 29px;
+            line-height: 1.28;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            margin: 0 0 18px;
+        }
+
+        .spbkap-news__main-text {
+            color: #000000;
+            font-size: 20px;
+            line-height: 1.28;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        .spbkap-news__card-body {
+            padding: 18px 16px 18px;
+        }
+
+        .spbkap-news__card-title {
+            color: #171b48;
+            font-size: 21px;
+            line-height: 1.25;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            min-height: 58px;
+            margin: 0 0 18px;
+        }
+
+        .spbkap-news__card-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .spbkap-news__more {
+            color: #171b48;
+            font-size: 21px;
+            line-height: 1;
+            font-weight: 400;
+            transition: 0.2s ease;
+        }
+
+        .spbkap-news__more:hover {
+            color: #e61e4d;
+        }
+
+        .spbkap-news__date {
+            color: #a7a7a7;
+            font-size: 19px;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        /* ================= ОБЪЯВЛЕНИЯ (в стиле новостей) ================= */
+        .spbkap-announcements {
+            width: 100%;
+            margin: 48px 0 20px;
+            padding: 0 24px;
+            font-family: Arial, sans-serif;
+        }
+
+        .spbkap-announcements__top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            margin-bottom: 18px;
+        }
+
+        .spbkap-announcements__title {
+            color: #000000;
+            font-size: 36px;
+            line-height: 1;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            margin: 0;
+        }
+
+        .spbkap-announcements__all {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 52px;
+            padding: 0 28px;
+            background: #171b48;
+            color: #ffffff;
+            border-radius: 7px;
+            font-size: 17px;
+            font-weight: 700;
+            line-height: 1;
+            transition: 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .spbkap-announcements__all:hover {
+            background: #202b80;
+            transform: translateY(-1px);
+        }
+
+        .spbkap-announcements__grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.72fr) minmax(0, 0.72fr);
+            grid-auto-rows: auto;
+            gap: 18px;
+            align-items: start;
+        }
+
+        .spbkap-announcements__main,
+        .spbkap-announcements__card {
+            background: #ffffff;
+            border: 1px solid #e7e7e7;
+            border-radius: 12px;
+            overflow: hidden;
+            color: #171b48;
+        }
+
+        .spbkap-announcements__main {
+            grid-row: span 2;
+            min-height: 100%;
+        }
+
+        .spbkap-announcements__main-img,
+        .spbkap-announcements__card-img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .spbkap-announcements__main-img {
+            height: 385px;
+        }
+
+        .spbkap-announcements__card-img {
+            height: 218px;
+        }
+
+        .spbkap-announcements__main-body {
+            padding: 26px 28px 32px;
+        }
+
+        .spbkap-announcements__main-title {
+            color: #171b48;
+            font-size: 29px;
+            line-height: 1.28;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            margin: 0 0 18px;
+        }
+
+        .spbkap-announcements__main-text {
+            color: #000000;
+            font-size: 20px;
+            line-height: 1.28;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        .spbkap-announcements__card-body {
+            padding: 18px 16px 18px;
+        }
+
+        .spbkap-announcements__card-title {
+            color: #171b48;
+            font-size: 21px;
+            line-height: 1.25;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            min-height: 58px;
+            margin: 0 0 18px;
+        }
+
+        .spbkap-announcements__card-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .spbkap-announcements__more {
+            color: #171b48;
+            font-size: 21px;
+            line-height: 1;
+            font-weight: 400;
+            transition: 0.2s ease;
+        }
+
+        .spbkap-announcements__more:hover {
+            color: #e61e4d;
+        }
+
+        .spbkap-announcements__date {
+            color: #a7a7a7;
+            font-size: 19px;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        /* ================= ЛИНИЯ РАЗДЕЛА ================= */
+        .section-divider {
+            width: 60.8%;
+            height: 2px;
+            background: #e61e4d;
+            margin: 50px auto 30px;
+        }
+
+        .contacts-block {
+            background: #ffffff;
+            padding: 60px 0;
+        }
+
+        .contacts-container {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .contacts-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            max-width: 600px;
+        }
+
+        .contacts-logo {
+            width: 140px;
+            border-radius: 12px;
+        }
+
+        .contacts-subtitle {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .contacts-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: -10px;
+        }
+
+        .contacts-right {
+            flex: 1;
+        }
+
+        .contacts-heading {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .contacts-columns {
+            display: flex;
+            gap: 40px;
+            border-left: 2px solid #ccc;
+            padding-left: 30px;
+        }
+
+        .contacts-col p {
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .contacts-col i {
+            margin-right: 8px;
+        }
+
+        .admission-window {
+            width: 1400px;
+            margin: 40px auto;
+            padding: 45px 30px;
+            background: #8689a0;
+            border-radius: 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 38px;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+        }
+
+        .admission-window__right {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .admission-window__left {
+            background: #151922;
+            border-radius: 24px;
+            padding: 40px 30px;
+            min-height: 360px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .admission-window__left h2 {
+            font-size: 36px;
+            line-height: 1.2;
+            margin-bottom: 100px;
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        .admission-window__left h3 {
+            font-size: 24px;
+            line-height: 1.2;
+            margin-bottom: 35px;
+            color: #ffffff;
+        }
+
+        .admission-window__link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 58px;
+            background: linear-gradient(90deg, #101335, #1e256b);
+            color: #ffffff;
+            border-radius: 9px;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.2s ease;
+        }
+
+        .admission-window__link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px #171b48;
+        }
+
+        .admission-map {
+            width: 650px;
+            height: 400px;
+            border-radius: 22px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            background: #ffffff;
+        }
+
+        .admission-contacts h2 {
+            font-size: 38px;
+            line-height: 1.2;
+            margin-bottom: 22px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .admission-contacts p {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 22px;
+            line-height: 1.45;
+            margin-bottom: 14px;
+            color: #ffffff;
+        }
+
+        .admission-contacts a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .admission-contacts a:hover {
+            text-decoration: underline;
+        }
+
+        .admission-contacts i {
+            color: #ffffff;
+            font-size: 20px;
+            min-width: 22px;
+        }
+
+        /* ================= ВЫПАДАЮЩЕЕ МЕНЮ "О КОЛЛЕДЖЕ" ================= */
+        .nav-item.has-dropdown {
+            position: relative;
+        }
+
+        .nav-item.has-dropdown:hover .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 22px;
+            width: 100%;
+            height: 4px;
+            background: #d7a520;
+            border-radius: 2px;
+        }
+
+        .dropdown-about {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            background: white;
+            border-top: 3px solid #d7a520;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.25s ease;
+            border-radius: 0 0 14px 14px;
+            z-index: 1001;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-about {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .dropdown-about a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #444;
+            font-size: 17px;
+            padding: 13px 18px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .dropdown-about a:last-child {
+            margin-bottom: 0;
+        }
+
+        .dropdown-about a:hover {
+            background: #f5f7ff;
+            color: #171b48;
+            transform: translateX(6px);
+        }
+
+        .dropdown-about a i {
+            width: 22px;
+            text-align: center;
+            color: #d7a520;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+        /* ================= ОРИГИНАЛЬНЫЕ АДАПТИВНЫЕ ПРАВИЛА ================= */
+        @media (max-width: 1400px) {
+            .spbkap-announcements__grid {
+                grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.72fr) minmax(0, 0.72fr);
+            }
+            .admission-window {
+                grid-template-columns: 1fr;
+                padding: 24px 18px;
+                width: 100%;
+            }
+            .admission-map {
+                width: 100%;
+            }
+            .cards-grid { grid-template-columns: repeat(3, 1fr); }
+            .director-image { flex-basis: 440px; }
+            .director-image-bg { width: 440px; height: 430px; }
+            .director-image img { width: 320px; left: 30px; }
+            .director-text h1 { font-size: 34px; }
+            .director-text p { font-size: 19px; }
+            .banner-text h2 { font-size: 38px; }
+            .banner-text p { font-size: 20px; }
+        }
+
+        @media (max-width: 1200px) {
+            .spbkap-news__grid { grid-template-columns: 1fr 1fr; }
+            .spbkap-news__main { grid-column: span 2; grid-row: auto; }
+            .spbkap-news__main-img { height: 480px; }
+            .spbkap-announcements__grid { grid-template-columns: 1fr 1fr; }
+            .spbkap-announcements__main { grid-column: span 2; grid-row: auto; }
+            .spbkap-announcements__main-img { height: 480px; }
+        }
+
+        @media (max-width: 1100px) {
+            .menu-content { flex-direction: column; align-items: center; gap: 25px; }
+            .nav-list { justify-content: center; gap: 24px; margin-left: 0; }
+            .nav-link { padding: 18px 0; }
+            .mega-menu, .dropdown-menu { position: static; transform: none; width: 100%; box-shadow: none; border: 1px solid #ececec; margin-top: 10px; padding: 24px; display: none; opacity: 1; visibility: visible; pointer-events: auto; flex-wrap: wrap; border-radius: 12px; }
+            .nav-item.has-mega:hover .mega-menu,
+            .nav-item.has-dropdown:hover .dropdown-menu { display: flex; }
+            .dropdown-menu { flex-direction: column; }
+            .director-block { flex-direction: column; gap: 25px; padding: 0 20px; }
+            .director-image { flex: none; }
+            .director-image-bg { width: 100%; max-width: 530px; height: 430px; border-radius: 40px; }
+            .director-text { padding: 0 0 30px 0; }
+            .director-line { width: 100%; }
+        }
+
+        @media (max-width: 900px) {
+            .spbkap-announcements__grid {
+                grid-template-columns: 1fr;
+            }
+            .spbkap-announcements__main {
+                grid-column: auto;
+            }
+            .spbkap-announcements__main-img,
+            .spbkap-announcements__card-img {
+                height: auto;
+            }
+            .static-banner { flex-direction: column; align-items: center; margin-left: auto; }
+            .banner-image img { width: 80%; margin: 0 auto; }
+            .banner-text { text-align: center; max-width: 90%; }
+            .question-banner { height: auto; grid-template-columns: 1fr; }
+            .question-banner__left { min-height: 190px; }
+            .question-banner__right { height: 190px; }
+        }
+
+        @media (max-width: 800px) {
+            .top-bar-content { flex-direction: column; gap: 15px; }
+            .top-left { justify-content: center; }
+            .nav-list { flex-direction: column; align-items: center; gap: 8px; width: 100%; }
+            .nav-item { width: 100%; text-align: center; }
+            .nav-link { width: 100%; padding: 14px 0; font-size: 18px; }
+            .cards-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 700px) {
+            .spbkap-news { padding: 0 14px; }
+            .spbkap-news__title { font-size: 30px; }
+            .spbkap-news__all { min-height: 44px; padding: 0 18px; font-size: 15px; }
+            .spbkap-news__grid { grid-template-columns: 1fr; }
+            .spbkap-news__main { grid-column: auto; }
+            .spbkap-news__main-img,
+            .spbkap-news__card-img { height: auto; }
+            .spbkap-announcements { padding: 0 14px; }
+            .spbkap-announcements__title { font-size: 30px; }
+            .spbkap-announcements__all { min-height: 44px; padding: 0 18px; font-size: 15px; }
+            .spbkap-announcements__grid { grid-template-columns: 1fr; }
+            .spbkap-announcements__main { grid-column: auto; }
+            .spbkap-announcements__main-img,
+            .spbkap-announcements__card-img { height: auto; }
+            .section-divider { width: 100%; }
+        }
+
+        @media (max-width: 500px) {
+            .cards-grid { grid-template-columns: 1fr; }
+            .top-left { flex-direction: column; gap: 15px; }
+            .banner-text h2 { font-size: 28px; }
+        }
+
+        /* ================= МОБИЛЬНАЯ АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (до 480px) ================= */
+        @media (max-width: 480px) {
+            * {
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            }
+
+            /* Top Bar */
+            .top-bar {
+                padding: 10px 0;
+            }
+
+            .top-bar-content {
+                width: 95%;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .top-left {
+                width: 100%;
+                justify-content: center;
+                font-size: 16px;
+                gap: 15px;
+            }
+
+            /* Menu - максимальная оптимизация */
+            .menu {
+                position: static;
+                top: 0;
+                z-index: 999;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .menu-content {
+                width: 100%;
+                padding: 10px 8px;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .menu-logo img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .nav-list {
+                width: 100%;
+                flex-direction: column;
+                gap: 0;
+                margin-left: 0;
+                padding: 0;
+            }
+
+            .nav-item {
+                width: 100%;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .nav-link {
+                width: 100%;
+                padding: 16px 12px;
+                font-size: 16px;
+                text-align: center;
+            }
+
+            .nav-item.has-mega:hover .mega-menu,
+            .nav-item.has-dropdown:hover .dropdown-menu,
+            .nav-item.has-dropdown:hover .dropdown-about {
+                position: static;
+                transform: none;
+                width: 100%;
+                display: block;
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
+                border: none;
+                border-top: 1px solid #f0f0f0;
+                padding: 12px 0;
+                margin-top: 0;
+                border-radius: 0;
+                background: #f9f9f9;
+            }
+
+            .mega-menu, .dropdown-menu, .dropdown-about {
+                display: none;
+            }
+
+            .mega-column {
+                flex: none;
+                width: 100%;
+                margin-bottom: 16px;
+            }
+
+            .mega-column h3 {
+                font-size: 15px;
+                padding: 0 12px;
+                margin-bottom: 8px;
+            }
+
+            .mega-column a {
+                padding: 12px 24px;
+                font-size: 15px;
+                margin-bottom: 0;
+            }
+
+            .dropdown-menu a,
+            .dropdown-about a {
+                padding: 12px 24px;
+                font-size: 15px;
+                gap: 10px;
+            }
+
+            /* Search Container */
+            .search-container {
+                width: 100%;
+                gap: 6px;
+                padding: 8px;
+            }
+
+            .search-input {
+                width: 100%;
+                padding: 10px 12px;
+                font-size: 16px;
+                border-radius: 6px;
+            }
+
+            .search-input:focus {
+                width: 100%;
+            }
+
+            .search-btn {
+                padding: 10px 12px;
+                font-size: 14px;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            .menu-icon-link {
+                width: 44px;
+                height: 44px;
+                font-size: 20px;
+            }
+
+            /* Banner */
+            .static-banner {
+                margin: 20px auto;
+                padding: 0 12px;
+                gap: 20px;
+                flex-direction: column;
+            }
+
+            .banner-image img {
+                width: 100%;
+                height: auto;
+                max-width: 100%;
+            }
+
+            .banner-text h2 {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+
+            .banner-text p {
+                font-size: 16px;
+                line-height: 1.4;
+            }
+
+            /* Cards Grid */
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                margin: 25px 10px;
+            }
+
+            .card {
+                height: 140px;
+                border-radius: 10px;
+                padding: 15px;
+            }
+
+            .card h3 {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+            .card-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 22px;
+                top: 10px;
+                left: 10px;
+            }
+
+            /* Question Banner */
+            .question-banner {
+                height: auto;
+                grid-template-columns: 1fr;
+                margin: 25px 0;
+                border-radius: 0;
+            }
+
+            .question-banner__left {
+                min-height: 150px;
+                padding: 20px;
+            }
+
+            .question-banner__content h2 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .question-banner__btn {
+                padding: 12px 24px;
+                font-size: 15px;
+            }
+
+            .question-banner__right {
+                height: 150px;
+            }
+
+            /* Director Block */
+            .director-block {
+                margin: 30px 0 0 0;
+                padding: 0 15px;
+                gap: 20px;
+            }
+
+            .director-image {
+                flex: none;
+                width: 100%;
+            }
+
+            .director-image-bg {
+                width: 100%;
+                height: 300px;
+                border-radius: 20px;
+            }
+
+            .director-image img {
+                width: 220px;
+                left: 20px;
+            }
+
+            .director-text {
+                padding: 0;
+                width: 100%;
+            }
+
+            .director-role {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+
+            .director-text h1 {
+                font-size: 24px;
+                margin-bottom: 12px;
+            }
+
+            .director-text p {
+                font-size: 16px;
+                line-height: 1.35;
+                margin-bottom: 12px;
+            }
+
+            .director-line {
+                width: 100%;
+            }
+
+            /* News Section */
+            .spbkap-news {
+                margin: 30px 0 15px;
+                padding: 0 12px;
+            }
+
+            .spbkap-news__top {
+                flex-direction: column;
+                gap: 15px;
+                margin-bottom: 15px;
+            }
+
+            .spbkap-news__title {
+                font-size: 26px;
+            }
+
+            .spbkap-news__all {
+                width: 100%;
+                min-height: 48px;
+                padding: 0 16px;
+                font-size: 16px;
+            }
+
+            .spbkap-news__grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .spbkap-news__main,
+            .spbkap-news__card {
+                border-radius: 10px;
+            }
+
+            .spbkap-news__main-img {
+                height: 250px;
+            }
+
+            .spbkap-news__card-img {
+                height: 180px;
+            }
+
+            .spbkap-news__main-body {
+                padding: 16px;
+            }
+
+            .spbkap-news__main-title {
+                font-size: 20px;
+                margin-bottom: 12px;
+            }
+
+            .spbkap-news__main-text {
+                font-size: 16px;
+            }
+
+            .spbkap-news__card-body {
+                padding: 12px;
+            }
+
+            .spbkap-news__card-title {
+                font-size: 16px;
+                margin-bottom: 10px;
+                min-height: auto;
+            }
+
+            .spbkap-news__date {
+                font-size: 14px;
+            }
+
+            /* Announcements Section */
+            .spbkap-announcements {
+                margin: 30px 0 15px;
+                padding: 0 12px;
+            }
+
+            .spbkap-announcements__title {
+                font-size: 26px;
+            }
+
+            .spbkap-announcements__all {
+                width: 100%;
+                min-height: 48px;
+                padding: 0 16px;
+                font-size: 16px;
+            }
+
+            .spbkap-announcements__grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .spbkap-announcements__main-img {
+                height: 250px;
+            }
+
+            .spbkap-announcements__card-img {
+                height: 180px;
+            }
+
+            .spbkap-announcements__main-body {
+                padding: 16px;
+            }
+
+            .spbkap-announcements__main-title {
+                font-size: 20px;
+                margin-bottom: 12px;
+            }
+
+            .spbkap-announcements__main-text {
+                font-size: 16px;
+            }
+
+            .spbkap-announcements__card-body {
+                padding: 12px;
+            }
+
+            .spbkap-announcements__card-title {
+                font-size: 16px;
+                margin-bottom: 10px;
+                min-height: auto;
+            }
+
+            .spbkap-announcements__date {
+                font-size: 14px;
+            }
+
+            /* Admission Window */
+            .admission-window {
+                width: 100%;
+                margin: 25px 0;
+                padding: 25px 15px;
+                grid-template-columns: 1fr;
+                gap: 20px;
+                border-radius: 16px;
+            }
+
+            .admission-window__left {
+                padding: 25px 15px;
+                min-height: auto;
+                border-radius: 12px;
+            }
+
+            .admission-window__left h2 {
+                font-size: 24px;
+                margin-bottom: 20px;
+                line-height: 1.2;
+            }
+
+            .admission-window__left h3 {
+                font-size: 16px;
+                margin-bottom: 16px;
+                line-height: 1.3;
+            }
+
+            .admission-window__link {
+                min-height: 50px;
+                font-size: 16px;
+                padding: 0 16px;
+            }
+
+            .admission-map {
+                width: 100%;
+                height: 300px;
+                border-radius: 12px;
+                margin-bottom: 20px;
+            }
+
+            .admission-contacts h2 {
+                font-size: 24px;
+                margin-bottom: 16px;
+            }
+
+            .admission-contacts p {
+                font-size: 16px;
+                margin-bottom: 12px;
+                gap: 10px;
+            }
+
+            .admission-contacts i {
+                min-width: 20px;
+                font-size: 18px;
+            }
+
+            /* Contacts Block */
+            .contacts-block {
+                padding: 40px 0;
+            }
+
+            .contacts-container {
+                width: 100%;
+                padding: 0 12px;
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .contacts-left {
+                width: 100%;
+                gap: 15px;
+            }
+
+            .contacts-logo {
+                width: 100px;
+            }
+
+            .contacts-title {
+                font-size: 18px;
+            }
+
+            .contacts-heading {
+                font-size: 22px;
+                margin-bottom: 15px;
+            }
+
+            .contacts-columns {
+                flex-direction: column;
+                gap: 20px;
+                border-left: none;
+                padding-left: 0;
+            }
+
+            .contacts-col p {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+
+            .section-divider {
+                width: 80%;
+                margin: 25px auto;
+            }
+
+            /* Modal */
+            .modal-box {
+                width: 95%;
+                height: auto;
+                max-height: 90vh;
+                margin: 20px auto;
+                padding: 20px;
+            }
+
+            .modal-box h2 {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+            .modal-box input,
+            .modal-box textarea {
+                font-size: 16px;
+            }
+
+            .upload {
+                padding: 15px;
+                margin: 15px 0;
+            }
+
+            /* Search Modal */
+            .search-modal.active {
+                padding-top: 10px;
+            }
+
+            .search-modal-box {
+                width: 95%;
+                max-height: 80vh;
+                border-radius: 12px;
+            }
+
+            .search-modal-header {
+                padding: 15px;
+                gap: 10px;
+            }
+
+            .search-modal-header input {
+                padding: 10px 12px;
+                font-size: 16px;
+            }
+
+            .search-results {
+                padding: 10px 15px 15px;
+            }
+
+            .search-result-item {
+                padding: 12px;
+            }
+
+            .search-result-item a {
+                font-size: 16px;
+                margin-bottom: 4px;
+            }
+
+            .search-result-item .search-snippet {
+                font-size: 13px;
+            }
+
+            /* Скрытие элементов при наведении на мобилях */
+            .nav-item.has-mega:hover .nav-link::after,
+            .nav-item.has-dropdown:hover .nav-link::after {
+                display: none;
+            }
+        }
+
+        /* ================= ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ (до 380px) ================= */
+        @media (max-width: 380px) {
+            .menu-logo img {
+                width: 70px;
+                height: 70px;
+            }
+
+            .nav-link {
+                font-size: 15px;
+                padding: 14px 10px;
+            }
+
+            .cards-grid {
+                margin: 20px 8px;
+            }
+
+            .banner-text h2 {
+                font-size: 20px;
+            }
+
+            .director-image-bg {
+                height: 250px;
+            }
+
+            .director-image img {
+                width: 180px;
+            }
+
+            .spbkap-news__title,
+            .spbkap-announcements__title {
+                font-size: 22px;
+            }
+
+            .spbkap-news__main-title,
+            .spbkap-announcements__main-title {
+                font-size: 18px;
+            }
+
+            .admission-window__left h2 {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="top-left">
+                <a href="mailto:college-95@mail.ru"><i class="fa-solid"></i> </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО ПОИСКА -->
+    <div class="search-modal" id="search-modal">
+        <div class="search-modal-box">
+            <div class="search-modal-header">
+                <i class="fa-solid fa-search" style="color:#d7a520;font-size:20px;"></i>
+                <input type="text" id="modal-search-input" placeholder="Введите запрос..." onkeyup="performSearch()">
+                <button class="search-modal-close" onclick="closeSearch()">&times;</button>
+            </div>
+            <div class="search-results" id="search-results">
+                <div class="search-no-results">Введите поисковый запрос</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu">
+        <div class="menu-content">
+            <a href="index.html" style="text-decoration:none; color: rgb(40, 60, 120);"><i class="fa-solid fa-house"></i></a>
+
+            <ul class="nav-list">
+                <!-- Пункт "О колледже" с выпадающим меню (3 вкладки) -->
+                <li class="nav-item has-dropdown">
+                    <a class="nav-link">О колледже</a>
+                    <div class="dropdown-menu">
+                        <a href="about.html">
+                            <i class="fa-solid fa-building-columns"></i> О колледже
+                        </a>
+                        <a href="news.html">
+                            <i class="fa-solid fa-newspaper"></i> Новости
+                        </a>
+                        <a href="gallery.html">
+                            <i class="fa-solid fa-bullhorn"></i> Фотогалерея
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item has-mega">
+                    <a href="basic_information.html" class="nav-link">Сведения об ОО</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="basic_information.html"><i class="fa-solid fa-circle-info"></i> Основные сведения</a>
+                            <a href="information_founder.html"><i class="fa-solid fa-sitemap"></i> Структура и органы управления</a>
+                            <a href="document.html"><i class="fa-solid fa-file-lines"></i> Документы</a>
+                            <a href="education.html"><i class="fa-solid fa-graduation-cap"></i> Образование</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="management.html"><i class="fa-solid fa-user-tie"></i> Руководство</a>
+                            <a href="teaching_staff.html"><i class="fa-solid fa-chalkboard-user"></i> Педагогический состав</a>
+                            <a href="logistics.html"><i class="fa-solid fa-building"></i> Материально-техническое обеспечение</a>
+                            <a href="paid_services.html"><i class="fa-solid fa-credit-card"></i> Платные образовательные услуги</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="activities.html"><i class="fa-solid fa-chart-line"></i> Финансово-хозяйственная деятельность</a>
+                            <a href="vacancies.html"><i class="fa-solid fa-user-plus"></i> Вакантные места</a>
+                            <a href="international_cooperation.html"><i class="fa-solid fa-globe"></i> Международное сотрудничество</a>
+                            <a href="catering.html"><i class="fa-solid fa-utensils"></i> Организация питания</a>
+                            <a href="scholarship.html"><i class="fa-solid fa-hand-holding-heart"></i> Образовательные стандарты и требования</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item has-mega">
+                    <a href="company.html" class="nav-link">Поступающим</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="company.html"><i class="fa-solid fa-clipboard-list"></i> Приёмная кампания 2026</a>
+                            <a href="direction_training.html"><i class="fa-solid fa-compass"></i> Направления подготовки</a>
+                            <a href="open_door.html"><i class="fa-solid fa-calendar-check"></i> Дни открытых дверей</a>
+                            <a href="accept_doc.html"><i class="fa-solid fa-file-lines"></i> Документы для поступления</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="paid_services2.html"><i class="fa-solid fa-ruble-sign"></i> Платное обучение</a>
+                            <a href="translation.html"><i class="fa-solid fa-rotate"></i> Перевод и восстановление</a>
+                            <a href="question.html"><i class="fa-solid fa-circle-question"></i> Часто задаваемые вопросы</a>
+                            <a href="professional.html"><i class="fa-solid fa-person-chalkboard"></i> Профориентация</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="order.html"><i class="fa-solid fa-file-circle-check"></i> Приказы о зачислении</a>
+                            <a href="full_education.html"><i class="fa-solid fa-bullseye"></i> Целевое обучение</a>
+                            <a href="Образовательное кредитование.pdf"><i class="fa-solid fa-sack-dollar"></i> Образовательный кредит</a>
+                            <a href="capital.html"><i class="fa-solid fa-hand-holding-heart"></i> О материнском капитале</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="ordering_certificates.html">Студентам</a></li>
+                <li class="nav-item"><a class="nav-link" href="graduates.html">Выпускникам</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Контакты</a></li>
+            </ul>
+
+            <div style="display:flex;align-items:center;gap:15px;">
+                <!-- Поиск -->
+                <div class="search-container" style="padding:0;">
+                    <input type="text" class="search-input" placeholder="Поиск..." id="top-search-input" onkeypress="if(event.key==='Enter')openSearch(document.getElementById('top-search-input').value)" style="padding:8px 12px;font-size:14px;width:150px;border:1px solid #cfd6e2;color:#333;background:white;border-radius:6px;">
+                    <button class="search-btn" onclick="openSearch(document.getElementById('top-search-input').value)" style="background:#171b48;color:white;border:none;padding:8px 12px;font-size:14px;border-radius:6px;">Найти</button>
+                </div>
+                
+                <!-- Иконки соцсетей -->
+                <a class="menu-icon-link" href="https://vk.ru/business_college95" aria-label="ВКонтакте">
+                    <i class="fa-brands fa-vk"></i>
+                </a>
+                <a class="menu-icon-link" href="https://max.ru/u/f9LHodD0cOITJW3XHPLMW4Rd8XyF5o___UQuasgI59JfFIf45iwgcq-7UDM" aria-label="MAX">
+                    <img src="max-icon.png" alt="MAX" style="width: 26px; height: 26px; object-fit: contain;">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="static-banner">
+        <div class="banner-image">
+            <img src="logo.png" alt="Колледж">
+        </div>
+        <div class="banner-text">
+            <h2>Колледж управления и дизайна</h2>
+            <p>Узнайте о наших специальностях, программах и возможностях для студентов. Добро пожаловать в мир креатива и технологий!</p>
+        </div>
+    </div>
+
+    <div class="cards-grid">
+        <a href="raspisaniye.html" class="card">
+            <div class="card-icon"><i class="fa-solid fa-calendar"></i></div>
+            <h3>Расписание</h3>
+            <div class="card-line"></div>
+        </a>
+        <a href="instagramm.html" class="card">
+            <div class="card-icon"><i class="fa-solid fa-globe"></i></div>
+            <h3>Соц-сети</h3>
+            <div class="card-line"></div>
+        </a>
+        <a href="ordering_certificates.html" class="card">
+            <div class="card-icon"><i class="fa-solid fa-file"></i></div>
+            <h3>Заказ справок</h3>
+            <div class="card-line"></div>
+        </a>
+        <a href="citizens_appeals.html" class="card">
+            <div class="card-icon"><i class="fa-solid fa-envelope"></i></div>
+            <h3>Обращения граждан</h3>
+            <div class="card-line"></div>
+        </a>
+        <a href="menu.html" class="card">
+            <div class="card-icon"><i class="fa-solid fa-utensils"></i></div>
+            <h3>Меню</h3>
+            <div class="card-line"></div>
+        </a>
+        <a href="safety.html" class="card">
+            <div class="card-icon"><i class="fa-solid fa-shield"></i></div>
+            <h3>Безопасность</h3>
+            <div class="card-line"></div>
+        </a>
+    </div>
+
+    <div class="question-banner">
+        <div class="question-banner__left">
+            <div class="question-banner__content">
+                <h2>Есть вопрос?</h2>
+                <button type="button" class="question-banner__btn" onclick="openModal()">Написать о проблеме</button>
+            </div>
+        </div>
+        <div class="question-banner__right">
+            <img src="help.png" alt="Госуслуги. Решаем вместе">
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-box">
+            <span class="close" onclick="closeModal()">×</span>
+            <h2>Сообщите, что вас волнует</h2>
+            <label>Опишите ситуацию *</label>
+            <textarea placeholder="Суть проблемы или предложения"></textarea>
+            <div class="hint"><b>Несколько проблем?</b><p>Рекомендуется указывать информацию только об одной проблеме или предложении</p></div>
+            <div class="upload"><p>Перетащите файлы или выберите на компьютере</p><button>Выбрать файл</button><small>Не более 10 файлов до 10 МБ</small></div>
+            <label>Ваш регион *</label><input type="text" placeholder="Регион">
+            <div class="checks"><label><input type="checkbox"> Отображать сообщение публично</label><label><input type="checkbox"> Я согласен с правилами</label><label><input type="checkbox"> Коллективное обращение</label></div>
+            <button class="login-btn">Войти через Госуслуги</button>
+        </div>
+    </div>
+        
+    <div class="director-block">
+        <div class="director-image">
+            <div class="director-image-bg">
+                <img src="man.png" alt="Директор">
+            </div>
+        </div>
+        <div class="director-text">
+            <span class="director-role">ДИРЕКТОР</span>
+            <h1>Дудаева Диана Салмановна</h1>
+            <div class="director-line"></div>
+            <p><b>Я рада приветствовать Вас на сайте ЧПОУ «Колледж управления и дизайна»!</b></p>
+            <p>Уверена, что виртуальное знакомство с нашим учебным заведением будет не только полезным, но и интересным. Каждый из нас задумывался над вопросами: «Кем стать? Куда пойти учиться?»</p>
+            <p>Сделать важнейший в жизни шаг, определиться с будущей профессией и специальностью – задача непростая. Мы предлагаем образование, которое позволит Вам стать нужным специалистом и заниматься интересной работой.</p>
+            <p>Мы гарантируем интересную студенческую жизнь и качественное образование!</p>
+            <p>Колледж открывает большие возможности. Главное – используйте время правильно. После учебы в школе это непривычно, но теперь только вы отвечаете за свое будущее.</p>
+        </div>
+    </div>
+
+    <!-- ================= НОВОСТИ ================= -->
+    <section class="spbkap-news" id="news-section">
+        <div class="spbkap-news__top">
+            <h2 class="spbkap-news__title">Новости</h2>
+            <a class="spbkap-news__all" href="news.html">Все новости</a>
+        </div>
+        <div class="section-divider"></div>
+        <div class="spbkap-news__grid" id="news-grid"></div>
+    </section>
+
+    <!-- ================= ЛИНИЯ РАЗДЕЛА ================= -->
+    <div class="section-divider"></div>
+
+    <!-- ================= ОБЪЯВЛЕНИЯ (в стиле новостей) ================= -->
+    <section class="spbkap-announcements">
+        <div class="spbkap-announcements__top">
+            <h2 class="spbkap-announcements__title">Объявления</h2>
+            <a class="spbkap-announcements__all" href="announcements.html">Все объявления</a>
+        </div>
+        <div class="spbkap-announcements__grid">
+            <!-- Основное объявление -->
+            <article class="spbkap-announcements__main">
+                <a href="#">
+                    <img class="spbkap-announcements__main-img" src="news.png" alt="График проведения консультаций">
+                </a>
+                <div class="spbkap-announcements__main-body">
+                    <h3 class="spbkap-announcements__main-title">
+                        <a href="#" style="color: #171b48; text-decoration: none;">График проведения консультаций перед вступительными испытаниями</a>
+                    </h3>
+                    <p class="spbkap-announcements__main-text">Опубликован график консультаций для абитуриентов перед вступительными испытаниями. Ознакомьтесь с расписанием и приходите подготовленными.</p>
+                </div>
+            </article>
+
+            <!-- Карточка 1 -->
+            <article class="spbkap-announcements__card">
+                <a href="#">
+                    <img class="spbkap-announcements__card-img" src="news.png" alt="День открытых дверей">
+                </a>
+                <div class="spbkap-announcements__card-body">
+                    <h3 class="spbkap-announcements__card-title">
+                        <a href="#" style="color: #171b48; text-decoration: none;">День открытых дверей колледжа — 19 апреля 2026 года</a>
+                    </h3>
+                    <div class="spbkap-announcements__card-bottom">
+                        <a href="#" class="spbkap-announcements__more">Подробнее</a>
+                        <span class="spbkap-announcements__date">10.04.2026</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Карточка 2 -->
+            <article class="spbkap-announcements__card">
+                <a href="#">
+                    <img class="spbkap-announcements__card-img" src="news.png" alt="Подготовительные курсы">
+                </a>
+                <div class="spbkap-announcements__card-body">
+                    <h3 class="spbkap-announcements__card-title">
+                        <a href="#" style="color: #171b48; text-decoration: none;">Открыта запись на подготовительные курсы по рисунку</a>
+                    </h3>
+                    <div class="spbkap-announcements__card-bottom">
+                        <a href="#" class="spbkap-announcements__more">Подробнее</a>
+                        <span class="spbkap-announcements__date">15.04.2026</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Карточка 3 -->
+            <article class="spbkap-announcements__card">
+                <a href="#">
+                    <img class="spbkap-announcements__card-img" src="news.png" alt="Старт приёмной кампании">
+                </a>
+                <div class="spbkap-announcements__card-body">
+                    <h3 class="spbkap-announcements__card-title">
+                        <a href="#" style="color: #171b48; text-decoration: none;">Старт приёмной кампании 2026 — вся информация на сайте</a>
+                    </h3>
+                    <div class="spbkap-announcements__card-bottom">
+                        <a href="#" class="spbkap-announcements__more">Подробнее</a>
+                        <span class="spbkap-announcements__date">05.04.2026</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Карточка 4 -->
+            <article class="spbkap-announcements__card">
+                <a href="#">
+                    <img class="spbkap-announcements__card-img" src="news.png" alt="Собрание для родителей">
+                </a>
+                <div class="spbkap-announcements__card-body">
+                    <h3 class="spbkap-announcements__card-title">
+                        <a href="#" style="color: #171b48; text-decoration: none;">Собрание для родителей абитуриентов — 28 апреля в 17:00</a>
+                    </h3>
+                    <div class="spbkap-announcements__card-bottom">
+                        <a href="#" class="spbkap-announcements__more">Подробнее</a>
+                        <span class="spbkap-announcements__date">01.04.2026</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- ================= ЛИНИЯ РАЗДЕЛА ================= -->
+    <div class="section-divider"></div>
+
+    <!-- ================= БАННЕР "ЗАБРОНИРУЙТЕ МЕСТО" ================= -->
+    <section class="admission-window">
+        <div class="admission-window__left">
+            <h2>Забранировать место для поступления</h2>
+            <h3>• Гарантированное поступление без стресса <br>и экзамена</h3>
+            <h3>• Возможность спокойно планировать <br>своё будущее!</h3>
+
+            <a href="https://forms.yandex.ru/u/6995537349af4751294c8072" class="admission-window__link">
+                Забронировать место
+            </a>
+        </div>
+
+        <div class="admission-window__right">
+            <div class="admission-map">
+                <iframe
+                    src="https://yandex.ru/map-widget/v1/?ll=45.669622%2C43.336755&z=17&pt=45.669622,43.336755,pm2rdm"
+                    width="100%"
+                    height="100%"
+                    frameborder="0"
+                    allowfullscreen="true">
+                </iframe>
+            </div>
+
+            <div class="admission-contacts">
+                <h2>Приёмная комиссия</h2>
+
+                <p>
+                    <i class="fa-solid fa-envelope"></i>
+                    <a href="mailto:college-95@mail.ru">college-95@mail.ru</a>
+                </p>
+
+                <p>
+                    <i class="fa-solid fa-phone"></i>
+                    <a href="tel:+79389021222">+7 (938) 902-12-22</a>
+                </p>
+
+                <p>
+                    <i class="fa-solid fa-location-dot"></i>
+                    Чеченская Респ., г. Грозный, Старопромысловское шоссе, д. 26Б
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="contacts-block">
+        <div class="contacts-container">
+            <div class="contacts-left">
+                <a href="index.html">
+                    <img src="favicon.png" alt="Лого" class="contacts-logo">
+                </a>
+                <div class="contacts-text">
+                    <p class="contacts-subtitle">Частное профессиональное образовательное учреждение</p>
+                    <h2 class="contacts-title">Колледж управления<br>и дизайна</h2>
+                </div>
+            </div>
+            <div class="contacts-right">
+                <h2 class="contacts-heading">Контакты</h2>
+                <div class="contacts-columns">
+                    <div class="contacts-col">
+                        <p><i class="fa-solid fa-location-dot"></i> г. Грозный, ул. Старопромысловское шоссе, д.26 Б</p>
+                        <p><i class="fa-solid fa-phone"></i> +7 (938) 902-12-22</p>
+                        <p><i class="fa-solid fa-phone"></i> +7 (929) 890-22-22</p>
+                    </div>
+                    <div class="contacts-col">
+                        <p><i class="fa-regular fa-envelope"></i> <b>Приёмная комиссия:</b><br>college-95@mail.ru</p>
+                        <p><i class="fa-regular fa-envelope"></i> <b>Директор:</b><br>college-95@yandex.ru</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="news-data.js"></script>
+    <script>
+        // ================= БАЗА ДАННЫХ СТРАНИЦ ДЛЯ ПОИСКА =================
+        const sitePages = [
+            { title: "Главная", url: "index.html", keywords: "колледж управление дизайн главная образование специальности", snippet: "Добро пожаловать в Колледж управления и дизайна. Узнайте о наших специальностях и программах." },
+            { title: "О колледже", url: "about.html", keywords: "колледж история творчество дизайн интерьера одежда реклама преподаватели студенты", snippet: "Колледж основан в 2019 году. Направления: дизайн интерьера, дизайн одежды, реклама." },
+            { title: "Новости", url: "news.html", keywords: "новости события колледж анонсы", snippet: "Последние новости и события колледжа управления и дизайна." },
+            { title: "Фотогалерея", url: "gallery.html", keywords: "фото галерея фотографии колледж интерьер одежда реклама мероприятия", snippet: "Фотогалерея колледжа. Фото с занятий, мероприятий и мастер-классов." },
+            { title: "Расписание", url: "raspisaniye.html", keywords: "расписание звонки занятия время", snippet: "Расписание звонков и занятий колледжа." },
+            { title: "Соц-сети", url: "instagramm.html", keywords: "соцсети вконтакте telegram youtube rutube max", snippet: "Мы в социальных сетях. Подписывайтесь на ВКонтакте и MAX." },
+            { title: "Заказ справок", url: "ordering_certificates.html", keywords: "справка заказ документ обучение военкомат ФНС", snippet: "Заказ справок об обучении, для военкомата и ФНС. Онлайн-формы." },
+            { title: "Обращения граждан", url: "citizens_appeals.html", keywords: "обращение граждан жалоба предложение", snippet: "Форма для обращений граждан. Напишите о проблеме или предложении." },
+            { title: "Меню", url: "menu.html", keywords: "питание столовая меню еда", snippet: "Информация о питании в колледже. Меню столовой." },
+            { title: "Безопасность", url: "safety.html", keywords: "безопасность пожарная охрана эвакуация ЧС", snippet: "Комплексная безопасность колледжа: пожарная безопасность, охрана, эвакуация." },
+            { title: "Сведения об ОО", url: "basic_information.html", keywords: "сведения основная информация образование организация", snippet: "Основные сведения об образовательной организации." },
+            { title: "Структура и органы управления", url: "information_founder.html", keywords: "структура органы управление руководство", snippet: "Структура и органы управления колледжа." },
+            { title: "Документы", url: "document.html", keywords: "документы лицензия аккредитация устав", snippet: "Документы колледжа: лицензия, аккредитация, устав." },
+            { title: "Образование", url: "education.html", keywords: "образование учебный план программа", snippet: "Информация об образовательных программах колледжа." },
+            { title: "Руководство", url: "management.html", keywords: "руководство директор администрация", snippet: "Руководство колледжа. Педагогический состав." },
+            { title: "Платные услуги", url: "paid_services.html", keywords: "платные услуги стоимость оплата обучение", snippet: "Платные образовательные услуги и стоимость обучения." },
+            { title: "Дни открытых дверей", url: "open_door.html", keywords: "день открытых дверей экскурсия поступление абитуриент", snippet: "Дни открытых дверей. Экскурсия по колледжу, мастер-классы, консультации." },
+            { title: "Документы для поступления", url: "accept_doc.html", keywords: "поступление документы абитуриент приём", snippet: "Документы для поступления в колледж." },
+            { title: "Приёмная кампания 2026", url: "company.html", keywords: "приёмная кампания поступление 2026 абитуриент", snippet: "Приёмная кампания 2026. Правила приёма и количество мест." },
+            { title: "Контакты", url: "contact.html", keywords: "контакты адрес телефон email приёмная", snippet: "Контакты колледжа: адрес, телефон, email приёмной комиссии." },
+        ];
+
+        function openSearch(query) {
+            if (!query || !query.trim()) return;
+            document.getElementById('search-modal').classList.add('active');
+            document.getElementById('modal-search-input').value = query;
+            document.getElementById('modal-search-input').focus();
+            performSearch();
+        }
+
+        function closeSearch() {
+            document.getElementById('search-modal').classList.remove('active');
+            document.getElementById('top-search-input').value = '';
+        }
+
+        function performSearch() {
+            const query = document.getElementById('modal-search-input').value.toLowerCase().trim();
+            const resultsContainer = document.getElementById('search-results');
+            
+            if (!query) {
+                resultsContainer.innerHTML = '<div class="search-no-results">Введите поисковый запрос</div>';
+                return;
+            }
+
+            const results = sitePages.filter(page => {
+                const searchStr = (page.title + ' ' + page.keywords + ' ' + page.snippet).toLowerCase();
+                const words = query.split(/\s+/);
+                return words.some(word => searchStr.includes(word));
+            });
+
+            if (results.length === 0) {
+                resultsContainer.innerHTML = '<div class="search-no-results"><i class="fa-solid fa-circle-exclamation" style="font-size:40px;color:#ccc;display:block;margin-bottom:15px;"></i>Ничего не найдено по запросу «' + query + '»</div>';
+                return;
+            }
+
+            let html = '';
+            results.forEach(page => {
+                const title = highlightMatch(page.title, query);
+                const snippet = highlightMatch(page.snippet, query);
+                html += `
+                    <div class="search-result-item">
+                        <a href="${page.url}">${title}</a>
+                        <div class="search-url">${page.url}</div>
+                        <div class="search-snippet">${snippet}</div>
+                    </div>
+                `;
+            });
+            resultsContainer.innerHTML = html;
+        }
+
+        function highlightMatch(text, query) {
+            if (!query) return text;
+            const words = query.split(/\s+/);
+            let result = text;
+            words.forEach(word => {
+                if (word.length < 2) return;
+                const regex = new RegExp(`(${word})`, 'gi');
+                result = result.replace(regex, '<span class="search-highlight">$1</span>');
+            });
+            return result;
+        }
+
+        document.getElementById('search-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeSearch();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeSearch();
+        });
+
+        // СУЩЕСТВУЮЩИЕ ФУНКЦИИ (НЕ ТРОГАТЬ)
+        function openModal() {
+            document.getElementById("modal").style.display = "block";
+        }
+        function closeModal() {
+            document.getElementById("modal").style.display = "none";
+        }
+        window.onclick = function(event) {
+            const modal = document.getElementById("modal");
+            const searchModal = document.getElementById("search-modal");
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+            if (event.target === searchModal) {
+                closeSearch();
+            }
+        }
+
+        function loadHomeNews() {
+            const latestNews = getLatestNews(5);
+            const grid = document.getElementById('news-grid');
+            
+            if (!grid) return;
+            
+            if (latestNews.length === 0) {
+                grid.innerHTML = '<p>Новостей пока нет</p>';
+                return;
+            }
+            
+            const mainNews = latestNews[0];
+            const otherNews = latestNews.slice(1, 5);
+            
+            let html = `
+                <article class="spbkap-news__main">
+                    <a href="news-detail.html?id=${mainNews.id}">
+                        <img class="spbkap-news__main-img" src="${mainNews.image}" alt="${mainNews.title}" onerror="this.src='news.png'">
+                    </a>
+                    <div class="spbkap-news__main-body">
+                        <h3 class="spbkap-news__main-title">
+                            <a href="news-detail.html?id=${mainNews.id}" style="color: #171b48; text-decoration: none;">${mainNews.title}</a>
+                        </h3>
+                        <p class="spbkap-news__main-text">${mainNews.shortText}</p>
+                    </div>
+                </article>
+            `;
+            
+            otherNews.forEach(news => {
+                html += `
+                    <article class="spbkap-news__card">
+                        <a href="news-detail.html?id=${news.id}">
+                            <img class="spbkap-news__card-img" src="${news.image}" alt="${news.title}" onerror="this.src='news.png'">
+                        </a>
+                        <div class="spbkap-news__card-body">
+                            <h3 class="spbkap-news__card-title">
+                                <a href="news-detail.html?id=${news.id}" style="color: #171b48; text-decoration: none;">${news.title}</a>
+                            </h3>
+                            <div class="spbkap-news__card-bottom">
+                                <a href="news-detail.html?id=${news.id}" class="spbkap-news__more">Подробнее</a>
+                                <span class="spbkap-news__date">${news.date}</span>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            });
+            
+            grid.innerHTML = html;
+        }
+        
+        document.addEventListener('DOMContentLoaded', loadHomeNews);
+    </script>
+
+</body>
+</html>

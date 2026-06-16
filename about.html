@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О колледже — Колледж управления и дизайна</title>
+
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            background-color: white;
+            color: #1f1f1f;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* ================= АНИМАЦИИ ================= */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50%       { transform: translateY(-20px); }
+        }
+
+        @keyframes drawLine {
+            from { width: 0; }
+            to   { width: 100%; }
+        }
+
+        .fade-in { opacity: 0; animation: fadeInUp 0.8s ease forwards; }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+
+        /* ================= ВЕРХНЯЯ ПАНЕЛЬ ================= */
+        .top-bar {
+            background-color: #ffffff;
+            background-image: url('kud_line.png');
+            background-repeat: repeat-x;
+            background-position: top center;
+            background-size: auto 100%;
+            color: white;
+            padding: 15px 0;
+        }
+
+        .top-bar-content {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-left {
+            display: flex;
+            gap: 30px;
+            font-size: 18px;
+            font-weight: 500;
+            flex-wrap: wrap;
+        }
+
+        .top-left a {
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .top-left a:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+        }
+
+        /* ================= МЕНЮ ================= */
+        .menu {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e8e8e8;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.15);
+        }
+
+        .menu-content {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            font-size: 20px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .menu-icons {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin-left: 55px;
+            gap: 36px;
+            flex-wrap: wrap;
+        }
+
+        .nav-item { position: relative; }
+
+        .nav-link {
+            display: inline-block;
+            color: rgb(40, 60, 120);
+            padding: 36px 0;
+            font-size: 20px;
+            transition: 0.3s;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .nav-link:hover { color: #c4951a; }
+
+        .nav-item.has-mega:hover .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 22px;
+            width: 100%;
+            height: 4px;
+            background: #d7a520;
+            border-radius: 2px;
+        }
+
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 800px;
+            background: white;
+            border-top: 3px solid #ff0000;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            padding: 25px;
+            display: flex;
+            gap: 30px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: 0.3s;
+            border-radius: 0 0 16px 16px;
+        }
+
+        .nav-item.has-mega:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .mega-column { flex: 1; }
+
+        .mega-column a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 12px;
+            transition: 0.3s;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        .mega-column a:hover {
+            color: #ff0000;
+            background: #f0f3ff;
+            transform: translateX(5px);
+        }
+
+        .menu-icon-link {
+            width: 52px;
+            height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: #eef1f7;
+            color: #2d2b76;
+            font-size: 24px;
+            transition: 0.3s;
+        }
+
+        .menu-icon-link:hover {
+            background: #ff0000;
+            color: #ffffff;
+        }
+
+        .menu-icon-link img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* ================= HERO ================= */
+        .hero-about {
+            position: relative;
+            background: #171b48;
+            padding: 100px 0 80px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-about::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url('kud_line.png') repeat-x top center;
+            background-size: auto 100%;
+            opacity: 0.3;
+        }
+
+        .hero-particles {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .particle.red { background: rgba(230, 30, 77, 0.35); }
+
+        .particle:nth-child(1) { width: 8px;  height: 8px;  top: 20%; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 12px; height: 12px; top: 60%; left: 80%; animation-delay: 1s; }
+        .particle:nth-child(3) { width: 6px;  height: 6px;  top: 30%; left: 50%; animation-delay: 2s; }
+        .particle:nth-child(4) { width: 10px; height: 10px; top: 70%; left: 20%; animation-delay: 3s; }
+        .particle:nth-child(5) { width: 5px;  height: 5px;  top: 40%; left: 70%; animation-delay: 4s; }
+        .particle:nth-child(6) { width: 15px; height: 15px; top: 80%; left: 40%; animation-delay: 5s; }
+        .particle:nth-child(7) { width: 9px;  height: 9px;  top: 15%; left: 35%; animation-delay: 2.5s; }
+        .particle:nth-child(8) { width: 7px;  height: 7px;  top: 55%; left: 65%; animation-delay: 3.5s; }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            padding: 10px 24px;
+            border-radius: 50px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero-badge i {
+            margin-right: 8px;
+            color: #ff0000;
+        }
+
+        .hero-content h1 {
+            color: #ffffff;
+            font-size: 64px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero-content .hero-subtitle {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 24px;
+            font-weight: 300;
+            margin-bottom: 15px;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        .hero-line {
+            width: 0;
+            height: 4px;
+            background: #ff0000;
+            margin: 0 auto 30px;
+            border-radius: 2px;
+            animation: drawLine 1s ease 0.6s forwards;
+        }
+
+        /* ================= ОСНОВНОЙ КОНТЕНТ ================= */
+        .about-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: -40px auto 60px;
+            padding: 0 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .intro-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 50px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #f0f0f0;
+        }
+
+        .intro-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 6px;
+            background: #ff0000;
+        }
+
+        .intro-card .welcome-text {
+            font-size: 32px;
+            font-weight: 800;
+            color: #171b48;
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+
+        .intro-card .welcome-text span { color: #ff0000; }
+
+        .intro-card p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        /* ================= НАПРАВЛЕНИЯ ================= */
+        .directions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .direction-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            border: 1px solid #f0f0f0;
+            border-top: 4px solid #ff0000;
+        }
+
+        .direction-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 0;
+            background: linear-gradient(180deg, transparent, rgba(230, 30, 77, 0.04));
+            transition: height 0.4s;
+        }
+
+        .direction-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+            border-top-color: #171b48;
+        }
+
+        .direction-card:hover::after { height: 100%; }
+
+        .direction-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: #ffffff;
+            transition: all 0.4s;
+        }
+
+        .direction-card:hover .direction-icon {
+            transform: scale(1.1) rotate(-10deg);
+        }
+
+        .icon-interior  { background: #ff0000; box-shadow: 0 10px 30px rgba(230,30,77,0.3); }
+        .icon-fashion   { background: #171b48; box-shadow: 0 10px 30px rgba(23,27,72,0.3); }
+        .icon-advertising { background: rgb(40, 60, 120); box-shadow: 0 10px 30px rgba(40,60,120,0.3); }
+
+        .direction-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #171b48;
+            margin-bottom: 15px;
+        }
+
+        .direction-card p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .direction-number {
+            position: absolute;
+            top: 20px; right: 25px;
+            font-size: 80px;
+            font-weight: 900;
+            color: rgba(230,30,77,0.04);
+            pointer-events: none;
+        }
+
+        /* ================= ТВОРЧЕСТВО ================= */
+        .creativity-section {
+            background: #171b48;
+            border-radius: 30px;
+            padding: 60px 50px;
+            margin: 50px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .creativity-section::before {
+            content: '';
+            position: absolute;
+            bottom: -50px; left: -50px;
+            width: 200px; height: 200px;
+            background: rgba(230,30,77,0.1);
+            border-radius: 50%;
+        }
+
+        .creativity-section h2 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 25px;
+        }
+
+        .creativity-section p {
+            font-size: 20px;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.7);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .creativity-icons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .creativity-icon-item { text-align: center; }
+
+        .creativity-icon-circle {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #ffffff;
+            margin: 0 auto 15px;
+            transition: all 0.3s;
+        }
+
+        .creativity-icon-circle:hover {
+            transform: scale(1.1);
+            background: #ff0000;
+            border-color: #ff0000;
+        }
+
+        .creativity-icon-item span {
+            font-size: 16px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* ================= ПРЕПОДАВАТЕЛИ ================= */
+        .teachers-section {
+            background: #ffffff;
+            border-radius: 30px;
+            padding: 60px 50px;
+            margin: 50px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            border: 1px solid #f0f0f0;
+            border-top: 4px solid #ff0000;
+        }
+
+        .teachers-section::before {
+            content: '';
+            position: absolute;
+            top: -100px; right: -100px;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(230,30,77,0.06), transparent);
+            border-radius: 50%;
+        }
+
+        .teachers-section h2 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #171b48;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .teacher-stat {
+            text-align: center;
+            padding: 30px 20px;
+            background: #f8f9fc;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            border-bottom: 3px solid #e61e4d;
+        }
+
+        .teacher-stat:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            border-bottom-color: #171b48;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 900;
+            color: #ff0000;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .teachers-text {
+            text-align: center;
+            font-size: 20px;
+            line-height: 1.7;
+            color: #444;
+            max-width: 800px;
+            margin: 40px auto 0;
+        }
+
+        /* ================= CTA ================= */
+        .cta-section {
+            background: #171b48;
+            border-radius: 30px;
+            padding: 70px 50px;
+            text-align: center;
+            margin: 50px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            top: -50%; right: -50%;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(230,30,77,0.08), transparent);
+        }
+
+        .cta-content { position: relative; z-index: 2; }
+
+        .cta-section h2 {
+            font-size: 38px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 35px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: #ff0000;
+            color: #ffffff;
+            padding: 18px 40px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(230,30,77,0.3);
+        }
+
+        .btn-primary:hover {
+            background: #c01540;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(230,30,77,0.4);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            background: #ffffff;
+            color: #171b48;
+            padding: 18px 40px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f3ff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+        }
+
+        .btn-secondary i { margin-right: 8px; }
+
+        /* ================= КОНТАКТЫ ================= */
+        .contacts-block {
+            background: #ffffff;
+            padding: 60px 0;
+            margin-top: 60px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .contacts-container {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .contacts-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            max-width: 600px;
+        }
+
+        .contacts-logo { width: 140px; border-radius: 12px; }
+
+        .contacts-subtitle {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .contacts-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: -10px;
+        }
+
+        .contacts-right { flex: 1; }
+        .contacts-heading { font-size: 28px; margin-bottom: 20px; }
+
+        .contacts-columns {
+            display: flex;
+            gap: 40px;
+            border-left: 3px solid #ff0000;
+            padding-left: 30px;
+        }
+
+        .contacts-col p { margin-bottom: 12px; font-size: 16px; }
+        .contacts-col i { margin-right: 8px; color: #ff0000; }
+
+        /* ================= ВЫПАДАЮЩЕЕ МЕНЮ "О КОЛЛЕДЖЕ" ================= */
+        .nav-item.has-dropdown {
+            position: relative;
+        }
+
+        .nav-item.has-dropdown:hover .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 22px;
+            width: 100%;
+            height: 4px;
+            background: #d7a520;
+            border-radius: 2px;
+        }
+
+        .dropdown-about {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            background: white;
+            border-top: 3px solid #d7a520;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.25s ease;
+            border-radius: 0 0 14px 14px;
+            z-index: 1001;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-about {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .dropdown-about a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #444;
+            font-size: 17px;
+            padding: 13px 18px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .dropdown-about a:last-child {
+            margin-bottom: 0;
+        }
+
+        .dropdown-about a:hover {
+            background: #f5f7ff;
+            color: #171b48;
+            transform: translateX(6px);
+        }
+
+        .dropdown-about a i {
+            width: 22px;
+            text-align: center;
+            color: #d7a520;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+        /* ================= АДАПТИВ ================= */
+        @media (max-width: 1200px) {
+            .directions-grid  { grid-template-columns: repeat(2, 1fr); }
+            .teachers-grid    { grid-template-columns: repeat(2, 1fr); }
+            .hero-content h1  { font-size: 48px; }
+        }
+
+        @media (max-width: 1100px) {
+            .menu-content     { flex-direction: column; align-items: center; gap: 25px; }
+            .nav-list         { justify-content: center; gap: 24px; margin-left: 0; }
+            .nav-link         { padding: 18px 0; }
+            .mega-menu        { position: static; width: 100%; box-shadow: none; border: 1px solid #ececec; margin-top: 10px; padding: 24px; display: none; opacity: 1; visibility: visible; pointer-events: auto; flex-wrap: wrap; }
+            .nav-item.has-mega:hover .mega-menu { display: flex; }
+            .dropdown-about { position: static; transform: none; width: 100%; box-shadow: none; border: 1px solid #ececec; margin-top: 8px; padding: 15px; display: none; opacity: 1; visibility: visible; pointer-events: auto; border-radius: 12px; }
+            .nav-item.has-dropdown:hover .dropdown-about { display: block; }
+        }
+
+        @media (max-width: 900px) {
+            .directions-grid              { grid-template-columns: 1fr; }
+            .hero-content h1              { font-size: 38px; }
+            .hero-content .hero-subtitle  { font-size: 18px; }
+            .intro-card .welcome-text     { font-size: 26px; }
+            .intro-card p                 { font-size: 16px; }
+            .cta-section h2              { font-size: 30px; }
+            .teachers-grid               { grid-template-columns: 1fr; }
+            .teachers-section            { padding: 40px 30px; }
+            .teachers-section h2         { font-size: 28px; }
+            .creativity-section          { padding: 40px 25px; }
+            .creativity-section h2       { font-size: 28px; }
+        }
+
+        @media (max-width: 800px) {
+            .top-bar-content  { flex-direction: column; gap: 15px; }
+            .top-left         { justify-content: center; }
+            .nav-list         { flex-direction: column; align-items: center; gap: 8px; width: 100%; }
+            .nav-item         { width: 100%; text-align: center; }
+            .nav-link         { width: 100%; padding: 14px 0; font-size: 18px; }
+            .contacts-container  { flex-direction: column; }
+            .contacts-columns { border-left: none; padding-left: 0; flex-direction: column; }
+        }
+
+        @media (max-width: 500px) {
+            .hero-content h1  { font-size: 30px; }
+            .intro-card       { padding: 30px 20px; }
+            .cta-section      { padding: 40px 25px; }
+            .cta-section h2   { font-size: 24px; }
+            .btn-primary, .btn-secondary { padding: 15px 30px; font-size: 16px; }
+            .direction-card   { padding: 30px 20px; }
+        }
+
+        /* ================= МОБИЛЬНАЯ АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (до 480px) ================= */
+        @media (max-width: 480px) {
+            * {
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Montserrat', Arial, sans-serif;
+            }
+
+            /* Top Bar */
+            .top-bar {
+                padding: 10px 0;
+            }
+
+            .top-bar-content {
+                width: 95%;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .top-left {
+                width: 100%;
+                justify-content: center;
+                font-size: 14px;
+                gap: 15px;
+            }
+
+            /* Menu - максимальная оптимизация */
+            .menu {
+                position: static;
+                z-index: 999;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .menu-content {
+                width: 100%;
+                padding: 10px 8px;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .nav-list {
+                width: 100%;
+                flex-direction: column;
+                gap: 0;
+                margin-left: 0;
+                padding: 0;
+            }
+
+            .nav-item {
+                width: 100%;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .nav-link {
+                width: 100%;
+                padding: 16px 12px;
+                font-size: 16px;
+                text-align: center;
+            }
+
+            .nav-item.has-mega:hover .mega-menu,
+            .nav-item.has-dropdown:hover .dropdown-about {
+                position: static;
+                transform: none;
+                width: 100%;
+                display: block;
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
+                border: none;
+                border-top: 1px solid #f0f0f0;
+                padding: 12px 0;
+                margin-top: 0;
+                border-radius: 0;
+                background: #f9f9f9;
+            }
+
+            .mega-menu, .dropdown-about {
+                display: none;
+            }
+
+            .mega-column {
+                flex: none;
+                width: 100%;
+                margin-bottom: 16px;
+            }
+
+            .mega-column a {
+                padding: 12px 24px;
+                font-size: 15px;
+            }
+
+            .menu-icons {
+                margin-left: 0;
+                width: 100%;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .menu-icon-link {
+                width: 44px;
+                height: 44px;
+                font-size: 20px;
+            }
+
+            /* Hero Section */
+            .hero-about {
+                padding: 60px 0 50px;
+            }
+
+            .hero-badge {
+                font-size: 14px;
+                padding: 8px 16px;
+                margin-bottom: 20px;
+            }
+
+            .hero-content h1 {
+                font-size: 28px;
+                margin-bottom: 15px;
+            }
+
+            .hero-content .hero-subtitle {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+
+            .hero-line {
+                margin: 20px auto;
+            }
+
+            .hero-particles {
+                display: none;
+            }
+
+            /* Main Container */
+            .about-container {
+                width: 95%;
+                margin: -20px auto 40px;
+                padding: 0 12px;
+            }
+
+            /* Intro Card */
+            .intro-card {
+                padding: 25px 16px;
+                margin-bottom: 25px;
+                border-radius: 16px;
+            }
+
+            .intro-card .welcome-text {
+                font-size: 22px;
+                margin-bottom: 15px;
+            }
+
+            .intro-card p {
+                font-size: 15px;
+                line-height: 1.6;
+            }
+
+            /* Directions Grid */
+            .directions-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                margin-bottom: 30px;
+            }
+
+            .direction-card {
+                padding: 25px 16px;
+                border-radius: 16px;
+            }
+
+            .direction-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 28px;
+                margin-bottom: 16px;
+            }
+
+            .direction-card h3 {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+
+            .direction-card p {
+                font-size: 14px;
+                line-height: 1.5;
+            }
+
+            .direction-number {
+                font-size: 60px;
+            }
+
+            /* Creativity Section */
+            .creativity-section {
+                padding: 35px 16px;
+                margin: 30px 0;
+                border-radius: 20px;
+            }
+
+            .creativity-section h2 {
+                font-size: 24px;
+                margin-bottom: 16px;
+            }
+
+            .creativity-section p {
+                font-size: 15px;
+                line-height: 1.6;
+            }
+
+            .creativity-icons {
+                gap: 20px;
+                margin-top: 25px;
+            }
+
+            .creativity-icon-circle {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+
+            .creativity-icon-item span {
+                font-size: 14px;
+            }
+
+            /* Teachers Section */
+            .teachers-section {
+                padding: 35px 16px;
+                margin: 30px 0;
+                border-radius: 20px;
+            }
+
+            .teachers-section h2 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+
+            .teachers-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                margin-top: 20px;
+            }
+
+            .teacher-stat {
+                padding: 20px 16px;
+                border-radius: 16px;
+            }
+
+            .stat-number {
+                font-size: 36px;
+                margin-bottom: 8px;
+            }
+
+            .stat-label {
+                font-size: 14px;
+            }
+
+            .teachers-text {
+                font-size: 15px;
+                line-height: 1.6;
+                margin-top: 25px;
+                max-width: 100%;
+            }
+
+            /* CTA Section */
+            .cta-section {
+                padding: 40px 16px;
+                margin: 30px 0;
+                border-radius: 20px;
+            }
+
+            .cta-section h2 {
+                font-size: 26px;
+                margin-bottom: 16px;
+            }
+
+            .cta-section p {
+                font-size: 15px;
+                line-height: 1.6;
+                margin-bottom: 25px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                padding: 15px 20px;
+                font-size: 16px;
+                text-align: center;
+            }
+
+            /* Contacts Block */
+            .contacts-block {
+                padding: 40px 0;
+                margin-top: 40px;
+            }
+
+            .contacts-container {
+                width: 100%;
+                padding: 0 12px;
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .contacts-left {
+                width: 100%;
+                gap: 15px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contacts-logo {
+                width: 100px;
+            }
+
+            .contacts-text {
+                text-align: center;
+            }
+
+            .contacts-subtitle {
+                font-size: 14px;
+            }
+
+            .contacts-title {
+                font-size: 18px;
+            }
+
+            .contacts-heading {
+                font-size: 22px;
+                margin-bottom: 16px;
+            }
+
+            .contacts-columns {
+                flex-direction: column;
+                gap: 16px;
+                border-left: none;
+                padding-left: 0;
+                width: 100%;
+            }
+
+            .contacts-col p {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+
+            .nav-item.has-mega:hover .nav-link::after,
+            .nav-item.has-dropdown:hover .nav-link::after {
+                display: none;
+            }
+        }
+
+        /* ================= ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ (до 380px) ================= */
+        @media (max-width: 380px) {
+            .hero-content h1 {
+                font-size: 24px;
+            }
+
+            .hero-content .hero-subtitle {
+                font-size: 14px;
+            }
+
+            .intro-card .welcome-text {
+                font-size: 20px;
+            }
+
+            .intro-card p {
+                font-size: 14px;
+            }
+
+            .direction-card {
+                padding: 20px 12px;
+            }
+
+            .direction-card h3 {
+                font-size: 18px;
+            }
+
+            .direction-card p {
+                font-size: 13px;
+            }
+
+            .creativity-section h2 {
+                font-size: 22px;
+            }
+
+            .creativity-section p {
+                font-size: 14px;
+            }
+
+            .teachers-section h2 {
+                font-size: 22px;
+            }
+
+            .stat-number {
+                font-size: 32px;
+            }
+
+            .stat-label {
+                font-size: 13px;
+            }
+
+            .cta-section h2 {
+                font-size: 22px;
+            }
+
+            .cta-section p {
+                font-size: 14px;
+            }
+
+            .btn-primary, .btn-secondary {
+                padding: 12px 16px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="top-left">
+                <a href="mailto:college-95@mail.ru"><i class="fa-solid fa-envelope"></i> college-95@mail.ru</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu">
+        <div class="menu-content">
+            <a href="index.html" style="text-decoration:none; color: rgb(40, 60, 120);"><i class="fa-solid fa-house"></i></a>
+
+            <ul class="nav-list">
+                <li class="nav-item has-dropdown">
+                    <a class="nav-link">О колледже</a>
+                    <div class="dropdown-menu dropdown-about">
+                        <a href="about.html">
+                            <i class="fa-solid fa-building-columns"></i> О колледже
+                        </a>
+                        <a href="news.html">
+                            <i class="fa-solid fa-newspaper"></i> Новости
+                        </a>
+                        <a href="gallery.html">
+                            <i class="fa-solid fa-bullhorn"></i> Фотогалерея
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item has-mega">
+                    <a href="basic_information.html" class="nav-link">Сведения об ОО</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="basic_information.html"><i class="fa-solid fa-circle-info"></i> Основные сведения</a>
+                            <a href="information_founder.html"><i class="fa-solid fa-sitemap"></i> Структура и органы управления</a>
+                            <a href="document.html"><i class="fa-solid fa-file-lines"></i> Документы</a>
+                            <a href="education.html"><i class="fa-solid fa-graduation-cap"></i> Образование</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="management.html"><i class="fa-solid fa-user-tie"></i> Руководство</a>
+                            <a href="teaching_staff.html"><i class="fa-solid fa-chalkboard-user"></i> Педагогический состав</a>
+                            <a href="logistics.html"><i class="fa-solid fa-building"></i> Материально-техническое обеспечение</a>
+                            <a href="paid_services.html"><i class="fa-solid fa-credit-card"></i> Платные образовательные услуги</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="activities.html"><i class="fa-solid fa-chart-line"></i> Финансово-хозяйственная деятельность</a>
+                            <a href="vacancies.html"><i class="fa-solid fa-user-plus"></i> Вакантные места</a>
+                            <a href="international_cooperation.html"><i class="fa-solid fa-globe"></i> Международное сотрудничество</a>
+                            <a href="catering.html"><i class="fa-solid fa-utensils"></i> Организация питания</a>
+                            <a href="scholarship.html"><i class="fa-solid fa-hand-holding-heart"></i> Образовательные стандарты и требования</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item has-mega">
+                    <a href="company.html" class="nav-link">Поступающим</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="company.html"><i class="fa-solid fa-clipboard-list"></i> Приёмная кампания 2026</a>
+                            <a href="direction_training.html"><i class="fa-solid fa-compass"></i> Направления подготовки</a>
+                            <a href="open_door.html"><i class="fa-solid fa-calendar-check"></i> Дни открытых дверей</a>
+                            <a href="accept_doc.html"><i class="fa-solid fa-file-lines"></i> Документы для поступления</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="paid_services2.html"><i class="fa-solid fa-ruble-sign"></i> Платное обучение</a>
+                            <a href="translation.html"><i class="fa-solid fa-rotate"></i> Перевод и восстановление</a>
+                            <a href="question.html"><i class="fa-solid fa-circle-question"></i> Часто задаваемые вопросы</a>
+                            <a href="professional.html"><i class="fa-solid fa-person-chalkboard"></i> Профориентация</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="order.html"><i class="fa-solid fa-file-circle-check"></i> Приказы о зачислении</a>
+                            <a href="full_education.html"><i class="fa-solid fa-bullseye"></i> Целевое обучение</a>
+                            <a href="Образовательное кредитование.pdf"><i class="fa-solid fa-sack-dollar"></i> Образовательный кредит</a>
+                            <a href="capital.html"><i class="fa-solid fa-hand-holding-heart"></i> О материнском капитале</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="ordering_certificates.html">Студентам</a></li>
+                <li class="nav-item"><a class="nav-link" href="graduates.html">Выпускникам</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Контакты</a></li>
+            </ul>
+
+            <div class="menu-icons">
+                <a class="menu-icon-link" href="https://vk.ru/business_college95" aria-label="ВКонтакте">
+                    <i class="fa-brands fa-vk"></i>
+                </a>
+                <a class="menu-icon-link" href="https://max.ru/u/f9LHodD0cOITJW3XHPLMW4Rd8XyF5o___UQuasgI59JfFIf45iwgcq-7UDM" aria-label="MAX">
+                    <img src="max-icon.png" alt="MAX" style="width: 26px; height: 26px; object-fit: contain;">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero-about">
+        <div class="hero-particles">
+            <div class="particle"></div>
+            <div class="particle red"></div>
+            <div class="particle"></div>
+            <div class="particle red"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle red"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge fade-in">
+                <i class="fa-solid fa-star"></i> Основан в 2019 году
+            </div>
+            <h1>Колледж управления<br>и дизайна</h1>
+            <p class="hero-subtitle">Кузница талантов и центр креативного мышления</p>
+            <div class="hero-line"></div>
+        </div>
+    </section>
+
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <div class="about-container">
+
+        <!-- Вступление -->
+        <div class="intro-card fade-in delay-1">
+            <div class="welcome-text">
+                Добро пожаловать в мир <span>творчества</span> и <span>вдохновения</span>!
+            </div>
+            <p>
+                Наш колледж, основанный в 2019 году, стал настоящей кузницей талантов и центром креативного мышления. Мы гордимся тем, что обучаем будущих специалистов в самых динамичных и востребованных направлениях — дизайн интерьера, дизайн одежды и реклама. Каждый студент здесь находит свой уникальный путь и раскрывает творческий потенциал.
+            </p>
+        </div>
+
+        <!-- Направления -->
+        <div class="directions-grid">
+            <div class="direction-card fade-in delay-1">
+                <div class="direction-number">01</div>
+                <div class="direction-icon icon-interior">
+                    <i class="fa-solid fa-couch"></i>
+                </div>
+                <h3>Дизайн интерьера</h3>
+                <p>Это не просто создание пространств; это искусство преобразования идей в уютные и уникальные миры. Наши студенты изучают современные тенденции, технологии и материалы, чтобы создавать интерьеры, которые вдохновляют и радуют.</p>
+            </div>
+
+            <div class="direction-card fade-in delay-2">
+                <div class="direction-number">02</div>
+                <div class="direction-icon icon-fashion">
+                    <i class="fa-solid fa-shirt"></i>
+                </div>
+                <h3>Дизайн одежды</h3>
+                <p>Это возможность выразить себя через текстиль и стиль. Здесь вы сможете освоить все тонкости модного творчества, от выбора тканей до разработки собственных коллекций. Мы учим создавать одежду и рассказывать истории через каждую деталь.</p>
+            </div>
+
+            <div class="direction-card fade-in delay-3">
+                <div class="direction-number">03</div>
+                <div class="direction-icon icon-advertising">
+                    <i class="fa-solid fa-bullhorn"></i>
+                </div>
+                <h3>Реклама</h3>
+                <p>Это язык, который говорит в сердцах людей. Вы узнаете, как эффективно презентовать идеи и продукты, создавать яркие и запоминающиеся бренды. Мы формируем специалистов, способных менять мир с помощью креативного подхода.</p>
+            </div>
+        </div>
+
+        <!-- Творчество -->
+        <div class="creativity-section fade-in delay-4">
+            <h2>Творчество без границ</h2>
+            <p>В нашем колледже каждый студент раскрывает свой уникальный потенциал через практические проекты, мастер-классы и работу с реальными заказчиками.</p>
+            <div class="creativity-icons">
+                <div class="creativity-icon-item">
+                    <div class="creativity-icon-circle"><i class="fa-solid fa-palette"></i></div>
+                    <span>Креатив</span>
+                </div>
+                <div class="creativity-icon-item">
+                    <div class="creativity-icon-circle"><i class="fa-solid fa-lightbulb"></i></div>
+                    <span>Инновации</span>
+                </div>
+                <div class="creativity-icon-item">
+                    <div class="creativity-icon-circle"><i class="fa-solid fa-rocket"></i></div>
+                    <span>Развитие</span>
+                </div>
+                <div class="creativity-icon-item">
+                    <div class="creativity-icon-circle"><i class="fa-solid fa-star"></i></div>
+                    <span>Успех</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Преподаватели -->
+        <div class="teachers-section fade-in delay-4">
+            <h2>Наши преподаватели</h2>
+            <div class="teachers-grid">
+                <div class="teacher-stat">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Опытных преподавателей</div>
+                </div>
+                <div class="teacher-stat">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Лет средний стаж работы</div>
+                </div>
+                <div class="teacher-stat">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Профессионалы своего дела</div>
+                </div>
+            </div>
+            <p class="teachers-text">
+                Наши опытные преподаватели — это настоящие профессионалы своего дела, которые вдохновляют студентов на достижения и новые свершения. Мы создаём уникальную атмосферу, где идеи превращаются в реальность, а мечты становятся достижимыми целями.
+            </p>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section fade-in delay-4">
+            <div class="cta-content">
+                <h2>Присоединяйтесь к нам!</h2>
+                <p>Откройте для себя безграничные возможности творчества! В нашем колледже ваша индивидуальность будет развиваться и расцветать, а навыки и знания откроют двери в мир ярких и успешных карьер. Мы ждём вас!</p>
+                <div class="cta-buttons">
+                    <a href="company.html" class="btn-primary">Поступить в колледж</a>
+                    <a href="contact.html" class="btn-secondary">
+                        <i class="fa-solid fa-phone"></i> Связаться с нами
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- КОНТАКТЫ -->
+    <div class="contacts-block">
+        <div class="contacts-container">
+            <div class="contacts-left">
+                <a href="index.html">
+                    <img src="favicon.png" alt="Лого" class="contacts-logo">
+                </a>
+                <div class="contacts-text">
+                    <p class="contacts-subtitle">Частное профессиональное образовательное учреждение</p>
+                    <h2 class="contacts-title">Колледж управления<br>и дизайна</h2>
+                </div>
+            </div>
+            <div class="contacts-right">
+                <h2 class="contacts-heading">Контакты</h2>
+                <div class="contacts-columns">
+                    <div class="contacts-col">
+                        <p><i class="fa-solid fa-location-dot"></i> г. Грозный, ул. Старопромысловское шоссе, д.26 Б</p>
+                        <p><i class="fa-solid fa-phone"></i> +7 (938) 902-12-22</p>
+                        <p><i class="fa-solid fa-phone"></i> +7 (929) 890-22-22</p>
+                    </div>
+                    <div class="contacts-col">
+                        <p><i class="fa-regular fa-envelope"></i> <b>Приёмная комиссия:</b><br>college-95@mail.ru</p>
+                        <p><i class="fa-regular fa-envelope"></i> <b>Директор:</b><br>college-95@yandex.ru</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

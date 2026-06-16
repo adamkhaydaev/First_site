@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Перевод и восстановление</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-page: #eeeeee;
+            --bg-white: #ffffff;
+            --bg-soft: #eef1f7;
+            --bg-soft-alt: #f8fbff;
+            --border: #cfd6e2;
+            --border-light: #e4e7ef;
+            --text-main: #1f1f1f;
+            --text-muted: #555555;
+            --text-soft: #777777;
+            --brand-blue: #2d2b76;
+            --brand-blue-dark: #171b48;
+            --brand-red: #ff0000;
+            --brand-gold: #d7a520;
+            --shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.15);
+            --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--bg-page);
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000000;
+        }
+
+        .top-bar {
+            background-color: #ffffff;
+            background-image: url('kud_line.png');
+            background-repeat: repeat-x;
+            background-position: top center;
+            background-size: auto 100%;
+            color: white;
+            padding: 15px 0;
+        }
+
+        .top-bar-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .top-left {
+            display: flex;
+            gap: 30px;
+            font-size: 18px;
+            font-weight: 500;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .top-left a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+        }
+
+        .top-left a:hover {
+            opacity: 0.8;
+        }
+
+        .menu {
+            background-color: #fff;
+            border-bottom: 1px solid #e8e8e8;
+            position: relative;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .menu-content {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            font-size: 20px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .home-link {
+            color: var(--brand-blue);
+            font-size: 24px;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin-left: 55px;
+            gap: 36px;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: inline-block;
+            color: var(--brand-blue);
+            padding: 36px 0;
+            font-size: 20px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: #c4951a;
+        }
+
+        .nav-item.has-mega:hover .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 22px;
+            width: 100%;
+            height: 4px;
+            background: var(--brand-gold);
+            border-radius: 2px;
+        }
+
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 980px;
+            background: white;
+            border-top: 1px solid #f0f0f0;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+            padding: 34px 34px 28px;
+            display: flex;
+            gap: 40px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: 0.25s;
+        }
+
+        .nav-item.has-mega:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .mega-column {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mega-column a {
+            display: block;
+            color: #555;
+            font-size: 16px;
+            line-height: 1.55;
+            margin-bottom: 10px;
+            transition: 0.2s;
+        }
+
+        .mega-column a:hover {
+            color: rgb(40, 60, 120);
+        }
+
+        .menu-icons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .menu-icon-link {
+            width: 52px;
+            height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: #eef1f7;
+            color: #2d2b76;
+            font-size: 24px;
+            transition: 0.2s;
+        }
+
+        .menu-icon-link:hover {
+            background: #2d2b76;
+            color: #ffffff;
+        }
+
+        .menu-icon-link img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .info-section {
+            max-width: 1200px;
+            margin-bottom: 20px;
+            margin-left: 200px;
+            margin-top: -20px;
+            padding: 20px;
+        }
+
+        .page-section {
+            width: 100%;
+        }
+
+        .table-card {
+            background: var(--bg-white);
+            padding: 30px;
+            margin-bottom: 34px;
+            margin-left: 90px;
+        }
+
+        .title-card {
+            background: #ffffff;
+            padding: 20px;
+            margin-right: 100px;
+            margin-bottom: 20px;
+            width: calc(100% - 90px);
+            box-sizing: border-box;
+        }
+
+        .title-card h1 {
+            font-size: 32px;
+            color: var(--brand-blue-dark);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .title-card p {
+            font-size: 17px;
+            line-height: 1.45;
+            color: #111111;
+            max-width: 860px;
+        }
+
+        .official-layout {
+            display: flex;
+            gap: 28px;
+            align-items: start;
+        }
+
+        .mini-sveden-fixed {
+            position: absolute;
+            top: 165px;
+            width: 290px;
+            margin-left: -330px;
+            margin-top: 0px;
+            z-index: 100;
+        }
+
+        .mini-sveden-card {
+            background: #eef1f7;
+            border: 1px solid #cfd6e2;
+            border-left: none;
+            border-radius: 0 16px 16px 0;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+
+        .mini-sveden-title {
+            padding: 18px 18px 16px;
+            color: #ff0000;
+            font-size: 22px;
+            font-weight: 500;
+            border-bottom: 1px solid #cfd6e2;
+        }
+
+        .mini-sveden-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .mini-sveden-table td {
+            border-bottom: 1px solid var(--border-light);
+            padding: 12px 14px;
+            font-size: 15px;
+            line-height: 1.35;
+            vertical-align: top;
+            background: #fff;
+        }
+
+        .mini-sveden-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .mini-sveden-table a {
+            color: #000000;
+            font-size: 17px;
+            display: block;
+            line-height: 15px;
+        }
+
+        .mini-sveden-table a:hover {
+            color: var(--brand-red);
+        }
+
+        .mini-sveden-table tr.active-link td {
+            background: #f3f6fd;
+        }
+
+        .mini-sveden-table tr.active-link a {
+            color: var(--brand-red);
+            background: #f7f8fc;
+        }
+
+        .official-content {
+            width: 100%;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .documents-showcase {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .showcase-card {
+            position: relative;
+            min-height: 182px;
+            border-radius: 22px;
+            background: linear-gradient(180deg, #f4f4f4 0%, #efefef 100%);
+            overflow: hidden;
+            padding: 24px 260px 24px 22px;
+            display: flex;
+            align-items: flex-start;
+            box-shadow: inset 0 0 0 1px rgba(207, 214, 226, 0.65);
+        }
+
+        .showcase-copy {
+            position: relative;
+            z-index: 3;
+        }
+
+        .showcase-title {
+            font-size: 22px;
+            line-height: 1.05;
+            font-weight: 700;
+            color: var(--brand-blue-dark);
+            margin-bottom: 12px;
+        }
+
+        .showcase-text {
+            font-size: 18px;
+            line-height: 1.3;
+            color: #111111;
+            max-width: 260px;
+        }
+
+        .showcase-art {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 250px;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .showcase-bubble {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            width: 220px;
+            height: 220px;
+            transform: translateY(-50%);
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 40% 50%, rgba(149, 187, 255, 0.95) 0%, rgba(149, 187, 255, 0.7) 26%, rgba(149, 187, 255, 0.18) 27%, rgba(149, 187, 255, 0.18) 40%, rgba(149, 187, 255, 0) 41%),
+                linear-gradient(135deg, #d9e8ff 0%, #9dc2ff 55%, #f2f6ff 100%);
+            opacity: 0.95;
+        }
+
+        .mock {
+            position: absolute;
+            z-index: 2;
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
+        }
+
+        .mock-book {
+            right: 54px;
+            top: 14px;
+            width: 108px;
+            height: 150px;
+            border-radius: 8px;
+            transform: rotate(-12deg);
+            background: linear-gradient(180deg, #2f4288 0%, #1b2d6d 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #f6d46d;
+            padding: 16px 10px;
+            text-align: center;
+        }
+
+        .mock-book::before {
+            content: "";
+            position: absolute;
+            inset: 6px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .mock-book .crest {
+            font-size: 30px;
+            line-height: 1;
+            margin-bottom: 28px;
+        }
+
+        .mock-book .label {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .mock-book .sub {
+            margin-top: 4px;
+            font-size: 8px;
+            line-height: 1.2;
+            color: #f3df9d;
+        }
+
+        .mock-passport {
+            right: 40px;
+            top: 10px;
+            width: 114px;
+            height: 158px;
+            border-radius: 10px;
+            transform: rotate(-11deg);
+            background: linear-gradient(180deg, #924540 0%, #6f2724 100%);
+            color: #f1d08a;
+            padding: 16px 10px;
+            text-align: center;
+        }
+
+        .mock-passport .top {
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 18px;
+        }
+
+        .mock-passport .crest {
+            font-size: 34px;
+            line-height: 1;
+            margin-bottom: 18px;
+        }
+
+        .mock-passport .bottom {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .mock-snils {
+            right: 34px;
+            top: 24px;
+            width: 145px;
+            height: 96px;
+            border-radius: 10px;
+            transform: rotate(-18deg);
+            background: linear-gradient(135deg, #e9fff0 0%, #b8efc7 50%, #edf8ef 100%);
+            border: 1px solid rgba(86, 145, 95, 0.2);
+            color: #2d4d3c;
+            padding: 10px 12px;
+            font-size: 8px;
+        }
+
+        .mock-snils .snils-head {
+            font-size: 10px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 6px;
+        }
+
+        .mock-snils .snils-number {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .mock-snils .snils-line {
+            height: 7px;
+            margin-bottom: 4px;
+            border-radius: 4px;
+            background: rgba(45, 77, 60, 0.14);
+        }
+
+        .mock-photos {
+            right: 30px;
+            top: 18px;
+            width: 132px;
+            height: 150px;
+            transform: rotate(-11deg);
+        }
+
+        .photo-strip {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 112px;
+            height: 146px;
+            background: #ffffff;
+            border-radius: 4px;
+            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+            padding: 8px;
+        }
+
+        .photo-strip.secondary {
+            right: 20px;
+            top: 8px;
+            opacity: 0.9;
+        }
+
+        .photo-tile {
+            border-radius: 2px;
+            background: linear-gradient(180deg, #fff4e1 0%, #ffd6a8 100%);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-tile::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 18%;
+            width: 26px;
+            height: 26px;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            background: #f0a15d;
+            box-shadow: -9px -2px 0 -5px #d9833c, 9px -2px 0 -5px #d9833c;
+        }
+
+        .photo-tile::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 8px;
+            width: 34px;
+            height: 28px;
+            transform: translateX(-50%);
+            border-radius: 18px 18px 8px 8px;
+            background: #1f1f1f;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--brand-blue);
+            margin: 35px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            color: var(--brand-red);
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: #fff;
+            margin: 20px 0 30px;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .info-table th {
+            background: var(--brand-blue);
+            color: white;
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: left;
+            border: none;
+            border-bottom: 1px solid #3d3b86;
+            border-right: 1px solid #3d3b86;
+        }
+
+        .info-table th:last-child {
+            border-right: none;
+        }
+
+        .info-table td {
+            padding: 15px 20px;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            vertical-align: top;
+            font-size: 15px;
+            line-height: 1.55;
+            color: #333;
+        }
+
+        .info-table td:last-child {
+            border-right: none;
+        }
+
+        .info-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .info-table tr:nth-child(even) {
+            background: var(--bg-soft-alt);
+        }
+
+        .info-table td:first-child {
+            font-weight: 600;
+            color: var(--brand-blue);
+            width: 34%;
+        }
+
+        .info-box {
+            background: var(--bg-soft);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin: 20px 0;
+        }
+
+        .info-box-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--brand-blue);
+            margin-bottom: 15px;
+        }
+
+        .info-box-text {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .info-box-text strong {
+            color: var(--brand-blue-dark);
+        }
+
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin: 18px 0 8px;
+        }
+
+        .doc-card {
+            background: var(--bg-soft-alt);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: 0.2s;
+        }
+
+        .doc-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            background: #ffffff;
+        }
+
+        .doc-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--brand-red);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .doc-icon i {
+            font-size: 28px;
+            color: white;
+        }
+
+        .doc-info {
+            flex: 1;
+        }
+
+        .doc-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--brand-blue);
+            margin-bottom: 8px;
+        }
+
+        .doc-meta {
+            font-size: 14px;
+            color: var(--text-soft);
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .doc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--brand-blue);
+            font-weight: 600;
+            padding: 8px 16px;
+            background: var(--bg-soft);
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .doc-link:hover {
+            background: var(--brand-blue);
+            color: white;
+        }
+
+        .notes-list {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .notes-list li {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--brand-red);
+            border-radius: 12px;
+            padding: 16px 18px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        .contacts-block {
+            background: #ffffff;
+            padding: 60px 0;
+        }
+
+        .contacts-container {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .contacts-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            max-width: 600px;
+        }
+
+        .contacts-logo-badge {
+            width: 140px;
+            height: 140px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--brand-blue), var(--brand-blue-dark));
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1.1;
+            padding: 16px;
+        }
+
+        .contacts-subtitle {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .contacts-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: -10px;
+        }
+
+        .contacts-right {
+            flex: 1;
+        }
+
+        .contacts-heading {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--brand-blue-dark);
+        }
+
+        .contacts-columns {
+            display: flex;
+            gap: 40px;
+            border-left: 2px solid #ccc;
+            padding-left: 30px;
+        }
+
+        .contacts-col p {
+            margin-bottom: 12px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .contacts-col i {
+            margin-right: 8px;
+            color: var(--brand-blue);
+        }
+
+        .contacts-logo {
+            width: 140px;
+            border-radius: 12px;
+        }
+
+                /* ================= ВЫПАДАЮЩЕЕ МЕНЮ "О КОЛЛЕДЖЕ" ================= */
+        .nav-item.has-dropdown {
+            position: relative;
+        }
+
+        .nav-item.has-dropdown:hover .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 22px;
+            width: 100%;
+            height: 4px;
+            background: #d7a520;
+            border-radius: 2px;
+        }
+
+        .dropdown-about {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            background: white;
+            border-top: 3px solid #d7a520;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.25s ease;
+            border-radius: 0 0 14px 14px;
+            z-index: 1001;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-about {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .dropdown-about a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #444;
+            font-size: 17px;
+            padding: 13px 18px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .dropdown-about a:last-child {
+            margin-bottom: 0;
+        }
+
+        .dropdown-about a:hover {
+            background: #f5f7ff;
+            color: #171b48;
+            transform: translateX(6px);
+        }
+
+        .dropdown-about a i {
+            width: 22px;
+            text-align: center;
+            color: #d7a520;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+/* ================= МОБИЛЬНАЯ АДАПТАЦИЯ @480px ================= */
+@media (max-width: 480px) {
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    }
+
+    .top-bar {
+        padding: 10px 0;
+    }
+
+    .top-bar-content {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .top-left {
+        width: 100%;
+        justify-content: center;
+        font-size: 12px;
+        gap: 10px;
+        flex-direction: column;
+    }
+
+    .menu {
+        position: static;
+        z-index: 999;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-content {
+        width: 100%;
+        padding: 10px 8px;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .nav-list {
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        margin: 0;
+        padding: 0;
+        margin-left: 0;
+    }
+
+    .nav-item {
+        width: 100%;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .nav-link {
+        width: 100%;
+        padding: 16px 12px;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .nav-item.has-mega:hover .mega-menu,
+    .nav-item.has-dropdown:hover .dropdown-about {
+        position: static;
+        transform: none;
+        width: 100%;
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
+        border: none;
+        border-top: 1px solid #f0f0f0;
+        padding: 12px 0;
+        margin-top: 0;
+        border-radius: 0;
+        background: #f9f9f9;
+    }
+
+    .mega-menu, .dropdown-about {
+        display: none;
+    }
+
+    .mega-column {
+        flex: none;
+        width: 100%;
+        margin-bottom: 16px;
+    }
+
+    .mega-column a {
+        padding: 12px 24px;
+        font-size: 15px;
+    }
+
+    .menu-icons {
+        width: 100%;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .menu-icon-link {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+    }
+
+    .home-link {
+        font-size: 20px;
+    }
+
+    .info-section {
+        margin-bottom: 20px;
+        margin-left: 0;
+        margin-top: 0;
+        padding: 12px;
+        max-width: 100%;
+    }
+
+    .title-card {
+        background: #ffffff;
+        padding: 16px;
+        margin-left: 0;
+        margin-bottom: 16px;
+        width: 100%;
+        margin-right: 0;
+        box-sizing: border-box;
+    }
+
+    .title-card h1 {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .title-card p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .table-card {
+        background: #ffffff;
+        padding: 16px;
+        margin-bottom: 20px;
+        margin-left: 0;
+        margin-top: 0;
+    }
+
+    .official-layout {
+        display: block;
+    }
+
+    .mini-sveden-fixed {
+        position: static;
+        width: 100%;
+        margin: 0 0 16px 0 !important;
+        top: auto !important;
+        margin-left: 0 !important;
+    }
+
+    .mini-sveden-card {
+        border-left: 1px solid #d7dbe6;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .mini-sveden-title {
+        padding: 14px 14px 12px;
+        font-size: 18px;
+    }
+
+    .mini-sveden-table td {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .mini-sveden-table a {
+        font-size: 14px;
+    }
+
+    .official-content {
+        margin-top: 0 !important;
+        width: 100%;
+    }
+
+    .section-title {
+        font-size: 18px;
+        margin: 20px 0 14px 0;
+        padding-bottom: 8px;
+    }
+
+    .section-title i {
+        margin-right: 8px;
+    }
+
+    /* ИНФОРМАЦИОННЫЕ БЛОКИ */
+    .info-box {
+        padding: 14px;
+        border-radius: 10px;
+        margin: 14px 0;
+    }
+
+    .info-box-title {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    .info-box-text {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .info-box-text strong {
+        color: #171b48;
+    }
+
+    /* ТАБЛИЦЫ */
+    .info-table {
+        width: 100%;
+        margin: 16px 0 24px;
+        border-radius: 10px;
+        border: 1px solid #cfd6e2;
+    }
+
+    .info-table thead {
+        display: none;
+    }
+
+    .info-table tr {
+        display: block;
+        background: #ffffff;
+        border: 1px solid #cfd6e2;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        overflow: hidden;
+    }
+
+    .info-table tr:nth-child(even) {
+        background: #ffffff;
+    }
+
+    .info-table td {
+        display: block;
+        padding: 10px 12px;
+        text-align: left;
+        border: none;
+        border-bottom: 1px solid #f0f0f0;
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .info-table td:last-child {
+        border-bottom: none;
+    }
+
+    .info-table td:first-child {
+        font-weight: 700;
+        color: #2d2b76;
+        background: #eef1f7;
+        padding: 10px 12px;
+    }
+
+    .info-table th {
+        display: none;
+    }
+
+    /* КАРТОЧКИ ДОКУМЕНТОВ */
+    .doc-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin: 16px 0;
+    }
+
+    .doc-card {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px;
+        border-radius: 10px;
+    }
+
+    .doc-icon {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        border-radius: 8px;
+        font-size: 18px;
+    }
+
+    .doc-info {
+        flex: 1;
+    }
+
+    .doc-title {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .doc-meta {
+        font-size: 11px;
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+
+    .doc-link {
+        padding: 4px 0;
+        font-size: 12px;
+        display: inline-flex;
+        gap: 6px;
+    }
+
+    .doc-link i {
+        font-size: 10px;
+    }
+
+    .contacts-block {
+        padding: 40px 0;
+        margin-top: 30px;
+    }
+
+    .contacts-container {
+        width: 100%;
+        padding: 0 12px;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .contacts-left {
+        width: 100%;
+        gap: 15px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contacts-logo {
+        width: 100px;
+    }
+
+    .contacts-text {
+        text-align: center;
+    }
+
+    .contacts-subtitle {
+        font-size: 14px;
+    }
+
+    .contacts-title {
+        font-size: 18px;
+    }
+
+    .contacts-heading {
+        font-size: 22px;
+        margin-bottom: 16px;
+    }
+
+    .contacts-columns {
+        flex-direction: column;
+        gap: 16px;
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .contacts-col p {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .nav-item.has-mega:hover .nav-link::after,
+    .nav-item.has-dropdown:hover .nav-link::after {
+        display: none;
+    }
+}
+
+/* ================= ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ @380px ================= */
+@media (max-width: 380px) {
+    .title-card h1 {
+        font-size: 19px;
+        margin-bottom: 10px;
+    }
+
+    .title-card p {
+        font-size: 13px;
+    }
+
+    .section-title {
+        font-size: 16px;
+        margin: 16px 0 12px 0;
+    }
+
+    .section-title i {
+        margin-right: 6px;
+    }
+
+    .info-box {
+        padding: 12px;
+        margin: 12px 0;
+    }
+
+    .info-box-title {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    .info-box-text {
+        font-size: 12px;
+    }
+
+    .info-table td {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .info-table td:first-child {
+        font-size: 12px;
+    }
+
+    .doc-grid {
+        gap: 10px;
+        margin: 12px 0;
+    }
+
+    .doc-card {
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .doc-icon {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        font-size: 16px;
+    }
+
+    .doc-title {
+        font-size: 13px;
+        margin-bottom: 4px;
+    }
+
+    .doc-meta {
+        font-size: 10px;
+        margin-bottom: 6px;
+    }
+
+    .doc-link {
+        font-size: 11px;
+    }
+
+    .mini-sveden-title {
+        font-size: 16px;
+        padding: 12px 12px 10px;
+    }
+
+    .mini-sveden-table td {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .mini-sveden-table a {
+        font-size: 13px;
+    }
+
+    .contacts-col p {
+        font-size: 13px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="top-left">
+                <a href="mailto:college-95@mail.ru"><i class="fa-solid fa-eye"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu">
+        <div class="menu-content">
+            <a href="index.html" class="home-link" aria-label="На главную"><i class="fa-solid fa-house"></i></a>
+
+            <ul class="nav-list">
+                <!-- Пункт "О колледже" с выпадающим меню -->
+                <li class="nav-item has-dropdown">
+                    <a class="nav-link">О колледже</a>
+                    <div class="dropdown-menu dropdown-about">
+                        <a href="about.html">
+                            <i class="fa-solid fa-building-columns"></i> О колледже
+                        </a>
+                        <a href="news.html">
+                            <i class="fa-solid fa-newspaper"></i> Новости
+                        </a>
+                        <a href="gallery.html">
+                            <i class="fa-solid fa-bullhorn"></i> Фотогалерея
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item has-mega">
+                    <a href="basic_information.html" class="nav-link">Сведения об ОО</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="basic_information.html"><i class="fa-solid fa-circle-info"></i> Основные сведения</a>
+                            <a href="information_founder.html"><i class="fa-solid fa-sitemap"></i> Структура и органы управления</a>
+                            <a href="document.html"><i class="fa-solid fa-file-lines"></i> Документы</a>
+                            <a href="education.html"><i class="fa-solid fa-graduation-cap"></i> Образование</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="management.html"><i class="fa-solid fa-user-tie"></i> Руководство</a>
+                            <a href="teaching_staff.html"><i class="fa-solid fa-chalkboard-user"></i> Педагогический состав</a>
+                            <a href="logistics.html"><i class="fa-solid fa-building"></i> Материально-техническое обеспечение</a>
+                            <a href="paid_services.html"><i class="fa-solid fa-credit-card"></i> Платные образовательные услуги</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="activities.html"><i class="fa-solid fa-chart-line"></i> Финансово-хозяйственная деятельность</a>
+                            <a href="vacancies.html"><i class="fa-solid fa-user-plus"></i> Вакантные места</a>
+                            <a href="international_cooperation.html"><i class="fa-solid fa-globe"></i> Международное сотрудничество</a>
+                            <a href="catering.html"><i class="fa-solid fa-utensils"></i> Организация питания</a>
+                            <a href="scholarship.html"><i class="fa-solid fa-hand-holding-heart"></i> Образовательные стандарты и требования</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item has-mega">
+                    <a href="company.html" class="nav-link">Поступающим</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="company.html"><i class="fa-solid fa-clipboard-list"></i> Приёмная кампания 2026</a>
+                            <a href="direction_training.html"><i class="fa-solid fa-compass"></i> Направления подготовки</a>
+                            <a href="open_door.html"><i class="fa-solid fa-calendar-check"></i> Дни открытых дверей</a>
+                            <a href="accept_doc.html"><i class="fa-solid fa-file-lines"></i> Документы для поступления</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="paid_services2.html"><i class="fa-solid fa-ruble-sign"></i> Платное обучение</a>
+                            <a href="translation.html"><i class="fa-solid fa-rotate"></i> Перевод и восстановление</a>
+                            <a href="question.html"><i class="fa-solid fa-circle-question"></i> Часто задаваемые вопросы</a>
+                            <a href="professional.html"><i class="fa-solid fa-person-chalkboard"></i> Профориентация</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="order.html"><i class="fa-solid fa-file-circle-check"></i> Приказы о зачислении</a>
+                            <a href="full_education.html"><i class="fa-solid fa-bullseye"></i> Целевое обучение</a>
+                            <a href="Образовательное кредитование.pdf"><i class="fa-solid fa-sack-dollar"></i> Образовательный кредит</a>
+                            <a href="capital.html"><i class="fa-solid fa-hand-holding-heart"></i> О материнском капитале</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="ordering_certificates.html">Студентам</a></li>
+                <li class="nav-item"><a class="nav-link" href="graduates.html">Выпускникам</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Контакты</a></li>
+            </ul>
+
+            <div class="menu-icons">
+                <a class="menu-icon-link" href="https://vk.ru/business_college95" aria-label="ВКонтакте">
+                    <i class="fa-brands fa-vk"></i>
+                </a>
+                <a class="menu-icon-link" href="https://max.ru/u/f9LHodD0cOITJW3XHPLMW4Rd8XyF5o___UQuasgI59JfFIf45iwgcq-7UDM" aria-label="MAX">
+                    <img src="max-icon.png" alt="MAX" style="width: 26px; height: 26px; object-fit: contain;">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section class="info-section">
+        <div class="page-section">
+            <div class="table-card">
+                <div class="title-card">
+                    <h1>Перевод и восстановление</h1>
+                    <p>
+                        Раздел содержит информацию о переводе обучающихся из другой образовательной организации
+                        и о восстановлении ранее отчисленных студентов на программы среднего профессионального образования.
+                    </p>
+                </div>
+
+                <div class="official-layout">
+                    <div class="mini-sveden-fixed">
+                        <aside class="mini-sveden-card">
+                            <div class="mini-sveden-title">Поступающим</div>
+                            <table class="mini-sveden-table">
+                                <tr><td><a href="company.html">Приёмная кампания 2026</a></td></tr>
+                                <tr><td><a href="direction_training.html">Направления подготовки</a></td></tr>
+                                <tr><td><a href="open_door.html">Дни открытых дверей</a></td></tr>
+                                <tr><td><a href="accept_doc.html">Документы для поступления</a></td></tr>
+                                <tr><td><a href="paid_services2.html">Платное обучение</a></td></tr>
+                                <tr class="active-link"><td><a href="transfer_reinstatement.html">Перевод и восстановление</a></td></tr>
+                                <tr><td><a href="question.html">Часто задаваемые вопросы</a></td></tr>
+                                <tr><td><a href="professional.html">Профориентация</a></td></tr>
+                                <tr><td><a href="order.html">Приказы о зачислении</a></td></tr>
+                                <tr><td><a href="full_education.html">Целевое обучение</a></td></tr>
+                                <tr><td><a href="Образовательное кредитование.pdf">Образовательный кредит</a></td></tr>
+                                <tr><td><a href="capital.html">О материнском капитале</a></td></tr>
+                            </table>
+                        </aside>
+                    </div>
+
+                    <div class="official-content">
+                        <h3 class="section-title">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                            Нормативная основа
+                        </h3>
+
+                        <div class="info-box">
+                            <div class="info-box-text">
+                                Порядок перевода обучающихся по программам СПО регулируется
+                                <strong>приказом Минпросвещения России от 6 августа 2021 г. № 533</strong>.
+                                Восстановление обучающихся регулируется
+                                <strong>статьей 62 Федерального закона от 29 декабря 2012 г. № 273-ФЗ «Об образовании в Российской Федерации»</strong>.
+                                Локальные сроки приема заявлений, работа комиссии и перечень внутренних форм документов
+                                колледж устанавливает своими локальными нормативными актами.
+                            </div>
+                        </div>
+
+                        <h3 class="section-title">
+                            <i class="fa-solid fa-right-left"></i>
+                            Перевод из другой образовательной организации
+                        </h3>
+
+                        <table class="info-table">
+                            <tr>
+                                <th>Условие</th>
+                                <th>Информация</th>
+                            </tr>
+                            <tr>
+                                <td>Наличие мест</td>
+                                <td>Перевод возможен только при наличии вакантных мест по соответствующей образовательной программе, форме обучения и курсу.</td>
+                            </tr>
+                            <tr>
+                                <td>Когда допускается перевод</td>
+                                <td>Перевод допускается не ранее чем после прохождения первой промежуточной аттестации в исходной образовательной организации.</td>
+                            </tr>
+                            <tr>
+                                <td>Форма обучения</td>
+                                <td>Перевод возможен с любой формы обучения на любую форму обучения при наличии соответствующих мест.</td>
+                            </tr>
+                            <tr>
+                                <td>Перевод на бюджетные места</td>
+                                <td>Возможен при соблюдении требований законодательства: обучение не должно являться получением второго или последующего образования соответствующего уровня за счет бюджета, а общий срок обучения не должен превышать более чем на один учебный год нормативный срок освоения программы.</td>
+                            </tr>
+                            <tr>
+                                <td>Результаты обучения</td>
+                                <td>Принимающая организация определяет, какие дисциплины, практики и иные результаты будут перезачтены или переаттестованы.</td>
+                            </tr>
+                        </table>
+
+                        <h3 class="section-title">
+                            <i class="fa-solid fa-list-check"></i>
+                            Порядок перевода
+                        </h3>
+
+                        <table class="info-table">
+                            <tr>
+                                <th>Этап</th>
+                                <th>Срок и содержание</th>
+                            </tr>
+                            <tr>
+                                <td>1. Обращение в исходную организацию</td>
+                                <td>По заявлению обучающегося исходная организация в течение <strong>5 рабочих дней</strong> выдает справку о периоде обучения.</td>
+                            </tr>
+                            <tr>
+                                <td>2. Подача документов в колледж</td>
+                                <td>Поступает заявление о переводе, справка о периоде обучения и при наличии иные документы, подтверждающие образовательные достижения.</td>
+                            </tr>
+                            <tr>
+                                <td>3. Рассмотрение документов</td>
+                                <td>Колледж оценивает представленные документы в течение <strong>14 календарных дней</strong> и принимает решение о возможности перевода.</td>
+                            </tr>
+                            <tr>
+                                <td>4. Выдача справки о переводе</td>
+                                <td>При положительном решении в течение <strong>5 календарных дней</strong> выдается справка о переводе с указанием программы, курса и перечня результатов, подлежащих перезачету или переаттестации.</td>
+                            </tr>
+                            <tr>
+                                <td>5. Отчисление в порядке перевода</td>
+                                <td>Обучающийся подает в исходную организацию заявление об отчислении в порядке перевода с приложением справки о переводе. Исходная организация издает приказ в течение <strong>3 рабочих дней</strong>.</td>
+                            </tr>
+                            <tr>
+                                <td>6. Зачисление в колледж</td>
+                                <td>После представления необходимых документов колледж издает приказ о зачислении в порядке перевода в течение <strong>3 рабочих дней</strong>. При переводе на платное обучение до издания приказа заключается договор.</td>
+                            </tr>
+                        </table>
+
+                        <h3 class="section-title">
+                            <i class="fa-solid fa-folder-open"></i>
+                            Документы для перевода
+                        </h3>
+
+                        <div class="doc-grid">
+                            <div class="doc-card">
+                                <div class="doc-icon"><i class="fa-regular fa-file-lines"></i></div>
+                                <div class="doc-info">
+                                    <div class="doc-title">Заявление о переводе</div>
+                                    <div class="doc-meta">Подается в колледж на имя руководителя образовательной организации.</div>
+                                </div>
+                            </div>
+                            <div class="doc-card">
+                                <div class="doc-icon"><i class="fa-regular fa-address-card"></i></div>
+                                <div class="doc-info">
+                                    <div class="doc-title">Документ, удостоверяющий личность</div>
+                                    <div class="doc-meta">Оригинал или копия паспорта для идентификации заявителя.</div>
+                                </div>
+                            </div>
+                            <div class="doc-card">
+                                <div class="doc-icon"><i class="fa-regular fa-file"></i></div>
+                                <div class="doc-info">
+                                    <div class="doc-title">Справка о периоде обучения</div>
+                                    <div class="doc-meta">Выдается исходной организацией и содержит сведения об изученных дисциплинах, практиках и результатах промежуточной аттестации.</div>
+                                </div>
+                            </div>
+                            <div class="doc-card">
+                                <div class="doc-icon"><i class="fa-regular fa-star"></i></div>
+                                <div class="doc-info">
+                                    <div class="doc-title">Иные документы об образовательных достижениях</div>
+                                    <div class="doc-meta">Представляются по усмотрению обучающегося, если они подтверждают результаты обучения.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="section-title">
+                            <i class="fa-solid fa-rotate-left"></i>
+                            Восстановление в колледже
+                        </h3>
+
+                        <table class="info-table">
+                            <tr>
+                                <th>Условие</th>
+                                <th>Информация</th>
+                            </tr>
+                            <tr>
+                                <td>Кто имеет право на восстановление по закону</td>
+                                <td>Лицо, отчисленное по собственной инициативе до завершения освоения образовательной программы, имеет право на восстановление в течение <strong>5 лет</strong> после отчисления.</td>
+                            </tr>
+                            <tr>
+                                <td>Когда возможно восстановление</td>
+                                <td>Не ранее завершения учебного года или семестра, в котором обучающийся был отчислен.</td>
+                            </tr>
+                            <tr>
+                                <td>Наличие мест</td>
+                                <td>Восстановление осуществляется при наличии свободных мест.</td>
+                            </tr>
+                            <tr>
+                                <td>Условия обучения</td>
+                                <td>Для отчисленных по собственной инициативе восстановление осуществляется с сохранением прежних условий обучения, если это возможно по фактическому наличию мест и реализуемой программе.</td>
+                            </tr>
+                            <tr>
+                                <td>Если отчисление было по инициативе колледжа</td>
+                                <td>Порядок и условия восстановления определяются локальным нормативным актом колледжа.</td>
+                            </tr>
+                        </table>
+
+                        <h3 class="section-title">
+                            <i class="fa-solid fa-file-circle-plus"></i>
+                            Документы для восстановления
+                        </h3>
+
+                        <table class="info-table">
+                            <tr>
+                                <th>Документ</th>
+                                <th>Пояснение</th>
+                            </tr>
+                            <tr>
+                                <td>Заявление о восстановлении</td>
+                                <td>Подается на имя директора колледжа.</td>
+                            </tr>
+                            <tr>
+                                <td>Документ, удостоверяющий личность</td>
+                                <td>Оригинал или копия паспорта.</td>
+                            </tr>
+                            <tr>
+                                <td>Документы из личного дела или справка об обучении</td>
+                                <td>При необходимости используются для подтверждения ранее освоенных дисциплин и периода обучения.</td>
+                            </tr>
+                            <tr>
+                                <td>Документы, предусмотренные локальным актом колледжа</td>
+                                <td>Могут потребоваться дополнительные документы в зависимости от основания отчисления и формы обучения.</td>
+                            </tr>
+                        </table>
+
+                        <h3 class="section-title">
+                            <i class="fa-solid fa-book"></i>
+                            Нормативные документы
+                        </h3>
+
+                        <div class="doc-grid">
+                            <div class="doc-card">
+                                <div class="doc-icon"><i class="fa-regular fa-file-lines"></i></div>
+                                <div class="doc-info">
+                                    <div class="doc-title">Федеральный закон № 273-ФЗ</div>
+                                    <div class="doc-meta">Статья 62 регулирует восстановление в организации, осуществляющей образовательную деятельность.</div>
+                                    <a href="https://publication.pravo.gov.ru/document/0001201212300007" class="doc-link"><i class="fa-solid fa-up-right-from-square"></i> Открыть</a>
+                                </div>
+                            </div>
+                            <div class="doc-card">
+                                <div class="doc-icon"><i class="fa-regular fa-file-lines"></i></div>
+                                <div class="doc-info">
+                                    <div class="doc-title">Приказ Минпросвещения России № 533 от 06.08.2021</div>
+                                    <div class="doc-meta">Действующий порядок перевода обучающихся в другую образовательную организацию, реализующую программу СПО. Действует до 1 марта 2028 года.</div>
+                                    <a href="https://publication.pravo.gov.ru/document/0001202109030038" class="doc-link"><i class="fa-solid fa-up-right-from-square"></i> Открыть</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="contacts-block">
+        <div class="contacts-container">
+            <div class="contacts-left">
+                <a href="index.html">
+                    <img src="favicon.png" alt="Лого" class="contacts-logo">
+                </a>
+                <div class="contacts-text">
+                    <p class="contacts-subtitle">Частное профессиональное образовательное учреждение</p>
+                    <h2 class="contacts-title">Колледж управления<br>и дизайна</h2>
+                </div>
+            </div>
+            <div class="contacts-right">
+                <h2 class="contacts-heading">Контакты</h2>
+                <div class="contacts-columns">
+                    <div class="contacts-col">
+                        <p><i class="fa-solid fa-location-dot"></i> г. Грозный, ул. Старопромысловское шоссе, д. 26 Б</p>
+                        <p><i class="fa-solid fa-phone"></i> +7 (938) 902-12-22</p>
+                        <p><i class="fa-solid fa-phone"></i> +7 (929) 890-22-22</p>
+                    </div>
+                    <div class="contacts-col">
+                        <p><i class="fa-regular fa-envelope"></i> <b>Приёмная комиссия:</b><br>college-95@mail.ru</p>
+                        <p><i class="fa-regular fa-envelope"></i> <b>Директор:</b><br>college-95@yandex.ru</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

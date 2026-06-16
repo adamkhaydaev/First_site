@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дни открытых дверей — Колледж управления и дизайна</title>
+
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #eeeeee;
+            color: #1f1f1f;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000000;
+        }
+
+        /* ================= ВЕРХНЯЯ ПАНЕЛЬ ================= */
+        .top-bar {
+            background-color: #ffffff;
+            background-image: url('kud_line.png');
+            background-repeat: repeat-x;
+            background-position: top center;
+            background-size: auto 100%;
+            color: white;
+            padding: 15px 0;
+        }
+
+        .top-bar-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .top-left {
+            display: flex;
+            gap: 30px;
+            font-size: 18px;
+            flex-wrap: wrap;
+        }
+
+        .top-left a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+        }
+
+        /* ================= МЕНЮ ================= */
+        .menu {
+            background-color: #fff;
+            border-bottom: 1px solid #e8e8e8;
+            position: relative;
+            z-index: 1000;
+            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.15);
+        }
+
+        .menu-content {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            font-size: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin-left: 55px;
+            gap: 36px;
+            flex-wrap: wrap;
+        }
+
+        .nav-item { position: relative; }
+
+        .nav-link {
+            display: inline-block;
+            color: #2d2b76;
+            padding: 36px 0;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .nav-link:hover { color: #c4951a; }
+
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 980px;
+            background: white;
+            border-top: 1px solid #f0f0f0;
+            box-shadow: 0 16px 35px rgba(0,0,0,0.12);
+            padding: 34px;
+            display: flex;
+            gap: 40px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: 0.25s;
+        }
+
+        .nav-item:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .mega-column { flex: 1; }
+
+        .mega-column a {
+            display: block;
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .mega-column a:hover { color: #2d2b76; }
+
+        /* ================= ОСНОВНАЯ СЕКЦИЯ ================= */
+        .info-section {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            padding-right: 40px;
+            margin-left: 220px;
+        }
+
+        .title-card {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            margin-right: 100px;
+            width: calc(100% - 90px);
+            box-sizing: border-box;
+        }
+
+        .title-card h2 {
+            font-size: 32px;
+            color: #171b48;
+            font-weight: 700;
+        }
+
+        .table-card {
+            background: #fff;
+            padding: 30px;
+            margin-left: 90px;
+            margin-bottom: 34px;
+        }
+
+        /* ================= ЛЕВАЯ БОКОВАЯ ПАНЕЛЬ ================= */
+        .mini-sveden-fixed {
+            position: absolute;
+            top: 165px;
+            width: 290px;
+            margin-left: -330px;
+            margin-top: 0px;
+            z-index: 100;
+        }
+
+        .mini-sveden-card {
+            background: #eef1f7;
+            border: 1px solid #cfd6e2;
+            border-left: none;
+            border-radius: 0 16px 16px 0;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        .mini-sveden-title {
+            padding: 18px;
+            color: #ff0000;
+            font-size: 22px;
+            font-weight: 500;
+            border-bottom: 1px solid #cfd6e2;
+        }
+
+        .mini-sveden-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .mini-sveden-table td {
+            border-bottom: 1px solid #e4e7ef;
+            padding: 12px 14px;
+            font-size: 15px;
+            background: #fff;
+        }
+
+        .mini-sveden-table a {
+            color: #000;
+            font-size: 17px;
+            display: block;
+            line-height: 15px;
+        }
+
+        .mini-sveden-table a:hover { color: #ff0000; }
+        .active-link td { background: #f3f6fd; }
+        .active-link a { color: #ff0000 !important; }
+
+        /* ================= КОНТЕНТ ================= */
+        .official-content {
+            width: 100%;
+            flex: 1;
+            margin-top: 20px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2d2b76;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #cfd6e2;
+        }
+
+        .section-title:first-of-type { margin-top: 0; }
+        .section-title i { margin-right: 10px; color: #ff0000; }
+
+        .info-box {
+            background: #eef1f7;
+            border: 1px solid #cfd6e2;
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin: 20px 0;
+        }
+
+        .info-box-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d2b76;
+            margin-bottom: 15px;
+        }
+
+        .info-box-text {
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .info-box-text strong { color: #171b48; }
+        .info-box-text a { color: #2d2b76; text-decoration: underline; }
+        .info-box-text a:hover { color: #ff0000; }
+
+        .info-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #cfd6e2;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .info-table th {
+            background: #2d2b76;
+            color: white;
+            padding: 15px 20px;
+            font-size: 16px;
+            text-align: left;
+            border-bottom: 1px solid #3d3b86;
+            border-right: 1px solid #3d3b86;
+        }
+
+        .info-table th:last-child { border-right: none; }
+
+        .info-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #cfd6e2;
+            border-right: 1px solid #cfd6e2;
+            font-size: 15px;
+            color: #333;
+        }
+
+        .info-table td:last-child { border-right: none; }
+        .info-table tr:last-child td { border-bottom: none; }
+        .info-table tr:nth-child(even) { background: #f8fbff; }
+        .info-table td:first-child { font-weight: 600; color: #2d2b76; width: 35%; }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            background: #f8fbff;
+            border: 1px solid #cfd6e2;
+            border-radius: 10px;
+            margin-top: 15px;
+            transition: 0.2s;
+        }
+
+        .link-card:hover {
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .link-card i {
+            color: #2d2b76;
+            font-size: 20px;
+            width: 28px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .link-card span {
+            color: #2d2b76;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .link-card a {
+            color: #2d2b76;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .link-card:hover span {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        /* ================= МЕРОПРИЯТИЯ ================= */
+        .events-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .event-card {
+            background: #ffffff;
+            border: 1px solid #cfd6e2;
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            transition: 0.2s;
+        }
+
+        .event-card:hover {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border-color: #2d2b76;
+        }
+
+        .event-date-badge {
+            width: 80px;
+            height: 80px;
+            min-width: 80px;
+            background: #2d2b76;
+            color: white;
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .event-date-day {
+            font-size: 30px;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .event-date-month {
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .event-info {
+            flex: 1;
+        }
+
+        .event-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #171b48;
+            margin-bottom: 8px;
+        }
+
+        .event-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .event-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .event-detail-item i {
+            color: #ff0000;
+            width: 16px;
+            text-align: center;
+        }
+
+        .event-description {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .event-register {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 24px;
+            background: #ff0000;
+            color: white;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .event-register:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255,0,0,0.3);
+        }
+
+        .event-completed {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .event-completed .event-date-badge {
+            background: #999;
+        }
+
+        .event-completed .event-register {
+            background: #999;
+        }
+
+        /* ================= ПРОГРАММА ДНЯ ================= */
+        .program-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .program-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 16px 20px;
+            background: #f8fbff;
+            border: 1px solid #cfd6e2;
+            border-radius: 10px;
+            transition: 0.2s;
+        }
+
+        .program-item:hover {
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        .program-time {
+            min-width: 80px;
+            font-weight: 700;
+            color: #2d2b76;
+            font-size: 15px;
+        }
+
+        .program-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: #2d2b76;
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+        .program-text {
+            flex: 1;
+        }
+
+        .program-text h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #171b48;
+            margin-bottom: 2px;
+        }
+
+        .program-text p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .menu-icon-link {
+            width: 52px;
+            height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: #eef1f7;
+            color: #2d2b76;
+            font-size: 24px;
+            transition: 0.2s;
+        }
+
+        .menu-icon-link:hover {
+            background: #2d2b76;
+            color: #ffffff;
+        }
+
+        .menu-icon-link img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .menu-icons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        /* ================= ВЫПАДАЮЩЕЕ МЕНЮ "О КОЛЛЕДЖЕ" ================= */
+        .nav-item.has-dropdown {
+            position: relative;
+        }
+
+        .nav-item.has-dropdown:hover .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 22px;
+            width: 100%;
+            height: 4px;
+            background: #d7a520;
+            border-radius: 2px;
+        }
+
+        .dropdown-about {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            background: white;
+            border-top: 3px solid #d7a520;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.25s ease;
+            border-radius: 0 0 14px 14px;
+            z-index: 1001;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-about {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .dropdown-about a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #444;
+            font-size: 17px;
+            padding: 13px 18px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .dropdown-about a:last-child {
+            margin-bottom: 0;
+        }
+
+        .dropdown-about a:hover {
+            background: #f5f7ff;
+            color: #171b48;
+            transform: translateX(6px);
+        }
+
+        .dropdown-about a i {
+            width: 22px;
+            text-align: center;
+            color: #d7a520;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+        /* ================= НИЖНЯЯ ПАНЕЛЬ ================= */
+        .contacts-block { background: #fff; padding: 60px 0; }
+        .contacts-container { width: 90%; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 40px; }
+        .contacts-left { display: flex; align-items: center; gap: 30px; max-width: 600px; }
+        .contacts-logo { width: 140px; border-radius: 12px; }
+        .contacts-subtitle { font-size: 16px; color: #333; margin-bottom: 20px; }
+        .contacts-title { font-size: 24px; font-weight: 700; }
+        .contacts-right { flex: 1; }
+        .contacts-heading { font-size: 28px; margin-bottom: 20px; }
+        .contacts-columns { display: flex; gap: 40px; border-left: 2px solid #ccc; padding-left: 30px; }
+        .contacts-col p { margin-bottom: 12px; font-size: 16px; }
+        .contacts-col i { margin-right: 8px; }
+
+        /* ================= МОБИЛЬНАЯ АДАПТАЦИЯ @480px ================= */
+@media (max-width: 480px) {
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    }
+
+    .top-bar {
+        padding: 10px 0;
+    }
+
+    .top-bar-content {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .top-left {
+        width: 100%;
+        justify-content: center;
+        font-size: 12px;
+        gap: 10px;
+        flex-direction: column;
+    }
+
+    .menu {
+        position: static;
+        z-index: 999;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-content {
+        width: 100%;
+        padding: 10px 8px;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .nav-list {
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        margin: 0;
+        padding: 0;
+        margin-left: 0;
+    }
+
+    .nav-item {
+        width: 100%;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .nav-link {
+        width: 100%;
+        padding: 16px 12px;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .nav-item:hover .mega-menu,
+    .nav-item.has-dropdown:hover .dropdown-about {
+        position: static;
+        transform: none;
+        width: 100%;
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
+        border: none;
+        border-top: 1px solid #f0f0f0;
+        padding: 12px 0;
+        margin-top: 0;
+        border-radius: 0;
+        background: #f9f9f9;
+    }
+
+    .mega-menu, .dropdown-about {
+        display: none;
+    }
+
+    .mega-column {
+        flex: none;
+        width: 100%;
+        margin-bottom: 16px;
+    }
+
+    .mega-column a {
+        padding: 12px 24px;
+        font-size: 15px;
+    }
+
+    .menu-icons {
+        width: 100%;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .menu-icon-link {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+    }
+
+    .info-section {
+        margin-bottom: 20px;
+        margin-left: 0;
+        margin-top: 0;
+        padding: 12px;
+        max-width: 100%;
+    }
+
+    .title-card {
+        background: #ffffff;
+        padding: 16px;
+        margin-left: 0;
+        margin-bottom: 16px;
+        width: 100%;
+        margin-right: 0;
+        box-sizing: border-box;
+    }
+
+    .title-card h2 {
+        font-size: 22px;
+        margin-bottom: 12px;
+    }
+
+    .table-card {
+        background: #ffffff;
+        padding: 16px;
+        margin-bottom: 20px;
+        margin-left: 0;
+        margin-top: 0;
+    }
+
+    .mini-sveden-fixed {
+        position: static;
+        width: 100%;
+        margin: 0 0 16px 0;
+    }
+
+    .mini-sveden-card {
+        border-left: 1px solid #d7dbe6;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .mini-sveden-title {
+        padding: 14px 14px 12px;
+        font-size: 18px;
+    }
+
+    .mini-sveden-table td {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .mini-sveden-table a {
+        font-size: 14px;
+    }
+
+    .official-content {
+        margin-top: 0;
+    }
+
+    .section-title {
+        font-size: 18px;
+        margin: 20px 0 14px 0;
+        padding-bottom: 8px;
+    }
+
+    .section-title i {
+        margin-right: 8px;
+    }
+
+    .info-box {
+        padding: 16px 14px;
+        border-radius: 10px;
+        margin: 16px 0;
+    }
+
+    .info-box-title {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    .info-box-text {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    /* МЕРОПРИЯТИЯ */
+    .events-list {
+        gap: 14px;
+        margin: 16px 0;
+    }
+
+    .event-card {
+        flex-direction: column;
+        gap: 14px;
+        padding: 16px;
+        border-radius: 12px;
+    }
+
+    .event-date-badge {
+        width: 70px;
+        height: 70px;
+        min-width: 70px;
+        border-radius: 10px;
+    }
+
+    .event-date-day {
+        font-size: 24px;
+    }
+
+    .event-date-month {
+        font-size: 12px;
+        margin-top: 2px;
+    }
+
+    .event-title {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .event-details {
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+
+    .event-detail-item {
+        font-size: 12px;
+    }
+
+    .event-description {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .event-register {
+        font-size: 13px;
+        padding: 8px 16px;
+        margin-top: 10px;
+    }
+
+    /* ПРОГРАММА */
+    .program-list {
+        gap: 10px;
+        margin: 16px 0;
+    }
+
+    .program-item {
+        gap: 12px;
+        padding: 12px 14px;
+        border-radius: 8px;
+    }
+
+    .program-time {
+        min-width: 70px;
+        font-size: 13px;
+    }
+
+    .program-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        font-size: 14px;
+    }
+
+    .program-text h4 {
+        font-size: 14px;
+        margin-bottom: 2px;
+    }
+
+    .program-text p {
+        font-size: 12px;
+    }
+
+    /* ТАБЛИЦЫ */
+    .info-table {
+        width: 100%;
+        margin: 16px 0 24px;
+        border-radius: 10px;
+        border: 1px solid #cfd6e2;
+    }
+
+    .info-table thead {
+        display: none;
+    }
+
+    .info-table tr {
+        display: block;
+        background: #ffffff;
+        border: 1px solid #cfd6e2;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        overflow: hidden;
+    }
+
+    .info-table tr:nth-child(even) {
+        background: #ffffff;
+    }
+
+    .info-table td {
+        display: block;
+        padding: 10px 12px;
+        text-align: left;
+        border: none;
+        border-bottom: 1px solid #f0f0f0;
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .info-table td:last-child {
+        border-bottom: none;
+    }
+
+    .info-table td:first-child {
+        font-weight: 700;
+        color: #2d2b76;
+        background: #eef1f7;
+        padding: 10px 12px;
+    }
+
+    .info-table th {
+        display: none;
+    }
+
+    .link-card {
+        padding: 12px 14px;
+        border-radius: 8px;
+        gap: 10px;
+        margin-top: 12px;
+    }
+
+    .link-card i {
+        font-size: 16px;
+        width: 24px;
+    }
+
+    .link-card span, .link-card a {
+        font-size: 14px;
+    }
+
+    .contacts-block {
+        padding: 40px 0;
+        margin-top: 30px;
+    }
+
+    .contacts-container {
+        width: 100%;
+        padding: 0 12px;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .contacts-left {
+        width: 100%;
+        gap: 15px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contacts-logo {
+        width: 100px;
+    }
+
+    .contacts-text {
+        text-align: center;
+    }
+
+    .contacts-subtitle {
+        font-size: 14px;
+    }
+
+    .contacts-title {
+        font-size: 18px;
+    }
+
+    .contacts-heading {
+        font-size: 22px;
+        margin-bottom: 16px;
+    }
+
+    .contacts-columns {
+        flex-direction: column;
+        gap: 16px;
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .contacts-col p {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .nav-item:hover .nav-link::after,
+    .nav-item.has-dropdown:hover .nav-link::after {
+        display: none;
+    }
+
+    .event-completed {
+        opacity: 0.6;
+    }
+}
+
+/* ================= ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ @380px ================= */
+@media (max-width: 380px) {
+    .title-card h2 {
+        font-size: 19px;
+        margin-bottom: 10px;
+    }
+
+    .section-title {
+        font-size: 16px;
+        margin: 16px 0 12px 0;
+    }
+
+    .section-title i {
+        margin-right: 6px;
+    }
+
+    .info-box {
+        padding: 12px 10px;
+        margin: 12px 0;
+    }
+
+    .info-box-title {
+        font-size: 14px;
+    }
+
+    .info-box-text {
+        font-size: 12px;
+    }
+
+    .event-card {
+        padding: 12px;
+    }
+
+    .event-date-badge {
+        width: 60px;
+        height: 60px;
+        min-width: 60px;
+    }
+
+    .event-date-day {
+        font-size: 20px;
+    }
+
+    .event-date-month {
+        font-size: 10px;
+    }
+
+    .event-title {
+        font-size: 15px;
+    }
+
+    .event-detail-item {
+        font-size: 11px;
+    }
+
+    .event-description {
+        font-size: 12px;
+    }
+
+    .event-register {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .program-item {
+        gap: 10px;
+        padding: 10px 12px;
+    }
+
+    .program-time {
+        min-width: 60px;
+        font-size: 12px;
+    }
+
+    .program-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+    }
+
+    .program-text h4 {
+        font-size: 13px;
+    }
+
+    .program-text p {
+        font-size: 11px;
+    }
+
+    .info-table td {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .info-table td:first-child {
+        font-size: 12px;
+    }
+
+    .mini-sveden-title {
+        font-size: 16px;
+        padding: 12px 12px 10px;
+    }
+
+    .mini-sveden-table td {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .mini-sveden-table a {
+        font-size: 13px;
+    }
+
+    .contacts-col p {
+        font-size: 13px;
+    }
+
+    .link-card {
+        padding: 10px 12px;
+    }
+
+    .link-card i {
+        font-size: 14px;
+    }
+
+    .link-card span, .link-card a {
+        font-size: 12px;
+    }
+}
+    </style>
+</head>
+
+<body>
+
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="top-left">
+                <a href="mailto:college-95@mail.ru"><i class="fa-solid fa-eye"></i> college-95@mail.ru</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu">
+        <div class="menu-content">
+            <a href="index.html" style="text-decoration:none; color: rgb(40, 60, 120);"><i class="fa-solid fa-house"></i></a>
+
+            <ul class="nav-list">
+                <li class="nav-item has-dropdown">
+                    <a class="nav-link">О колледже</a>
+                    <div class="dropdown-about">
+                        <a href="about.html"><i class="fa-solid fa-building-columns"></i> О колледже</a>
+                        <a href="news.html"><i class="fa-solid fa-newspaper"></i> Новости</a>
+                        <a href="gallery.html">
+                            <i class="fa-solid fa-bullhorn"></i> Фотогалерея
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item has-mega">
+                    <a href="basic_information.html" class="nav-link">Сведения об ОО</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="basic_information.html"><i class="fa-solid fa-circle-info"></i> Основные сведения</a>
+                            <a href="information_founder.html"><i class="fa-solid fa-sitemap"></i> Структура и органы управления</a>
+                            <a href="document.html"><i class="fa-solid fa-file-lines"></i> Документы</a>
+                            <a href="education.html"><i class="fa-solid fa-graduation-cap"></i> Образование</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="management.html"><i class="fa-solid fa-user-tie"></i> Руководство</a>
+                            <a href="teaching_staff.html"><i class="fa-solid fa-chalkboard-user"></i> Педагогический состав</a>
+                            <a href="logistics.html"><i class="fa-solid fa-building"></i> Материально-техническое обеспечение</a>
+                            <a href="paid_services.html"><i class="fa-solid fa-credit-card"></i> Платные образовательные услуги</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="activities.html"><i class="fa-solid fa-chart-line"></i> Финансово-хозяйственная деятельность</a>
+                            <a href="vacancies.html"><i class="fa-solid fa-user-plus"></i> Вакантные места</a>
+                            <a href="international_cooperation.html"><i class="fa-solid fa-globe"></i> Международное сотрудничество</a>
+                            <a href="catering.html"><i class="fa-solid fa-utensils"></i> Организация питания</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item has-mega">
+                    <a href="company.html" class="nav-link">Поступающим</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="company.html"><i class="fa-solid fa-clipboard-list"></i> Приёмная кампания 2026</a>
+                            <a href="direction_training.html"><i class="fa-solid fa-compass"></i> Направления подготовки</a>
+                            <a href="open_door.html"><i class="fa-solid fa-calendar-check"></i> Дни открытых дверей</a>
+                            <a href="accept_doc.html"><i class="fa-solid fa-file-lines"></i> Документы для поступления</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="paid_services2.html"><i class="fa-solid fa-ruble-sign"></i> Платное обучение</a>
+                            <a href="translation.html"><i class="fa-solid fa-rotate"></i> Перевод и восстановление</a>
+                            <a href="question.html"><i class="fa-solid fa-circle-question"></i> Часто задаваемые вопросы</a>
+                            <a href="professional.html"><i class="fa-solid fa-person-chalkboard"></i> Профориентация</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="order.html"><i class="fa-solid fa-file-circle-check"></i> Приказы о зачислении</a>
+                            <a href="full_education.html"><i class="fa-solid fa-bullseye"></i> Целевое обучение</a>
+                            <a href="Образовательное кредитование.pdf"><i class="fa-solid fa-sack-dollar"></i> Образовательный кредит</a>
+                            <a href="capital.html"><i class="fa-solid fa-hand-holding-heart"></i> О материнском капитале</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="ordering_certificates.html">Студентам</a></li>
+                <li class="nav-item"><a class="nav-link" href="graduates.html">Выпускникам</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Контакты</a></li>
+            </ul>
+
+            <div class="menu-icons">
+                <a class="menu-icon-link" href="https://vk.ru/business_college95" aria-label="ВКонтакте">
+                    <i class="fa-brands fa-vk"></i>
+                </a>
+                <a class="menu-icon-link" href="https://max.ru/u/f9LHodD0cOITJW3XHPLMW4Rd8XyF5o___UQuasgI59JfFIf45iwgcq-7UDM" aria-label="MAX">
+                    <img src="max-icon.png" alt="MAX" style="width: 26px; height: 26px; object-fit: contain;">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section class="info-section">
+        <div class="page-section">
+            <div class="table-card">
+                <div class="title-card">
+                    <h2>Дни открытых дверей</h2>
+                </div>                
+                <div class="official-layout">
+                    <!-- ================= ЛЕВАЯ БОКОВАЯ ПАНЕЛЬ ================= -->
+                    <div class="mini-sveden-fixed">
+                        <aside class="mini-sveden-card">
+                            <div class="mini-sveden-title">Поступающим</div>
+                            <table class="mini-sveden-table">
+                                <tr><td><a href="company.html">Приёмная кампания 2026</a></td></tr>
+                                <tr><td><a href="direction_training.html">Направления подготовки</a></td></tr>
+                                <tr class="active-link"><td><a href="open_door.html">Дни открытых дверей</a></td></tr>
+                                <tr><td><a href="accept_doc.html">Документы для поступления</a></td></tr>
+                                <tr><td><a href="paid_services2.html">Платное обучение</a></td></tr>
+                                <tr><td><a href="translation.html">Перевод и восстановление</a></td></tr>
+                                <tr><td><a href="question.html">Часто задаваемые вопросы</a></td></tr>
+                                <tr><td><a href="professional.html">Профориентация</a></td></tr>
+                                <tr><td><a href="order.html">Приказы о зачислении</a></td></tr>
+                                <tr><td><a href="full_education.html">Целевое обучение</a></td></tr>
+                                <tr><td><a href="Образовательное кредитование.pdf">Образовательный кредит</a></td></tr>
+                                <tr><td><a href="capital.html">О материнском капитале</a></td></tr>
+                            </table>
+                        </aside>
+                    </div>
+
+                    <div class="official-content">
+
+                        <h3 class="section-title"><i class="fa-solid fa-door-open"></i> Ближайшие мероприятия</h3>
+
+                        <div class="info-box">
+                            <div class="info-box-text">
+                                <strong>День открытых дверей</strong> — это уникальная возможность познакомиться с колледжем, преподавателями и студентами, узнать всё о специальностях и правилах поступления. Мы проводим мероприятия в очном и онлайн-формате. Выберите удобную дату и приходите!
+                            </div>
+                        </div>
+
+                        <div class="events-list">
+                            <!-- Карточка 1 - Актуальная -->
+                            <div class="event-card">
+                                <div class="event-date-badge">
+                                    <div class="event-date-day">19</div>
+                                    <div class="event-date-month">апр</div>
+                                </div>
+                                <div class="event-info">
+                                    <div class="event-title">День открытых дверей — апрель 2026</div>
+                                    <div class="event-details">
+                                        <div class="event-detail-item">
+                                            <i class="fa-solid fa-clock"></i>
+                                            <span>11:00 — 15:00</span>
+                                        </div>
+                                        <div class="event-detail-item">
+                                            <i class="fa-solid fa-location-dot"></i>
+                                            <span>г. Грозный, ул. Старопромысловское шоссе, д. 26 Б</span>
+                                        </div>
+                                        <div class="event-detail-item">
+                                            <i class="fa-solid fa-tv"></i>
+                                            <span>Очно + онлайн-трансляция</span>
+                                        </div>
+                                    </div>
+                                    <div class="event-description">
+                                        Экскурсия по колледжу, мастер-классы от преподавателей, презентация специальностей, встреча с директором, консультации по поступлению.
+                                    </div>
+                                    <a href="#" class="event-register">
+                                        <i class="fa-solid fa-pen-to-square"></i> Зарегистрироваться
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Карточка 2 - Актуальная -->
+                            <div class="event-card">
+                                <div class="event-date-badge">
+                                    <div class="event-date-day">24</div>
+                                    <div class="event-date-month">мая</div>
+                                </div>
+                                <div class="event-info">
+                                    <div class="event-title">День открытых дверей — май 2026</div>
+                                    <div class="event-details">
+                                        <div class="event-detail-item">
+                                            <i class="fa-solid fa-clock"></i>
+                                            <span>12:00 — 16:00</span>
+                                        </div>
+                                        <div class="event-detail-item">
+                                            <i class="fa-solid fa-location-dot"></i>
+                                            <span>г. Грозный, ул. Старопромысловское шоссе, д. 26 Б</span>
+                                        </div>
+                                        <div class="event-detail-item">
+                                            <i class="fa-solid fa-tv"></i>
+                                            <span>Очно + онлайн-трансляция</span>
+                                        </div>
+                                    </div>
+                                    <div class="event-description">
+                                        Расширенная программа: мастер-классы по дизайну интерьера, дизайну одежды и рекламе. Выставка студенческих проектов. Консультации с приёмной комиссией.
+                                    </div>
+                                    <a href="#" class="event-register">
+                                        <i class="fa-solid fa-pen-to-square"></i> Зарегистрироваться
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Карточка 3 - Завершённая -->
+                            <div class="event-card event-completed">
+                                <div class="event-date-badge">
+                                    <div class="event-date-day">15</div>
+                                    <div class="event-date-month">мар</div>
+                                </div>
+                                <div class="event-info">
+                                    <div class="event-title">День открытых дверей — март 2026 (завершён)</div>
+                                    <div class="event-details">
+                                        <div class="event-detail-item">
+                                            <i class="fa-solid fa-clock"></i>
+                                            <span>11:00 — 14:00</span>
+                                        </div>
+                                        <div class="event-detail-item">
+                                            <i class="fa-solid fa-location-dot"></i>
+                                            <span>г. Грозный, ул. Старопромысловское шоссе, д. 26 Б</span>
+                                        </div>
+                                    </div>
+                                    <div class="event-description">
+                                        Прошедшее мероприятие. Благодарим всех участников! Ждём вас на следующих встречах.
+                                    </div>
+                                    <span class="event-register">Мероприятие завершено</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Программа дня -->
+                        <h3 class="section-title"><i class="fa-solid fa-list-ol"></i> Примерная программа дня</h3>
+
+                        <div class="program-list">
+                            <div class="program-item">
+                                <div class="program-time">11:00</div>
+                                <div class="program-icon"><i class="fa-solid fa-handshake"></i></div>
+                                <div class="program-text">
+                                    <h4>Встреча гостей и регистрация</h4>
+                                    <p>Приветственный кофе, знакомство с волонтёрами-студентами</p>
+                                </div>
+                            </div>
+                            <div class="program-item">
+                                <div class="program-time">11:30</div>
+                                <div class="program-icon"><i class="fa-solid fa-users"></i></div>
+                                <div class="program-text">
+                                    <h4>Презентация колледжа</h4>
+                                    <p>Выступление директора, презентация специальностей и достижений</p>
+                                </div>
+                            </div>
+                            <div class="program-item">
+                                <div class="program-time">12:15</div>
+                                <div class="program-icon"><i class="fa-solid fa-building-columns"></i></div>
+                                <div class="program-text">
+                                    <h4>Экскурсия по колледжу</h4>
+                                    <p>Посещение аудиторий, мастерских, библиотеки и зон отдыха</p>
+                                </div>
+                            </div>
+                            <div class="program-item">
+                                <div class="program-time">13:00</div>
+                                <div class="program-icon"><i class="fa-solid fa-paintbrush"></i></div>
+                                <div class="program-text">
+                                    <h4>Мастер-классы по направлениям</h4>
+                                    <p>Дизайн интерьера, дизайн одежды, реклама — практические занятия с преподавателями</p>
+                                </div>
+                            </div>
+                            <div class="program-item">
+                                <div class="program-time">14:00</div>
+                                <div class="program-icon"><i class="fa-solid fa-comments"></i></div>
+                                <div class="program-text">
+                                    <h4>Консультации и ответы на вопросы</h4>
+                                    <p>Общение с приёмной комиссией, преподавателями и студентами в неформальной обстановке</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Контакты -->
+                        <h3 class="section-title"><i class="fa-solid fa-circle-info"></i> Контакты и регистрация</h3>
+                        <table class="info-table">
+                            <tr><td>Телефон для записи</td><td>+7 (938) 902-12-22</td></tr>
+                            <tr><td>Email</td><td>college-95@mail.ru (тема: «День открытых дверей»)</td></tr>
+                            <tr><td>Адрес</td><td>г. Грозный, ул. Старопромысловское шоссе, д. 26 Б</td></tr>
+                        </table>
+
+                        <div class="info-box">
+                            <div class="info-box-title">
+                                <i class="fa-solid fa-lightbulb"></i> Полезно знать
+                            </div>
+                            <div class="info-box-text">
+                                <strong>Что взять с собой:</strong> Хорошее настроение и интересующие вопросы! Документы не требуются, но можно взять ручку для записей.<br><br>
+                                <strong>Для родителей:</strong> Отдельная программа — встреча с администрацией, информация о процессе поступления и условиях обучения.<br><br>
+                                <strong>Онлайн-участие:</strong> Ссылка на трансляцию будет отправлена на email за день до мероприятия.
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="contacts-block">
+        <div class="contacts-container">
+            <div class="contacts-left">
+                <a href="index.html"><img src="favicon.png" alt="Лого" class="contacts-logo"></a>
+                <div class="contacts-text"><p class="contacts-subtitle">Частное профессиональное образовательное учреждение</p><h2 class="contacts-title">Колледж управления<br>и дизайна</h2></div>
+            </div>
+            <div class="contacts-right">
+                <h2 class="contacts-heading">Контакты</h2>
+                <div class="contacts-columns">
+                    <div class="contacts-col"><p><i class="fa-solid fa-location-dot"></i> г. Грозный, ул. Старопромысловское шоссе, д.26 Б</p><p><i class="fa-solid fa-phone"></i> +7 (938) 902-12-22</p><p><i class="fa-solid fa-phone"></i> +7 (929) 890-22-22</p></div>
+                    <div class="contacts-col"><p><i class="fa-regular fa-envelope"></i> <b>Приёмная комиссия:</b><br>college-95@mail.ru</p><p><i class="fa-regular fa-envelope"></i> <b>Директор:</b><br>college-95@yandex.ru</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

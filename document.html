@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Документы</title>
+
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #eeeeee;
+            color: #1f1f1f;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .top-bar {
+            background-color: #ffffff;
+            background-image: url('kud_line.png');
+            background-repeat: repeat-x;
+            background-position: top center;
+            background-size: auto 100%;
+            color: white;
+            padding: 15px 0;
+            position: relative;
+        }
+
+        .top-bar::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .top-bar-content {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .top-left {
+            display: flex;
+            gap: 30px;
+            font-size: 18px;
+            font-weight: 500;
+            flex-wrap: wrap;
+        }
+
+        .top-left a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+        }
+
+        .top-left a:hover,
+        .top-right a:hover {
+            opacity: 0.8;
+        }
+
+        .menu {
+            background-color: #fff;
+            border-bottom: 1px solid #e8e8e8;
+            position: relative;
+            z-index: 1000;
+            box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu-content {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            font-size: 20px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin-left: 55px;
+            gap: 36px;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: inline-block;
+            color: #2d2b76;
+            padding: 36px 0;
+            font-size: 20px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: #c4951a;
+        }
+
+        .nav-item.has-mega:hover .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 22px;
+            width: 100%;
+            height: 4px;
+            background: #d7a520;
+            border-radius: 2px;
+        }
+
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 980px;
+            background: white;
+            border-top: 1px solid #f0f0f0;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+            padding: 34px 34px 28px;
+            display: flex;
+            gap: 40px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+
+        .nav-item.has-mega:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .mega-column {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mega-column a {
+            display: block;
+            color: #555;
+            font-size: 16px;
+            line-height: 1.55;
+            margin-bottom: 10px;
+            transition: 0.2s;
+        }
+
+        .mega-column a:hover {
+            color: rgb(40, 60, 120);
+        }
+
+        .menu-icon-link {
+            width: 52px;
+            height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: #eef1f7;
+            color: #2d2b76;
+            font-size: 24px;
+            transition: 0.2s;
+        }
+
+        .menu-icon-link:hover {
+            background: #2d2b76;
+            color: #ffffff;
+        }
+
+        .menu-icon-link img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .menu-icons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .info-section {
+            max-width: 1200px;
+            margin-bottom: 20px;
+            margin-left: 200px;
+            padding: 20px;
+        }
+
+        .table-card {
+            background: #ffffff;
+            padding: 30px;
+            margin-bottom: 34px;
+            margin-left: 90px;
+            margin-top: -20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .title-card {
+            background: #ffffff;
+            padding: 20px;
+            margin-right: 100px;
+            width: calc(100% - 90px);
+            box-sizing: border-box;
+        }
+
+        .title-card h1 {
+            font-size: 32px;
+            color: #171b48;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .title-card p {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.55;
+            max-width: 820px;
+        }
+
+        .official-content {
+            width: 100%;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .table-inner {
+            margin: 0px auto 0;
+            position: relative;
+            z-index: 50;
+        }
+
+        .mini-sveden-fixed {
+            position: absolute;
+            top: 165px;
+            width: 290px;
+            margin-left: -330px;
+            margin-top: 0px;
+            z-index: 100;
+        }
+
+        .mini-sveden-card {
+            background: #eef1f7;
+            border: 1px solid #cfd6e2;
+            border-left: none;
+            border-radius: 0 16px 16px 0;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .mini-sveden-title {
+            padding: 18px 18px 16px;
+            color: #ff0000;
+            font-size: 22px;
+            font-weight: 500;
+            border-bottom: 1px solid #cfd6e2;
+        }
+
+        .mini-sveden-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .mini-sveden-table td {
+            border-bottom: 1px solid #e4e7ef;
+            padding: 12px 14px;
+            font-size: 15px;
+            line-height: 1.35;
+            vertical-align: top;
+            background: #fff;
+        }
+
+        .mini-sveden-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .mini-sveden-table a {
+            color: #000000;
+            font-size: 17px;
+            display: block;
+            line-height: 15px;
+        }
+
+        .mini-sveden-table a:hover,
+        .mini-sveden-table tr.active-link a {
+            color: #ff0000;
+        }
+
+        .structure {
+            color: #000000;
+            font-size: 18px;
+            margin-left: 15px;
+            margin-top: auto;
+            margin-bottom: 16px;
+        }
+
+        .docs-toolbar {
+            margin: 0 0 18px 25px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .docs-search-box {
+            position: relative;
+        }
+
+        .docs-search-box i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #2d2b76;
+            opacity: 0.8;
+        }
+
+        .docs-search-input {
+            width: 100%;
+            border: 1px solid #cfd6e2;
+            border-radius: 12px;
+            padding: 13px 16px 13px 42px;
+            font-size: 16px;
+            color: #1f1f1f;
+            background: #f8fbff;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        .docs-search-input:focus {
+            border-color: #2d2b76;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(45, 43, 118, 0.10);
+        }
+
+        .docs-count {
+            padding: 12px 14px;
+            border-radius: 12px;
+            background: #eef1f7;
+            color: #2d2b76;
+            font-weight: 700;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .docs-accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .doc-group {
+            border: 1px solid #cfd6e2;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f8fbff;
+            margin-left: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: 0.25s ease;
+        }
+
+        .doc-group:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .doc-toggle {
+            width: 100%;
+            border: none;
+            background: #eef1f7;
+            padding: 18px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .doc-toggle-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+        }
+
+        .doc-toggle-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: #2d2b76;
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .doc-toggle-title {
+            display: block;
+            color: #2d2b76;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.35;
+            margin-bottom: 4px;
+        }
+
+        .doc-toggle-subtitle {
+            display: block;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.35;
+        }
+
+        .doc-chevron {
+            color: #2d2b76;
+            font-size: 18px;
+            transition: transform 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .doc-group.active .doc-chevron {
+            transform: rotate(180deg);
+        }
+
+        .doc-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+            background: #ffffff;
+        }
+
+        .doc-content-inner {
+            padding: 0 22px 22px 22px;
+            border-top: 1px solid #cfd6e2;
+        }
+
+        .doc-links {
+            list-style: none;
+            margin: 0;
+            padding: 14px 0 0 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .doc-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            background: #eef1f7;
+            border: 1px solid #cfd6e2;
+            transition: 0.2s ease;
+            color: #2d2b76;
+        }
+
+        .doc-link:hover {
+            background: #ffffff;
+            border-color: #2d2b76;
+        }
+
+        .doc-link.no-file {
+            color: #555;
+            background: #f7f7f7;
+            cursor: default;
+        }
+
+        .doc-link-text {
+            font-size: 16px;
+            line-height: 1.45;
+            font-weight: 600;
+        }
+
+        .doc-link-meta {
+            display: block;
+            margin-top: 4px;
+            color: #777;
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        .ep-icon {
+            width: 34px;
+            height: auto;
+            flex-shrink: 0;
+        }
+
+        .pdf-icon {
+            width: 22px;
+            height: auto;
+            flex-shrink: 0;
+        }
+
+        .doc-link-arrow {
+            margin-left: auto;
+            color: #2d2b76;
+            opacity: 0.75;
+        }
+
+        .status-pill {
+            margin-left: auto;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            white-space: nowrap;
+            background: #fff;
+            border: 1px solid #d8dce8;
+            color: #555;
+        }
+
+        .status-pill.required {
+            color: #2d2b76;
+            border-color: #2d2b76;
+        }
+
+        .status-pill.empty {
+            color: #777;
+        }
+
+        .doc-section-title {
+            margin: 18px 0 6px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            background: #2d2b76;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .doc-empty-result {
+            margin-left: 25px;
+            padding: 18px;
+            border: 1px dashed #cfd6e2;
+            border-radius: 12px;
+            background: #ffffff;
+            color: #555;
+            display: none;
+        }
+
+        .contacts-block {
+            background: #ffffff;
+            padding: 60px 0;
+        }
+
+        .contacts-container {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .contacts-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            max-width: 600px;
+        }
+
+        .contacts-logo {
+            width: 140px;
+            border-radius: 12px;
+        }
+
+        .contacts-subtitle {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .contacts-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: -10px;
+        }
+
+        .contacts-right {
+            flex: 1;
+        }
+
+        .contacts-heading {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .contacts-columns {
+            display: flex;
+            gap: 40px;
+            border-left: 2px solid #ccc;
+            padding-left: 30px;
+        }
+
+        .contacts-col p {
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .contacts-col i {
+            margin-right: 8px;
+        }
+
+        .nav-item.has-dropdown {
+            position: relative;
+        }
+
+        .nav-item.has-dropdown:hover .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 22px;
+            width: 100%;
+            height: 4px;
+            background: #d7a520;
+            border-radius: 2px;
+        }
+
+        .dropdown-about {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            background: white;
+            border-top: 3px solid #d7a520;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.25s ease;
+            border-radius: 0 0 14px 14px;
+            z-index: 1001;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-about {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .dropdown-about a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #444;
+            font-size: 17px;
+            padding: 13px 18px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .dropdown-about a:last-child {
+            margin-bottom: 0;
+        }
+
+        .dropdown-about a:hover {
+            background: #f5f7ff;
+            color: #171b48;
+            transform: translateX(6px);
+        }
+
+        .dropdown-about a i {
+            width: 22px;
+            text-align: center;
+            color: #d7a520;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 1100px) {
+            .dropdown-about {
+                position: static;
+                transform: none;
+                width: 100%;
+                box-shadow: none;
+                border: 1px solid #ececec;
+                margin-top: 8px;
+                padding: 15px;
+                display: none;
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                border-radius: 12px;
+            }
+            
+            .nav-item.has-dropdown:hover .dropdown-about {
+                display: block;
+            }
+            
+            .dropdown-about a {
+                padding: 12px 15px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .mini-sveden-fixed {
+                width: 260px;
+            }
+
+            .menu-content {
+                gap: 25px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-list {
+                justify-content: center;
+                gap: 24px;
+            }
+
+            .nav-link {
+                padding: 18px 0;
+            }
+
+            .nav-item.has-mega:hover .nav-link::after {
+                bottom: 6px;
+            }
+
+            .mega-menu {
+                position: static;
+                transform: none;
+                width: 100%;
+                box-shadow: none;
+                border: 1px solid #ececec;
+                margin-top: 10px;
+                padding: 24px;
+                display: none;
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                flex-wrap: wrap;
+            }
+
+            .nav-item.has-mega:hover .mega-menu {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .official-layout {
+                display: block;
+            }
+
+            .mini-sveden-fixed {
+                position: static;
+                width: 100%;
+                margin: 0 0 20px 0;
+            }
+
+            .mini-sveden-card {
+                border-left: 1px solid #d7dbe6;
+                border-radius: 14px;
+            }
+
+            .title-card {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .table-card {
+                margin-left: 0;
+            }
+
+            .info-section {
+                margin-left: 0;
+            }
+
+            .table-inner {
+                margin-top: 0;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .nav-list {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .nav-item {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-link {
+                width: 100%;
+                padding: 14px 0;
+                font-size: 18px;
+            }
+
+            .mega-menu {
+                flex-direction: column;
+                gap: 24px;
+                text-align: left;
+            }
+
+            .docs-toolbar {
+                grid-template-columns: 1fr;
+            }
+
+            .contacts-container,
+            .contacts-columns {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .table-card {
+                padding: 20px;
+            }
+
+            .mini-sveden-title {
+                font-size: 20px;
+            }
+
+            .mini-sveden-table td {
+                font-size: 14px;
+            }
+
+            .title-card h1 {
+                font-size: 22px;
+            }
+
+            .doc-toggle {
+                padding: 14px 16px;
+            }
+
+            .doc-toggle-title {
+                font-size: 16px;
+            }
+
+            .status-pill {
+                display: none;
+            }
+        }
+
+        /* ================= МОБИЛЬНАЯ АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (до 480px) ================= */
+        @media (max-width: 480px) {
+            * {
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            }
+
+            .top-bar {
+                padding: 10px 0;
+            }
+
+            .top-bar-content {
+                width: 95%;
+                flex-direction: column;
+                gap: 10px;
+                margin: 0 auto;
+            }
+
+            .top-left {
+                width: 100%;
+                justify-content: center;
+                font-size: 14px;
+                gap: 15px;
+            }
+
+            .menu {
+                position: static;
+                z-index: 999;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .menu-content {
+                width: 100%;
+                padding: 10px 8px;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .nav-list {
+                width: 100%;
+                flex-direction: column;
+                gap: 0;
+                margin: 0;
+                padding: 0;
+                margin-left: 0;
+            }
+
+            .nav-item {
+                width: 100%;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .nav-link {
+                width: 100%;
+                padding: 16px 12px;
+                font-size: 16px;
+                text-align: center;
+            }
+
+            .nav-item.has-mega:hover .mega-menu,
+            .nav-item.has-dropdown:hover .dropdown-about {
+                position: static;
+                transform: none;
+                width: 100%;
+                display: block;
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
+                border: none;
+                border-top: 1px solid #f0f0f0;
+                padding: 12px 0;
+                margin-top: 0;
+                border-radius: 0;
+                background: #f9f9f9;
+            }
+
+            .mega-menu, .dropdown-about {
+                display: none;
+            }
+
+            .mega-column {
+                flex: none;
+                width: 100%;
+                margin-bottom: 16px;
+            }
+
+            .mega-column a {
+                padding: 12px 24px;
+                font-size: 15px;
+            }
+
+            .menu-icons {
+                width: 100%;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .menu-icon-link {
+                width: 44px;
+                height: 44px;
+                font-size: 20px;
+            }
+
+            .info-section {
+                margin-bottom: 20px;
+                margin-left: 0;
+                margin-top: 0;
+                padding: 12px;
+            }
+
+            .title-card {
+                background: #ffffff;
+                padding: 16px;
+                margin-left: 0;
+                margin-bottom: 16px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .title-card h1 {
+                font-size: 24px;
+                margin-bottom: 12px;
+                margin-left: 0;
+                margin-top: 0;
+            }
+
+            .table-card {
+                background: #ffffff;
+                padding: 16px;
+                margin-bottom: 20px;
+                margin-left: 0;
+                margin-top: 0;
+            }
+
+            .docs-toolbar {
+                margin: 0 0 16px 0;
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 0 12px;
+            }
+
+            .docs-search-input {
+                padding: 12px 14px 12px 40px;
+                font-size: 14px;
+            }
+
+            .docs-count {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+
+            .docs-accordion {
+                gap: 12px;
+                padding: 0 12px;
+            }
+
+            .doc-group {
+                margin-left: 0;
+                border-radius: 10px;
+            }
+
+            .doc-toggle {
+                padding: 14px 16px;
+                gap: 12px;
+            }
+
+            .doc-toggle-left {
+                gap: 10px;
+            }
+
+            .doc-toggle-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .doc-toggle-title {
+                font-size: 15px;
+                margin-bottom: 2px;
+            }
+
+            .doc-toggle-subtitle {
+                font-size: 12px;
+            }
+
+            .doc-chevron {
+                font-size: 16px;
+            }
+
+            .doc-content-inner {
+                padding: 0 16px 16px 16px;
+            }
+
+            .doc-links {
+                gap: 10px;
+                padding: 12px 0 0 0;
+            }
+
+            .doc-link {
+                padding: 11px 12px;
+                gap: 10px;
+                border-radius: 10px;
+                font-size: 14px;
+            }
+
+            .doc-link-text {
+                font-size: 14px;
+            }
+
+            .ep-icon {
+                width: 28px;
+            }
+
+            .pdf-icon {
+                width: 18px;
+            }
+
+            .mini-sveden-fixed {
+                position: static;
+                width: 100%;
+                margin: 0 0 16px 0;
+            }
+
+            .mini-sveden-card {
+                border-left: 1px solid #d7dbe6;
+                border-right: 1px solid #d7dbe6;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            }
+
+            .mini-sveden-title {
+                padding: 14px 14px 12px;
+                font-size: 18px;
+                color: #ff0000;
+            }
+
+            .mini-sveden-table td {
+                padding: 10px 12px;
+                font-size: 13px;
+                border-bottom: 1px solid #e4e7ef;
+            }
+
+            .mini-sveden-table a {
+                font-size: 14px;
+                line-height: 1.3;
+            }
+
+            .contacts-block {
+                padding: 40px 0;
+                margin-top: 30px;
+            }
+
+            .contacts-container {
+                width: 100%;
+                padding: 0 12px;
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .contacts-left {
+                width: 100%;
+                gap: 15px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contacts-logo {
+                width: 100px;
+            }
+
+            .contacts-text {
+                text-align: center;
+            }
+
+            .contacts-subtitle {
+                font-size: 14px;
+            }
+
+            .contacts-title {
+                font-size: 18px;
+            }
+
+            .contacts-heading {
+                font-size: 22px;
+                margin-bottom: 16px;
+            }
+
+            .contacts-columns {
+                flex-direction: column;
+                gap: 16px;
+                border-left: none;
+                padding-left: 0;
+                width: 100%;
+            }
+
+            .contacts-col p {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+
+            .nav-item.has-mega:hover .nav-link::after,
+            .nav-item.has-dropdown:hover .nav-link::after {
+                display: none;
+            }
+
+            .doc-empty-result {
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+
+        /* ================= ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ (до 380px) ================= */
+        @media (max-width: 380px) {
+            .title-card h1 {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+
+            .doc-toggle-title {
+                font-size: 14px;
+            }
+
+            .doc-toggle-subtitle {
+                font-size: 11px;
+            }
+
+            .doc-link-text {
+                font-size: 13px;
+            }
+
+            .docs-count {
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+
+            .mini-sveden-title {
+                font-size: 16px;
+                padding: 12px 12px 10px;
+            }
+
+            .mini-sveden-table td {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
+            .mini-sveden-table a {
+                font-size: 13px;
+            }
+
+            .contacts-col p {
+                font-size: 13px;
+            }
+
+            .doc-toggle-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 14px;
+            }
+
+            .ep-icon {
+                width: 26px;
+            }
+
+            .pdf-icon {
+                width: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="top-left">
+                <a href="#" aria-label="Версия для слабовидящих">
+                    <i class="fa-solid fa-eye"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu">
+        <div class="menu-content">
+            <a href="index.html" style="text-decoration:none; color: rgb(40, 60, 120);" aria-label="Главная">
+                <i class="fa-solid fa-house"></i>
+            </a>
+
+            <ul class="nav-list">
+                <li class="nav-item has-dropdown">
+                    <a class="nav-link">О колледже</a>
+                    <div class="dropdown-menu dropdown-about">
+                        <a href="about.html">
+                            <i class="fa-solid fa-building-columns"></i> О колледже
+                        </a>
+                        <a href="news.html">
+                            <i class="fa-solid fa-newspaper"></i> Новости
+                        </a>
+                        <a href="gallery.html">
+                            <i class="fa-solid fa-bullhorn"></i> Фотогалерея
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item has-mega">
+                    <a href="basic_information.html" class="nav-link">Сведения об ОО</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="basic_information.html"><i class="fa-solid fa-circle-info"></i> Основные сведения</a>
+                            <a href="information_founder.html"><i class="fa-solid fa-sitemap"></i> Структура и органы управления</a>
+                            <a href="document.html"><i class="fa-solid fa-file-lines"></i> Документы</a>
+                            <a href="education.html"><i class="fa-solid fa-graduation-cap"></i> Образование</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="management.html"><i class="fa-solid fa-user-tie"></i> Руководство</a>
+                            <a href="teaching_staff.html"><i class="fa-solid fa-chalkboard-user"></i> Педагогический состав</a>
+                            <a href="logistics.html"><i class="fa-solid fa-building"></i> Материально-техническое обеспечение</a>
+                            <a href="paid_services.html"><i class="fa-solid fa-credit-card"></i> Платные образовательные услуги</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="activities.html"><i class="fa-solid fa-chart-line"></i> Финансово-хозяйственная деятельность</a>
+                            <a href="vacancies.html"><i class="fa-solid fa-user-plus"></i> Вакантные места</a>
+                            <a href="international_cooperation.html"><i class="fa-solid fa-globe"></i> Международное сотрудничество</a>
+                            <a href="catering.html"><i class="fa-solid fa-utensils"></i> Организация питания</a>
+                            <a href="scholarship.html"><i class="fa-solid fa-hand-holding-heart"></i> Образовательные стандарты и требования</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item has-mega">
+                    <a href="company.html" class="nav-link">Поступающим</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="company.html"><i class="fa-solid fa-clipboard-list"></i> Приёмная кампания 2026</a>
+                            <a href="direction_training.html"><i class="fa-solid fa-compass"></i> Направления подготовки</a>
+                            <a href="open_door.html"><i class="fa-solid fa-calendar-check"></i> Дни открытых дверей</a>
+                            <a href="accept_doc.html"><i class="fa-solid fa-file-lines"></i> Документы для поступления</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="paid_services2.html"><i class="fa-solid fa-ruble-sign"></i> Платное обучение</a>
+                            <a href="translation.html"><i class="fa-solid fa-rotate"></i> Перевод и восстановление</a>
+                            <a href="question.html"><i class="fa-solid fa-circle-question"></i> Часто задаваемые вопросы</a>
+                            <a href="professional.html"><i class="fa-solid fa-person-chalkboard"></i> Профориентация</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="order.html"><i class="fa-solid fa-file-circle-check"></i> Приказы о зачислении</a>
+                            <a href="full_education.html"><i class="fa-solid fa-bullseye"></i> Целевое обучение</a>
+                            <a href="Образовательное кредитование.pdf"><i class="fa-solid fa-sack-dollar"></i> Образовательный кредит</a>
+                            <a href="capital.html"><i class="fa-solid fa-hand-holding-heart"></i> О материнском капитале</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item"><a class="nav-link" href="ordering_certificates.html">Студентам</a></li>
+                <li class="nav-item"><a class="nav-link" href="graduates.html">Выпускникам</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Контакты</a></li>
+            </ul>
+
+            <div class="menu-icons">
+                <a class="menu-icon-link" href="https://vk.ru/business_college95" aria-label="ВКонтакте">
+                    <i class="fa-brands fa-vk"></i>
+                </a>
+                <a class="menu-icon-link" href="https://max.ru/u/f9LHodD0cOITJW3XHPLMW4Rd8XyF5o___UQuasgI59JfFIf45iwgcq-7UDM" aria-label="MAX">
+                    <img src="max-icon.png" alt="MAX">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section class="info-section">
+        <div class="page-section">
+            <div class="table-card">
+                <div class="official-layout">
+                    <div class="title-card">
+                        <h1>Документы</h1>
+                    </div>
+
+                    <div class="mini-sveden-fixed">
+                        <aside class="mini-sveden-card">
+                            <div class="mini-sveden-title">Сведения об ОО</div>
+                            <table class="mini-sveden-table">
+                                <tr><td><a href="basic_information.html">Основные сведения</a></td></tr>
+                                <tr><td><a href="information_founder.html">Структура и органы управления</a></td></tr>
+                                <tr class="active-link"><td><a href="document.html">Документы</a></td></tr>
+                                <tr><td><a href="education.html">Образование</a></td></tr>
+                                <tr><td><a href="management.html">Руководство</a></td></tr>
+                                <tr><td><a href="teaching_staff.html">Педагогический состав</a></td></tr>
+                                <tr><td><a href="logistics.html">Материально-техническое обеспечение</a></td></tr>
+                                <tr><td><a href="paid_services.html">Платные образовательные услуги</a></td></tr>
+                                <tr><td><a href="activities.html">Финансово-хозяйственная деятельность</a></td></tr>
+                                <tr><td><a href="vacancies.html">Вакантные места</a></td></tr>
+                                <tr><td><a href="international_cooperation.html">Международное сотрудничество</a></td></tr>
+                                <tr><td><a href="catering.html">Организация питания</a></td></tr>
+                                <tr><td><a href="scholarship.html">Образовательные стандарты и требования</a></td></tr>
+                            </table>
+                        </aside>
+                    </div>
+
+                    <div class="official-content">
+                        <div class="table-inner">
+
+                            <div class="docs-toolbar">
+                                <div class="docs-search-box">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <input class="docs-search-input" id="docsSearch" type="text" placeholder="Поиск по документам">
+                                </div>
+                                <div class="docs-count" id="docsCount">Документов: 0</div>
+                            </div>
+
+                            <div class="docs-accordion" id="docsAccordion">
+                                <article class="doc-group" data-doc-group>
+                                    <button class="doc-toggle" type="button">
+                                        <div class="doc-toggle-left">
+                                            <div class="doc-toggle-icon"><i class="fa-solid fa-file-shield"></i></div>
+                                            <div class="doc-toggle-text">
+                                                <span class="doc-toggle-title">Учредительные и обязательные документы</span>
+                                                <span class="doc-toggle-subtitle">Устав, правила распорядка, коллективный договор</span>
+                                            </div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-down doc-chevron"></i>
+                                    </button>
+                                    <div class="doc-content">
+                                        <div class="doc-content-inner">
+                                            <ul class="doc-links">
+                                                <li data-doc-item>
+                                                    <a href="Устав ообразовательной организации.pdf" class="doc-link" itemprop="ustavDocLink">
+                                                        <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                        <span class="doc-link-text">Устав образовательной организации</span>
+                                                        <span class="status-pill required">обязательный</span>
+                                                        <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                    </a>
+                                                </li>
+                                                <li data-doc-item>
+                                                    <a href="Правила внутреннего распорядка обучающихся.pdf" class="doc-link" itemprop="localActStud">
+                                                        <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                        <span class="doc-link-text">Правила внутреннего распорядка обучающихся</span>
+                                                        <span class="status-pill required">обязательный</span>
+                                                        <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                    </a>
+                                                </li>
+                                                <li data-doc-item>
+                                                    <a href="Правила внутреннего трудового распорядка.pdf" class="doc-link" itemprop="localActOrder">
+                                                        <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                        <span class="doc-link-text">Правила внутреннего трудового распорядка</span>
+                                                        <span class="status-pill required">обязательный</span>
+                                                        <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                    </a>
+                                                </li>
+                                                <li data-doc-item>
+                                                    <span class="doc-link no-file" itemprop="localActCollec">
+                                                        <i class="fa-solid fa-circle-info doc-toggle-icon" style="width:34px;height:34px;font-size:14px;border-radius:10px;"></i>
+                                                        <span class="doc-link-text">Коллективный договор не предусмотрен</span>
+                                                        <span class="status-pill empty">при наличии</span>
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="doc-group" data-doc-group>
+                                    <button class="doc-toggle" type="button">
+                                        <div class="doc-toggle-left">
+                                            <div class="doc-toggle-icon"><i class="fa-solid fa-folder-open"></i></div>
+                                            <div class="doc-toggle-text">
+                                                <span class="doc-toggle-title">Локальные нормативные акты</span>
+                                                <span class="doc-toggle-subtitle">Основные вопросы организации и осуществления образовательной деятельности</span>
+                                            </div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-down doc-chevron"></i>
+                                    </button>
+                                    <div class="doc-content">
+                                        <div class="doc-content-inner">
+                                            <ul class="doc-links">
+                                                <li data-doc-item>
+                                                    <a href="Правила приёма.pdf" class="doc-link" itemprop="priemDocLink">
+                                                        <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                        <span class="doc-link-text">Правила приема обучающихся</span>
+                                                        <span class="status-pill required">обязательный</span>
+                                                        <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                    </a>
+                                                </li>
+                                                <li data-doc-item>
+                                                    <a href="Режим занятий обучающихся.pdf" class="doc-link" itemprop="modeDocLink">
+                                                        <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                        <span class="doc-link-text">Режим занятий обучающихся</span>
+                                                        <span class="status-pill required">обязательный</span>
+                                                        <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                    </a>
+                                                </li>
+                                                <li data-doc-item>
+                                                    <a href="Формы, периодичность и порядок текущего контроля.pdf" class="doc-link" itemprop="tekKontrolDocLink">
+                                                        <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                        <span class="doc-link-text">Формы, периодичность и порядок текущего контроля успеваемости и промежуточной аттестации обучающихся</span>
+                                                        <span class="status-pill required">обязательный</span>
+                                                        <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                    </a>
+                                                </li>
+                                                <li data-doc-item>
+                                                    <a href="Порядок и основания перевода, отчисления и восстановления обучающихся.pdf" class="doc-link" itemprop="perevodDocLink">
+                                                        <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                        <span class="doc-link-text">Порядок и основания перевода, отчисления и восстановления обучающихся</span>
+                                                        <span class="status-pill required">обязательный</span>
+                                                        <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                    </a>
+                                                </li>
+                                                <li data-doc-item>
+                                                    <a href="Порядок оформления.pdf" class="doc-link" itemprop="vozDocLink">
+                                                        <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                        <span class="doc-link-text">Порядок оформления возникновения, приостановления и прекращения отношений между образовательной организацией и обучающимися и (или) родителями (законными представителями) несовершеннолетних обучающихся</span>
+                                                        <span class="status-pill required">обязательный</span>
+                                                        <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="doc-group" data-doc-group>
+                                    <button class="doc-toggle" type="button">
+                                        <div class="doc-toggle-left">
+                                            <div class="doc-toggle-icon"><i class="fa-solid fa-chart-bar"></i></div>
+                                            <div class="doc-toggle-text">
+                                                <span class="doc-toggle-title">Самообследование</span>
+                                                <span class="doc-toggle-subtitle">Отчет о результатах самообследования образовательной организации</span>
+                                            </div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-down doc-chevron"></i>
+                                    </button>
+                                    <div class="doc-content">
+                                        <div class="doc-content-inner">
+                                            <ul class="doc-links">
+                                                <li data-doc-item>
+                                                    <a href="ОТЧЕТ о результатах самообследования.pdf" class="doc-link" itemprop="reportEduDocLink">
+                                                        <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                        <span class="doc-link-text">Отчет о результатах самообследования за 2025</span>
+                                                        <span class="status-pill required">обязательный</span>
+                                                        <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                    </a>
+                                                </li>
+                                                <li data-doc-item>
+                                                    <a href="ПОЛОЖЕНИЕ О САМООБСЛЕДОВАНИИ 2025.docx" class="doc-link" itemprop="reportEduDocLink">
+                                                        <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                        <span class="doc-link-text">Положение о самообследовании ЧПОУ "Колледж управления и дизайна</span>
+                                                        <span class="status-pill required">обязательный</span>
+                                                        <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                    </a>
+                                                </li>
+                                                <li data-doc-item>
+                                                    <a href="Результаты анкетирования 42.02.01 Реклама 2025.pdf" class="doc-link" itemprop="reportEduDocLink">
+                                                        <img src="word.png" class="pdf-icon" alt="PDF">
+                                                        <span class="doc-link-text">Результаты анкетирования 42.02.01 Реклама 2025</span>
+                                                        <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                    </a>
+                                                </li>
+                                                <li data-doc-item>
+                                                    <a href="Результаты анкетирования 54.02.01 Дизайн интерьера 2025.pdf" class="doc-link" itemprop="reportEduDocLink">
+                                                        <img src="word.png" class="pdf-icon" alt="PDF">
+                                                        <span class="doc-link-text">Результаты анкетирования 54.02.01 Дизайн интерьера 2025</span>
+                                                        <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                    </a>
+                                                </li>
+                                                <li data-doc-item>
+                                                    <a href="Результаты анкетирования 54.02.01 Дизайн одежды 2025.pdf" class="doc-link" itemprop="reportEduDocLink">
+                                                        <img src="word.png" class="pdf-icon" alt="PDF">
+                                                        <span class="doc-link-text">Результаты анкетирования 54.02.01 Дизайн одежды 2025</span>
+                                                        <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="doc-group" data-doc-group>
+                                    <button class="doc-toggle" type="button">
+                                        <div class="doc-toggle-left">
+                                            <div class="doc-toggle-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                                            <div class="doc-toggle-text">
+                                                <span class="doc-toggle-title">Предписания и отчеты об исполнении</span>
+                                                <span class="doc-toggle-subtitle">Органы государственного контроля и надзора в сфере образования</span>
+                                            </div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-down doc-chevron"></i>
+                                    </button>
+                                    <div class="doc-content">
+                                        <div class="doc-content-inner">
+                                            <ul class="doc-links">
+                                                <li data-doc-item>
+                                                    <span class="doc-link no-file" itemprop="prescriptionDocLink">
+                                                        <i class="fa-solid fa-circle-check doc-toggle-icon" style="width:34px;height:34px;font-size:14px;border-radius:10px;"></i>
+                                                        <span class="doc-link-text">Предписаний органов, осуществляющих государственный контроль (надзор) в сфере образования, нет</span>
+                                                        <span class="status-pill empty">нет предписаний</span>
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="doc-group" data-doc-group>
+                                    <button class="doc-toggle" type="button">
+                                        <div class="doc-toggle-left">
+                                            <div class="doc-toggle-icon"><i class="fa-solid fa-chart-bar"></i></div>
+                                            <div class="doc-toggle-text">
+                                                <span class="doc-toggle-title">ВСОКО</span>
+                                                <span class="doc-toggle-subtitle">Внутренняя система оценки качества образования</span>
+                                            </div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-down doc-chevron"></i>
+                                    </button>
+                                    <div class="doc-content">
+                                        <div class="doc-content-inner">
+                                            <ul class="doc-links">
+                                                <li data-doc-item>
+                                                    <a href="ПОЛОЖЕНИЕ О ВСОКО!.docx" class="doc-link" itemprop="reportEduDocLink">
+                                                        <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                        <span class="doc-link-text">Положение о внетренней системе оценки качетсва образования в ЧПОУ "Колледж управления и дизайна"</span>
+                                                        <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                    </a>
+                                                </li>
+                                                <li data-doc-item>
+                                                    <a href="" class="doc-link" itemprop="reportEduDocLink">
+                                                        <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                        <span class="doc-link-text"></span>
+                                                        <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="doc-group" data-doc-group>
+                                    <button class="doc-toggle" type="button">
+                                        <div class="doc-toggle-left">
+                                            <div class="doc-toggle-icon"><i class="fa-solid fa-box-archive"></i></div>
+                                            <div class="doc-toggle-text">
+                                                <span class="doc-toggle-title">Другие</span>
+                                                <span class="doc-toggle-subtitle">Иные документы образовательной организации</span>
+                                            </div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-down doc-chevron"></i>
+                                    </button>
+                                    <div class="doc-content">
+                                        <div class="doc-content-inner">
+                                            <ul class="doc-links" id="otherDocsList"></ul>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+
+                            <div class="doc-empty-result" id="emptyResult">По вашему запросу документы не найдены.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="contacts-block">
+        <div class="contacts-container">
+            <div class="contacts-left">
+                <a href="index.html">
+                    <img src="favicon.png" alt="Лого" class="contacts-logo">
+                </a>
+                <div class="contacts-text">
+                    <p class="contacts-subtitle">Частное профессиональное образовательное учреждение</p>
+                    <h2 class="contacts-title">Колледж управления<br>и дизайна</h2>
+                </div>
+            </div>
+            <div class="contacts-right">
+                <h2 class="contacts-heading">Контакты</h2>
+                <div class="contacts-columns">
+                    <div class="contacts-col">
+                        <p><i class="fa-solid fa-location-dot"></i> г. Грозный, ул. Старопромысловское шоссе, д.26 Б</p>
+                        <p><i class="fa-solid fa-phone"></i> +7 (938) 902-12-22</p>
+                        <p><i class="fa-solid fa-phone"></i> +7 (929) 890-22-22</p>
+                    </div>
+                    <div class="contacts-col">
+                        <p><i class="fa-regular fa-envelope"></i> <b>Приёмная комиссия:</b><br>college-95@mail.ru</p>
+                        <p><i class="fa-regular fa-envelope"></i> <b>Директор:</b><br>college-95@yandex.ru</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        const localActsDocs = [
+            { section: 'Документы вашего колледжа' },
+            ['Правила приема обучающихся', 'Правила приёма.pdf'],
+            ['Режим занятий обучающихся', 'Режим занятий обучающихся.pdf'],
+            ['Формы, периодичность и порядок текущего контроля успеваемости и промежуточной аттестации обучающихся', 'Формы, периодичность и порядок текущего контроля.pdf'],
+            ['Порядок и основания перевода, отчисления и восстановления обучающихся', 'Порядок и основания перевода, отчисления и восстановления обучающихся.pdf'],
+            ['Порядок оформления возникновения, приостановления и прекращения отношений между образовательной организацией и обучающимися и (или) родителями (законными представителями) несовершеннолетних обучающихся', 'Порядок оформления.pdf'],
+
+            { section: 'Советы' },
+            ['Положение о Структуре ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О СТРУКТУРЕ КОЛЛЕДЖА 2025.docx'],
+            ['Положение об общем собрании работников ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ ОБ ОБЩЕМ СОБРАНИИ.docx'],
+            ['Положение о Педагогическом совете ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ ОБ ОБЩЕМ СОБРАНИИ.docx'],
+            ['Положение о совете родителей', 'ПОЛОЖЕНИЕ О СОВЕТЕ РОД. 2025.docx'],
+            ['Положение о Студенческом совете ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О СТУД.СОВЕТЕ 25.docx'],
+
+            { section: 'Комиссии' },
+            ['Положение о приемной комиссии ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О ПРИЕМНОЙ КОМИССИИ.docx'],
+            ['Положение об апелляционной комиссии по результатам вступительных испытаний ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ ОБ АПЕЛЛЯЦИОННОЙ КОМИССИИ.docx'],
+            ['Положение об экзаменационной комиссии на вступительных испытаниях ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ ОБ ЭКЗАМЕНАЦИОННОЙ КОМИССИИ.docx'],
+            ['Положение об аппеляционной комиссии при прохождении государственной итоговой аттестации ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ ОБ АПЕЛЛ.КОМИССИИ ПРИ ГИА.docx'],
+            ['Положение об конфликтной комиссии для участников образовательного процесса', 'ПОЛОЖЕНИЕ О КОНФЛИКТНОЙ КОМИССИИ_25.docx'],
+            ['Положение о комиссии по трудовым спорам ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О КОМИССИИ ПО ТРУДОВЫМ СПОРАМ 2025 .docx'],
+
+            { section: 'Положения по учебно-методической работе' },
+            ['Положение о порядке разработки и утверждения основных профессиональных образовательных программ среднего профессионального образования', 'ПОЛОЖЕНИЕ_ОБ_ОПОП.docx'],
+            ['Положение о формах, периодичности и порядке текущего контроля успеваемости и промежуточной аттестации обучающихся ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О ТЕК.КОНТРОЛЕ И ПРОМЕЖУТОЧНОЙ АТТЕСТАЦИИ 2025.docx'],
+            ['Положение о порядке зачёта результатов освоения обучающимися учебных предметов, курсов, дисциплин (модулей), практики в других организациях, осуществляющих образовательную деятельность', 'ПОЛОЖЕНИЕ О ПОРЯДКЕ ЗАЧЕТА 25.docx'],
+            ['Положение о порядке обучения по индивидуальному учебному плану, ускоренному обучению в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ ОБ ИНДИВИДУАЛЬНОМ УЧЕБНОМ ПЛАНЕ.docx'],
+            ['Порядок проведения ГИА по образовательным программам СПО в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О ГИА 2025.docx'],
+            ['Положение об организации и проведении экзамена (квалификационного) по профессиональному модулю в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ ОБ ЭКЗАМЕНЕ КВАЛИФИКАЦИОННОМ 2025.docx'],
+            ['Положение об организации выполнения и защиты курсовой работы (проекта) в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О КУРСОВОЙ РАБОТЕ 2025 .docx'],
+            ['Положение по выполнению и защите индивидуального проекта в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ ПО ИНДИВИДУАЛЬНОМУ ПРОЕКТУ 2025.docx'],
+            ['Положение о порядке установления (определения), утверждения и изменения годовой учебной нагрузки педагогических работников ЧПОУ "Колледж управления и дизайна"', 'О НАГРУЗКЕ КУД 2025.pdf'],
+            ['Положение о языке образования в ЧПОУ "Колледж управления и образования"', 'ПОЛОЖЕНИЕ О ЯЗЫКЕ ОБРАЗОВАНИЯ 25.pdf'],
+            ['Положение об организации работы с электронным журналом "Дневник.ру" в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ ОБ ЭЖ ДНЕВНИК.РУ 2025.docx'],
+            ['Положение о режиме занятий обучающихся в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О РЕЖИМЕ ЗАНЯТИЙ 25.docx'],
+
+            { section: 'Положения по учебно-воспитательной работе' },
+            ['Положение о кураторе учебной группы', 'ПОЛОЖЕНИЕ О КУРАТОРЕ УЧ.ГРУППЫ.docx'],
+            ['Положение об организации дежурства в ЧПОУ "Коллелд управления и дизайна"', 'ПОЛОЖЕНИЕ ОБ ОРГАНИХАЦИИ ДЕЖУРСТВА 2025.docx'],
+            ['Положение об порядке приминения и снятия с обучающихся мер дисциплинарного взыскания в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О ДИСЦИПЛИНАРНОМ ВЗИСКАНИИ ОБУЧАЮЩИХСЯ 2025.docx'],
+
+            { section: 'Социальная защита обучающихся' },
+            ['Положение о старости учебной группы', 'ПОЛОЖЕНИЕ О СТАРОСТЕ ГРУППЫ 2025.docx'],
+
+            { section: 'Практика обучающихся' },
+            ['Положение о практике обучающихся, осваивающих основные профессиональные образовательные программы среднего профессионального образования в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ ПО ПРАКТИКЕ 2025!.docx'],
+
+            { section: 'Дополнительные платные образовательные услуги' },
+            ['Положение о порядке предоставления платных образовательных услуг в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О ПЛАТНЫХ ОБРАЗОВАТЕЛЬНЫХ УСЛУГАХ_25.docx'],
+            ['Положение об основаниях и порядке снижения стоимости платных образовательных услуг в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О ПОРЯДКЕ СНИЖЕНИЯ СТОИМОСТИ 2025.docx'],
+
+            { section: 'Бухгалтерия' },
+            ['Положение о бухгалтерии ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О БУХГАЛТЕРИИ 2025.docx'],
+            ['Положение о тарификации преподавателей ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О ТАРИФИКАЦИИ ПРЕПОДАВАТЕЛЕЙ 2025.docx'],
+
+            { section: 'Информационная безопасность' },
+            ['Положение об официальном сайте ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О САЙТЕ 2025.docx'],
+            ['Положение об обработке и защите персональных данных в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ ОБ ОБРАБОТКЕ ПЕРСОНАЛЬНЫХ ДАННЫХ.docx'],
+
+            { section: 'Документационное обеспечение' },
+            ['Инструкция по делопроизводству', 'ИНСТРУКЦИЯ новая 2025.docx'],
+            ['Положение о внутренним документообороте в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О ВНУТРЕННЕМ ДОКУМЕНТООБОРОТЕ 2025.docx'],
+            ['Положение о формировании, ведении, хранении и учёта личных дел работников ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О ПОРЯДКЕ ВЕДЕНИЯ ДИЧНЫХ ДЕЛ РАБОТНИКОВ.docx'],
+            ['Положение о порядке формирования, ведения и хранения личных дел обучающихся ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О ФОРМИРОВАНИИ ЛИЧНЫХ ДЕЛ_25.docx'],
+            ['Положение о ведении алфавитной книги записи обучающихся ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О ВЕДЕНИИ АЛФАВИТНОЙ КНИГИ 2025.docx'],
+            ['Положение о порядке получения, учёта, хранения и выдачи документов об образовании в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О ПОРЯДКЕ ПОЛУЧЕНИЯ УЧЕТА ХРАНЕНИЯ ЗАПОЛНЕНИЯ И ВЫДАЧИ ДОК. ОБ ОБРАЗОВАНИИ 2025.docx'],
+
+            { section: 'Столовая' },
+            ['Положение об организации питания и питевого режима обучающихся в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О ПИТАНИИ 2025.docx'],
+
+            { section: 'Положения о структурных подразделениях' },
+            ['Положение об учебном кабинете в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ ОБ УЧЕБНОМ КАБИНЕТЕ 2025.docx'],
+            ['Положение об учебно-методическом отделе ЧПОУ "Колледж управления и диайна"', 'ПОЛОЖЕНИЕ О МЕТОД ОТДЕЛЕ 25.docx'],
+            ['Положение об учебно-производственном отделе ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ ОБ УП ОТДЕЛЕ 25.docx'],
+
+            { section: 'Безопасность' },
+            ['Положение об антитеррористической группе образовательного учреждения', 'ПОЛОЖЕНИЕ ОБ АНТИТЕР.ГРУППЕ.docx'],
+            ['Положение об организации пропускного режима в образовательном учреждении', 'ПОЛОЖЕНИЕ О ПРОПУСКНОМ РЕЖИМЕ.docx'],
+            ['Положение о пожарной безопастности в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О ПОЖАРНОЙ БЕЗОПАСНОСТИ.docx'],
+            ['Положение о порядке расследования и учёта несчастных случаев с обучающимися во время пребывания в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О НЕСЧАСТНЫХ СЛУЧАЯХ 2025.doc'],
+
+            { section: 'Охрана труда' },
+            ['Положение о системе управления охраной труда в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О СИСТЕМЕ УПРАВЛЕНИЯ ОХРАНОЙ ТРУДА 2025.docx'],
+            ['Положение о трёхступенчатом административно-общественном контроле соблюдения норм охраны труда в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О ТРЕХСТУПЕНЧАТОМ КОНТРОЛЕ 2025.docx'],
+
+            { section: 'Иные' },
+            ['Положение о требовании к одежде (о деловом стиле) обучающихся в ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ О ТРЕБОВАНИЯХ К ОДЕЖДЕ 2025.docx'],
+            ['Положение об аттестации педагогических работников ЧПОУ "Колледж управления и дизайна"', 'ПОЛОЖЕНИЕ ОБ АТТЕСТАЦИИ ПЕД.РАБОТНИКОВ 2025.docx'],
+        ];
+
+        function createOtherDocLink(title, href) {
+            const li = document.createElement('li');
+            li.setAttribute('data-doc-item', '');
+
+            if (href) {
+                const a = document.createElement('a');
+                a.href = href;
+                a.className = 'doc-link';
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                a.innerHTML = '<img src="ep.png" class="ep-icon" alt="ЭП"><img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF"><span class="doc-link-text"></span><i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>';
+                a.querySelector('.doc-link-text').textContent = title;
+                li.appendChild(a);
+            } else {
+                const span = document.createElement('span');
+                span.className = 'doc-link no-file';
+                span.innerHTML = '<i class="fa-solid fa-circle-info doc-toggle-icon" style="width:34px;height:34px;font-size:14px;border-radius:10px;"></i><span class="doc-link-text"></span><span class="status-pill empty">файл не указан</span>';
+                span.querySelector('.doc-link-text').textContent = title;
+                li.appendChild(span);
+            }
+
+            return li;
+        }
+
+        function renderOtherDocs() {
+            const list = document.getElementById('otherDocsList');
+            if (!list) return;
+
+            let allowRender = false;
+            list.innerHTML = '';
+
+            localActsDocs.forEach(item => {
+                if (item.section) {
+                    if (item.section === 'Советы') {
+                        allowRender = true;
+                    }
+                    if (!allowRender) return;
+
+                    const sectionLi = document.createElement('li');
+                    sectionLi.className = 'doc-section-title';
+                    sectionLi.textContent = item.section;
+                    list.appendChild(sectionLi);
+                    return;
+                }
+
+                if (!allowRender) return;
+                list.appendChild(createOtherDocLink(item[0], item[1]));
+            });
+        }
+
+        function normalizeText(text) {
+            return String(text || '').toLowerCase().replace(/ё/g, 'е').trim();
+        }
+
+        function updateAccordionHeight(group) {
+            if (!group) return;
+            const content = group.querySelector('.doc-content');
+            if (group.classList.contains('active')) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+            }
+        }
+
+        function initAccordion() {
+            const groups = document.querySelectorAll('[data-doc-group]');
+            groups.forEach(group => {
+                const button = group.querySelector('.doc-toggle');
+                const content = group.querySelector('.doc-content');
+
+                button.addEventListener('click', function() {
+                    const isActive = group.classList.contains('active');
+
+                    groups.forEach(item => {
+                        item.classList.remove('active');
+                        item.querySelector('.doc-content').style.maxHeight = null;
+                    });
+
+                    if (!isActive) {
+                        group.classList.add('active');
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                    }
+                });
+            });
+        }
+
+        function initDocsSearch() {
+            const input = document.getElementById('docsSearch');
+            const groups = document.querySelectorAll('[data-doc-group]');
+            const empty = document.getElementById('emptyResult');
+            const count = document.getElementById('docsCount');
+
+            function applySearch() {
+                const query = normalizeText(input.value);
+                let visibleItems = 0;
+                let totalItems = 0;
+
+                groups.forEach(group => {
+                    const title = normalizeText(group.querySelector('.doc-toggle-title').textContent);
+                    const subtitle = normalizeText(group.querySelector('.doc-toggle-subtitle').textContent);
+                    const items = group.querySelectorAll('[data-doc-item]');
+                    let groupHasVisibleItems = false;
+
+                    items.forEach(item => {
+                        totalItems++;
+                        const text = normalizeText(item.textContent);
+                        const match = !query || text.includes(query) || title.includes(query) || subtitle.includes(query);
+                        item.style.display = match ? '' : 'none';
+                        if (match) {
+                            visibleItems++;
+                            groupHasVisibleItems = true;
+                        }
+                    });
+
+                    group.style.display = groupHasVisibleItems ? '' : 'none';
+                    updateAccordionHeight(group);
+                });
+
+                empty.style.display = visibleItems === 0 ? 'block' : 'none';
+                count.textContent = query ? `Найдено: ${visibleItems}` : `Документов: ${totalItems}`;
+            }
+
+            input.addEventListener('input', applySearch);
+            applySearch();
+        }
+
+        renderOtherDocs();
+        initAccordion();
+        initDocsSearch();
+    </script>
+</body>
+</html>

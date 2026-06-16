@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ справок</title>
+
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #1f1f1f;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000000;
+        }
+
+        /* ================= ВЕРХНЯЯ ПАНЕЛЬ ================= */
+        .top-bar {
+            background-color: #ffffff;
+            background-image: url('kud_line.png');
+            background-repeat: repeat-x;
+            background-position: top center;
+            background-size: auto 100%;
+            color: white;
+            padding: 15px 0;
+        }
+
+        .top-bar-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .top-left {
+            display: flex;
+            gap: 30px;
+            font-size: 18px;
+            flex-wrap: wrap;
+        }
+
+        .top-left a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+        }
+
+        /* ================= МЕНЮ ================= */
+        .menu {
+            background-color: #fff;
+            border-bottom: 1px solid #e8e8e8;
+            position: relative;
+            z-index: 1000;
+            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.15);
+        }
+
+        .menu-content {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            font-size: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin-left: 55px;
+            gap: 36px;
+            flex-wrap: wrap;
+        }
+
+        .nav-item { position: relative; }
+
+        .nav-link {
+            display: inline-block;
+            color: #2d2b76;
+            padding: 36px 0;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .nav-link:hover { color: #c4951a; }
+
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 980px;
+            background: white;
+            border-top: 1px solid #f0f0f0;
+            box-shadow: 0 16px 35px rgba(0,0,0,0.12);
+            padding: 34px;
+            display: flex;
+            gap: 40px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: 0.25s;
+        }
+
+        .nav-item:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .mega-column { flex: 1; }
+
+        .mega-column a {
+            display: block;
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .mega-column a:hover { color: #2d2b76; }
+
+        /* ================= ОСНОВНАЯ СЕКЦИЯ ================= */
+        .info-section {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            padding-right: 40px;
+            margin-left: 220px;
+        }
+
+        .title-card {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            margin-right: 100px;
+            width: calc(100% - 90px);
+            box-sizing: border-box;
+        }
+
+        .title-card h2 {
+            font-size: 32px;
+            color: #171b48;
+            font-weight: 700;
+        }
+
+        .table-card {
+            background: #fff;
+            padding: 30px;
+            margin-left: 90px;
+            margin-bottom: 34px;
+        }
+
+        /* ================= ЗАГОЛОВКИ СЕКЦИЙ ================= */
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2d2b76;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #cfd6e2;
+        }
+
+        .section-title:first-of-type { margin-top: 0; }
+
+        .section-title i { 
+            margin-right: 10px; 
+            color: #ff0000;
+        }
+
+        /* ================= ФОРМА ОБРАТНОЙ СВЯЗИ ================= */
+        .feedback-wrapper {
+            background: #fff;
+            border-radius: 6px;
+            padding: 30px 35px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-top: 20px;
+        }
+
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .feedback-header i {
+            font-size: 22px;
+            color: #2d2b76;
+            background: #eef1f7;
+            padding: 10px;
+            border-radius: 50%;
+        }
+
+        .feedback-header h3 {
+            font-size: 20px;
+            color: #171b48;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            flex: 100%;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .form-group label .required {
+            color: #e53935;
+            font-size: 16px;
+            margin-left: 2px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 15px;
+            border: 1px solid #d0d0d0;
+            border-radius: 6px;
+            background: #fafafa;
+            transition: border 0.2s, box-shadow 0.2s;
+            font-family: inherit;
+            color: #333;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2d2b76;
+            box-shadow: 0 0 0 3px rgba(45, 43, 118, 0.1);
+            background: #fff;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 130px;
+        }
+
+        .form-group .hint {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        /* Капча (простая математическая) */
+        .captcha-block {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 25px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #e8e8e8;
+        }
+
+        .captcha-question {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d2b76;
+            white-space: nowrap;
+            min-width: 90px;
+        }
+
+        .captcha-input {
+            width: 100px !important;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .captcha-refresh {
+            background: #2d2b76;
+            color: #fff;
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+
+        .captcha-refresh:hover {
+            background: #c4951a;
+        }
+
+        /* Согласие на обработку данных */
+        .consent-block {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 20px 0;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .consent-block input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            accent-color: #2d2b76;
+        }
+
+        .consent-block a {
+            color: #2d2b76;
+            text-decoration: underline;
+        }
+
+        /* Кнопка отправки */
+        .submit-btn {
+            background: #2d2b76;
+            color: #fff;
+            border: none;
+            padding: 14px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .submit-btn:hover {
+            background: #c4951a;
+        }
+
+        .submit-btn:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+
+        /* Сообщения об ошибках и успехе */
+        .form-message {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: none;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .form-message.success {
+            display: block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+
+        .form-message.error {
+            display: block;
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+        }
+
+        .menu-icon-link {
+            width: 52px;
+            height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: #eef1f7;
+            color: #2d2b76;
+            font-size: 24px;
+            transition: 0.2s;
+        }
+
+        .menu-icon-link:hover {
+            background: #2d2b76;
+            color: #ffffff;
+        }
+
+        .menu-icon-link img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .menu-icons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+                /* ================= ВЫПАДАЮЩЕЕ МЕНЮ "О КОЛЛЕДЖЕ" ================= */
+        .nav-item.has-dropdown {
+            position: relative;
+        }
+
+        .nav-item.has-dropdown:hover .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 22px;
+            width: 100%;
+            height: 4px;
+            background: #d7a520;
+            border-radius: 2px;
+        }
+
+        .dropdown-about {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            background: white;
+            border-top: 3px solid #d7a520;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.25s ease;
+            border-radius: 0 0 14px 14px;
+            z-index: 1001;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-about {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .dropdown-about a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #444;
+            font-size: 17px;
+            padding: 13px 18px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .dropdown-about a:last-child {
+            margin-bottom: 0;
+        }
+
+        .dropdown-about a:hover {
+            background: #f5f7ff;
+            color: #171b48;
+            transform: translateX(6px);
+        }
+
+        .dropdown-about a i {
+            width: 22px;
+            text-align: center;
+            color: #d7a520;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+        /* Адаптив для мобильных */
+        @media (max-width: 1100px) {
+            .dropdown-about {
+                position: static;
+                transform: none;
+                width: 100%;
+                box-shadow: none;
+                border: 1px solid #ececec;
+                margin-top: 8px;
+                padding: 15px;
+                display: none;
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                border-radius: 12px;
+            }
+            
+            .nav-item.has-dropdown:hover .dropdown-about {
+                display: block;
+            }
+            
+            .dropdown-about a {
+                padding: 12px 15px;
+            }
+        }
+
+
+        /* ================= НИЖНЯЯ ПАНЕЛЬ ================= */
+        .contacts-block { background: #fff; padding: 60px 0; margin-top: 40px; }
+        .contacts-container { width: 90%; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: wrap; }
+        .contacts-left { display: flex; align-items: center; gap: 30px; max-width: 600px; }
+        .contacts-logo { width: 140px; border-radius: 12px; }
+        .contacts-subtitle { font-size: 16px; color: #333; margin-bottom: 20px; }
+        .contacts-title { font-size: 24px; font-weight: 700; }
+        .contacts-right { flex: 1; min-width: 280px; }
+        .contacts-heading { font-size: 28px; margin-bottom: 20px; }
+        .contacts-columns { display: flex; gap: 40px; border-left: 2px solid #ccc; padding-left: 30px; flex-wrap: wrap; }
+        .contacts-col p { margin-bottom: 12px; font-size: 16px; }
+        .contacts-col i { margin-right: 8px; }
+
+        /* ================= АДАПТИВ ================= */
+        @media (max-width: 1200px) {
+            .mini-sveden-fixed { width: 260px; }
+            .menu-content { gap: 25px; flex-direction: column; }
+            .nav-list { justify-content: center; gap: 24px; margin-left: 0; }
+            .nav-link { padding: 18px 0; }
+            .mega-menu { position: static; width: 100%; box-shadow: none; border: 1px solid #ececec; margin-top: 10px; padding: 24px; display: none; opacity: 1; visibility: visible; pointer-events: auto; flex-wrap: wrap; }
+            .nav-item:hover .mega-menu { display: flex; }
+        }
+
+        @media (max-width: 992px) {
+            .info-section { padding-left: 20px; }
+            .mini-sveden-fixed { position: static; width: 100%; margin-bottom: 20px; }
+            .mini-sveden-card { border-left: 1px solid #d7dbe6; border-radius: 14px; }
+            .title-card { margin-right: 0; width: 100%; }
+            .table-card { margin-left: 0; }
+            .form-row { flex-direction: column; gap: 15px; }
+            .feedback-wrapper { padding: 20px; }
+        }
+
+        @media (max-width: 800px) {
+            .top-bar-content { flex-direction: column; gap: 15px; }
+            .top-left { justify-content: center; }
+            .nav-list { flex-direction: column; align-items: center; gap: 8px; width: 100%; }
+            .nav-item { width: 100%; text-align: center; }
+            .nav-link { width: 100%; padding: 14px 0; font-size: 18px; }
+            .captcha-block { flex-wrap: wrap; }
+        }
+
+        @media (max-width: 500px) {
+            .top-left { flex-direction: column; gap: 15px; }
+            .table-card { padding: 20px; }
+            .title-card h2 { font-size: 22px; }
+            .section-title { font-size: 18px; }
+            .submit-btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="top-left">
+                <a href="mailto:college-95@mail.ru"><i class="fa-solid fa-eye"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu">
+        <div class="menu-content">
+            <a href="index.html" style="text-decoration:none; color: rgb(40, 60, 120);"><i class="fa-solid fa-house"></i></a>
+
+            <ul class="nav-list">
+                <!-- Пункт "О колледже" с выпадающим меню -->
+                <li class="nav-item has-dropdown">
+                    <a class="nav-link">О колледже</a>
+                    <div class="dropdown-menu dropdown-about">
+                        <a href="about.html">
+                            <i class="fa-solid fa-building-columns"></i> О колледже
+                        </a>
+                        <a href="news.html">
+                            <i class="fa-solid fa-newspaper"></i> Новости
+                        </a>
+                        <a href="gallery.html">
+                            <i class="fa-solid fa-bullhorn"></i> Фотогалерея
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item has-mega">
+                    <a href="basic_information.html" class="nav-link">Сведения об ОО</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="basic_information.html"><i class="fa-solid fa-circle-info"></i> Основные сведения</a>
+                            <a href="information_founder.html"><i class="fa-solid fa-sitemap"></i> Структура и органы управления</a>
+                            <a href="document.html"><i class="fa-solid fa-file-lines"></i> Документы</a>
+                            <a href="education.html"><i class="fa-solid fa-graduation-cap"></i> Образование</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="management.html"><i class="fa-solid fa-user-tie"></i> Руководство</a>
+                            <a href="teaching_staff.html"><i class="fa-solid fa-chalkboard-user"></i> Педагогический состав</a>
+                            <a href="logistics.html"><i class="fa-solid fa-building"></i> Материально-техническое обеспечение</a>
+                            <a href="paid_services.html"><i class="fa-solid fa-credit-card"></i> Платные образовательные услуги</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="activities.html"><i class="fa-solid fa-chart-line"></i> Финансово-хозяйственная деятельность</a>
+                            <a href="vacancies.html"><i class="fa-solid fa-user-plus"></i> Вакантные места</a>
+                            <a href="international_cooperation.html"><i class="fa-solid fa-globe"></i> Международное сотрудничество</a>
+                            <a href="catering.html"><i class="fa-solid fa-utensils"></i> Организация питания</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item has-mega">
+                    <a href="company.html" class="nav-link">Поступающим</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="company.html"><i class="fa-solid fa-clipboard-list"></i> Приёмная кампания 2026</a>
+                            <a href="direction_training.html"><i class="fa-solid fa-compass"></i> Направления подготовки</a>
+                            <a href="open_door.html"><i class="fa-solid fa-calendar-check"></i> Дни открытых дверей</a>
+                            <a href="accept_doc.html"><i class="fa-solid fa-file-lines"></i> Документы для поступления</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="paid_services2.html"><i class="fa-solid fa-ruble-sign"></i> Платное обучение</a>
+                            <a href="translation.html"><i class="fa-solid fa-rotate"></i> Перевод и восстановление</a>
+                            <a href="question.html"><i class="fa-solid fa-circle-question"></i> Часто задаваемые вопросы</a>
+                            <a href="professional.html"><i class="fa-solid fa-person-chalkboard"></i> Профориентация</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="order.html"><i class="fa-solid fa-file-circle-check"></i> Приказы о зачислении</a>
+                            <a href="full_education.html"><i class="fa-solid fa-bullseye"></i> Целевое обучение</a>
+                            <a href="Образовательное кредитование.pdf"><i class="fa-solid fa-sack-dollar"></i> Образовательный кредит</a>
+                            <a href="capital.html"><i class="fa-solid fa-hand-holding-heart"></i> О материнском капитале</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="ordering_certificates.html">Студентам</a></li>
+                <li class="nav-item"><a class="nav-link" href="graduates.html">Выпускникам</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Контакты</a></li>
+            </ul>
+
+            <div class="menu-icons">
+                <a class="menu-icon-link" href="https://vk.ru/business_college95" aria-label="ВКонтакте">
+                    <i class="fa-brands fa-vk"></i>
+                </a>
+                <a class="menu-icon-link" href="https://max.ru/u/f9LHodD0cOITJW3XHPLMW4Rd8XyF5o___UQuasgI59JfFIf45iwgcq-7UDM" aria-label="MAX">
+                    <img src="max-icon.png" alt="MAX" style="width: 26px; height: 26px; object-fit: contain;">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section class="info-section">
+        <div class="page-section">
+            <div class="table-card">
+                <div class="title-card"><h2>Обращения граждан</h2></div>
+                <div class="official-layout">
+
+                    <div class="official-content">
+                        <div class="table-inner">
+
+                            <!-- Блок: Личный приём -->
+                            <h3 class="section-title"><i class="fa-solid fa-file-lines"></i>Личный приём граждан</h3>
+                            <div class="info-box" style="background: #eef1f7; border: 1px solid #cfd6e2; border-radius: 12px; padding: 20px 25px; margin: 20px 0 40px 0;">
+                                <p style="color: #000; line-height: 1.7; font-size: 15px;">
+                                    Директор ЧПОУ "Колледж управления и дизайна" <strong>Дудаева Диана Салмановна</strong> каждую неделю в <strong>понедельник и среду с 14:00 до 17:00</strong> проводит личный приём.<br>
+                                    Чтобы записаться, свяжитесь с секретарём в приёмной по телефону: <strong>+7 (938) 902-12-22</strong>.<br><br>
+                                    Адрес: 364020, г. Грозный, Старопромысловское шоссе, 26Б.
+                                </p>
+                            </div>
+
+                            <!-- Блок: Форма обратной связи -->
+                            <h3 class="section-title"><i class="fa-solid fa-file-lines"></i>Задать вопрос директору</h3>
+
+                            <div class="feedback-wrapper">
+
+                                <!-- Сообщения (успех/ошибка) -->
+                                <div class="form-message" id="formMessage"></div>
+
+                                <form id="feedbackForm" method="POST" action="send_mail.php" novalidate>
+
+                                    <div class="feedback-header">
+                                        <i class="fa-solid fa-envelope"></i>
+                                        <h3>Форма обращения</h3>
+                                    </div>
+
+                                    <!-- Как к вам обращаться + E-mail -->
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="name">Как к вам обращаться <span class="required">*</span></label>
+                                            <input type="text" id="name" name="name" placeholder="Иванов Иван Иванович" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">E-mail <span class="required">*</span></label>
+                                            <input type="email" id="email" name="email" placeholder="example@mail.ru" required>
+                                        </div>
+                                    </div>
+
+                                    <!-- Телефон + Тема -->
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="phone">Номер телефона</label>
+                                            <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__">
+                                            <span class="hint">Необязательно для заполнения</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="topic">Тема обращения <span class="required">*</span></label>
+                                            <select id="topic" name="topic" required>
+                                                <option value="">-- Выберите тему --</option>
+                                                <option value="Поступление">Поступление</option>
+                                                <option value="Учебный процесс">Учебный процесс</option>
+                                                <option value="Документы и справки">Документы и справки</option>
+                                                <option value="Оплата обучения">Оплата обучения</option>
+                                                <option value="Предложение">Предложение</option>
+                                                <option value="Жалоба">Жалоба</option>
+                                                <option value="Иное">Иное</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Текст сообщения -->
+                                    <div class="form-group full-width">
+                                        <label for="message">Текст сообщения <span class="required">*</span></label>
+                                        <textarea id="message" name="message" placeholder="Введите ваше сообщение..." required></textarea>
+                                    </div>
+
+                                    <!-- Капча (простая арифметика) -->
+                                    <div class="captcha-block">
+                                        <span class="captcha-question" id="captchaQuestion">3 + 5 = ?</span>
+                                        <input type="text" id="captchaAnswer" class="captcha-input" placeholder="Ответ" required autocomplete="off">
+                                        <button type="button" class="captcha-refresh" id="captchaRefresh" title="Обновить капчу">
+                                            <i class="fa-solid fa-rotate"></i>
+                                        </button>
+                                        <input type="hidden" name="captchaResult" id="captchaResult" value="8">
+                                    </div>
+
+                                    <!-- Согласие -->
+                                    <div class="consent-block">
+                                        <input type="checkbox" id="consent" name="consent" required>
+                                        <label for="consent">
+                                            Я даю согласие на обработку моих персональных данных в соответствии с 
+                                            <a href="#" target="_blank">политикой конфиденциальности</a>
+                                            <span class="required">*</span>
+                                        </label>
+                                    </div>
+
+                                    <!-- Кнопка -->
+                                    <button type="submit" class="submit-btn" id="submitBtn">
+                                        <i class="fa-solid fa-paper-plane"></i> Отправить обращение
+                                    </button>
+
+                                </form>
+                            </div>
+                            <!-- конец feedback-wrapper -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="contacts-block">
+        <div class="contacts-container">
+            <div class="contacts-left">
+                <a href="index.html"><img src="favicon.png" alt="Лого" class="contacts-logo"></a>
+                <div class="contacts-text"><p class="contacts-subtitle">Частное профессиональное образовательное учреждение</p><h2 class="contacts-title">Колледж управления<br>и дизайна</h2></div>
+            </div>
+            <div class="contacts-right">
+                <h2 class="contacts-heading">Контакты</h2>
+                <div class="contacts-columns">
+                    <div class="contacts-col"><p><i class="fa-solid fa-location-dot"></i> г. Грозный, ул. Старопромысловское шоссе, д.26 Б</p><p><i class="fa-solid fa-phone"></i> +7 (938) 902-12-22</p><p><i class="fa-solid fa-phone"></i> +7 (929) 890-22-22</p></div>
+                    <div class="contacts-col"><p><i class="fa-regular fa-envelope"></i> <b>Приёмная комиссия:</b><br>college-95@mail.ru</p><p><i class="fa-regular fa-envelope"></i> <b>Директор:</b><br>college-95@yandex.ru</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Скрипты: капча + валидация + AJAX-отправка -->
+    <script>
+        (function() {
+            // ========== КАПЧА ==========
+            const captchaQuestion = document.getElementById('captchaQuestion');
+            const captchaResult = document.getElementById('captchaResult');
+            const captchaRefresh = document.getElementById('captchaRefresh');
+            const captchaAnswer = document.getElementById('captchaAnswer');
+
+            function randomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            function generateCaptcha() {
+                const a = randomInt(1, 15);
+                const b = randomInt(1, 15);
+                const ops = ['+', '-', '×'];
+                const op = ops[randomInt(0, 2)];
+                let result;
+                switch(op) {
+                    case '+': result = a + b; break;
+                    case '-': result = a - b; break;
+                    case '×': result = a * b; break;
+                    default: result = a + b;
+                }
+                captchaQuestion.textContent = a + ' ' + op + ' ' + b + ' = ?';
+                captchaResult.value = result;
+                captchaAnswer.value = '';
+            }
+
+            captchaRefresh.addEventListener('click', generateCaptcha);
+            // Генерируем первую капчу при загрузке
+            generateCaptcha();
+
+            // ========== AJAX-ОТПРАВКА ФОРМЫ ==========
+            const form = document.getElementById('feedbackForm');
+            const formMessage = document.getElementById('formMessage');
+            const submitBtn = document.getElementById('submitBtn');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Проверка капчи
+                const userAnswer = parseInt(captchaAnswer.value.trim(), 10);
+                const correctAnswer = parseInt(captchaResult.value, 10);
+                if (isNaN(userAnswer) || userAnswer !== correctAnswer) {
+                    showMessage('Пожалуйста, решите капчу правильно.', 'error');
+                    generateCaptcha();
+                    return;
+                }
+
+                // Проверка чекбокса согласия
+                const consent = document.getElementById('consent');
+                if (!consent.checked) {
+                    showMessage('Необходимо дать согласие на обработку персональных данных.', 'error');
+                    return;
+                }
+
+                // Блокируем кнопку, меняем текст
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Отправка...';
+
+                // Собираем данные
+                const formData = new FormData(form);
+
+                // Отправляем через fetch
+                fetch('send_mail.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    // Пытаемся распарсить JSON, если не получается — берём текст
+                    return response.text().then(text => {
+                        try {
+                            return JSON.parse(text);
+                        } catch (err) {
+                            // Если сервер вернул не JSON
+                            return { status: 'error', message: text };
+                        }
+                    });
+                })
+                .then(data => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Отправить обращение';
+
+                    if (data.status === 'success') {
+                        showMessage(data.message || 'Спасибо! Ваше обращение успешно отправлено.', 'success');
+                        form.reset();
+                        generateCaptcha();
+                        consent.checked = false;
+                        // Плавно скроллим к сообщению
+                        formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        showMessage(data.message || 'Произошла ошибка при отправке. Попробуйте позже.', 'error');
+                    }
+                })
+                .catch(error => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Отправить обращение';
+                    showMessage('Ошибка соединения с сервером. Проверьте интернет и попробуйте снова.', 'error');
+                    console.error('Fetch error:', error);
+                });
+            });
+
+            function showMessage(text, type) {
+                formMessage.textContent = text;
+                formMessage.className = 'form-message ' + type;
+                formMessage.style.display = 'block';
+                // Автоскрытие через 8 секунд для успеха
+                if (type === 'success') {
+                    setTimeout(() => {
+                        formMessage.style.display = 'none';
+                    }, 8000);
+                }
+            }
+        })();
+    </script>
+
+</body>
+</html>

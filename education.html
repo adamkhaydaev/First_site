@@ -1,0 +1,2203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Образование</title>
+
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #eeeeee;
+            color: #1f1f1f;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .top-bar {
+            background-color: #ffffff;
+            background-image: url('kud_line.png');
+            background-repeat: repeat-x;
+            background-position: top center;
+            background-size: auto 100%;
+            color: white;
+            padding: 15px 0;
+            position: relative;
+        }
+
+        .top-bar-content {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .top-left {
+            display: flex;
+            gap: 30px;
+            font-size: 18px;
+            font-weight: 500;
+            flex-wrap: wrap;
+        }
+
+        .top-left a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+        }
+
+        .top-left a:hover {
+            opacity: 0.8;
+        }
+
+        .menu {
+            background-color: #fff;
+            border-bottom: 1px solid #e8e8e8;
+            position: relative;
+            z-index: 1000;
+            box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu-content {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            font-size: 20px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin-left: 55px;
+            gap: 36px;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: inline-block;
+            color: #2d2b76;
+            padding: 36px 0;
+            font-size: 20px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: #c4951a;
+        }
+
+        .nav-item.has-mega:hover .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 22px;
+            width: 100%;
+            height: 4px;
+            background: #d7a520;
+            border-radius: 2px;
+        }
+
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 980px;
+            background: white;
+            border-top: 1px solid #f0f0f0;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+            padding: 34px 34px 28px;
+            display: flex;
+            gap: 40px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+
+        .nav-item.has-mega:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .mega-column {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mega-column a {
+            display: block;
+            color: #555;
+            font-size: 16px;
+            line-height: 1.55;
+            margin-bottom: 10px;
+            transition: 0.2s;
+        }
+
+        .mega-column a:hover {
+            color: rgb(40, 60, 120);
+        }
+
+        .menu-icon-link {
+            width: 52px;
+            height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: #eef1f7;
+            color: #2d2b76;
+            font-size: 24px;
+            transition: 0.2s;
+        }
+
+        .menu-icon-link:hover {
+            background: #2d2b76;
+            color: #ffffff;
+        }
+
+        .menu-icon-link img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .menu-icons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .info-section {
+            max-width: 1200px;
+            margin-bottom: 20px;
+            margin-left: 200px;
+            padding: 20px;
+        }
+
+        .table-card {
+            background: #ffffff;
+            padding: 30px;
+            margin-bottom: 34px;
+            margin-left: 90px;
+            margin-top: -20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .title-card {
+            background: #ffffff;
+            padding: 20px;
+            margin-right: 100px;
+            width: calc(100% - 90px);
+            box-sizing: border-box;
+        }
+
+        .title-card h1 {
+            font-size: 32px;
+            color: #171b48;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .title-card p {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.55;
+            max-width: 850px;
+        }
+
+        .official-content {
+            width: 100%;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .table-inner {
+            margin: 0px auto 0;
+            position: relative;
+            z-index: 50;
+        }
+
+        .mini-sveden-fixed {
+            position: absolute;
+            top: 165px;
+            width: 290px;
+            margin-left: -330px;
+            margin-top: 0px;
+            z-index: 100;
+        }
+
+        .mini-sveden-card {
+            background: #eef1f7;
+            border: 1px solid #cfd6e2;
+            border-left: none;
+            border-radius: 0 16px 16px 0;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .mini-sveden-title {
+            padding: 18px 18px 16px;
+            color: #ff0000;
+            font-size: 22px;
+            font-weight: 500;
+            border-bottom: 1px solid #cfd6e2;
+        }
+
+        .mini-sveden-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .mini-sveden-table td {
+            border-bottom: 1px solid #e4e7ef;
+            padding: 12px 14px;
+            font-size: 15px;
+            line-height: 1.35;
+            vertical-align: top;
+            background: #fff;
+        }
+
+        .mini-sveden-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .mini-sveden-table a {
+            color: #000000;
+            font-size: 17px;
+            display: block;
+            line-height: 15px;
+        }
+
+        .mini-sveden-table a:hover,
+        .mini-sveden-table tr.active-link a {
+            color: #ff0000;
+        }
+
+        .structure {
+            color: #000000;
+            font-size: 18px;
+            margin-left: 15px;
+            margin-bottom: 16px;
+        }
+
+        .requirement-note {
+            margin: 0 0 18px 25px;
+            padding: 16px 18px;
+            border-left: 5px solid #d7a520;
+            background: #fffaf0;
+            border-radius: 0 12px 12px 0;
+            color: #333;
+            line-height: 1.55;
+            font-size: 15px;
+        }
+
+        .requirement-note strong {
+            color: #2d2b76;
+        }
+
+        .docs-toolbar {
+            margin: 0 0 18px 25px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .docs-search-box {
+            position: relative;
+        }
+
+        .docs-search-box i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #2d2b76;
+            opacity: 0.8;
+        }
+
+        .docs-search-input {
+            width: 100%;
+            border: 1px solid #cfd6e2;
+            border-radius: 12px;
+            padding: 13px 16px 13px 42px;
+            font-size: 16px;
+            color: #1f1f1f;
+            background: #f8fbff;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        .docs-search-input:focus {
+            border-color: #2d2b76;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(45, 43, 118, 0.10);
+        }
+
+        .docs-count {
+            padding: 12px 14px;
+            border-radius: 12px;
+            background: #eef1f7;
+            color: #2d2b76;
+            font-weight: 700;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .education-blocks {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .edu-card {
+            border: 1px solid #cfd6e2;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f8fbff;
+            margin-left: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: 0.25s ease;
+        }
+
+        .edu-card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .edu-card-header {
+            width: 100%;
+            border: none;
+            background: #eef1f7;
+            padding: 18px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+        }
+
+        .edu-card-header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+        }
+
+        .edu-card-chevron {
+            color: #2d2b76;
+            font-size: 18px;
+            transition: transform 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .edu-card.active .edu-card-chevron {
+            transform: rotate(180deg);
+        }
+
+        .edu-card-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: #2d2b76;
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .edu-card-title {
+            display: block;
+            color: #2d2b76;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.35;
+            margin-bottom: 4px;
+        }
+
+        .edu-card-subtitle {
+            display: block;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.35;
+        }
+
+        .edu-card-body {
+            display: none;
+            padding: 22px;
+            background: #ffffff;
+            border-top: 1px solid #cfd6e2;
+        }
+
+        .edu-card.active .edu-card-body {
+            display: block;
+            animation: eduBodyFade 0.22s ease;
+        }
+
+        @keyframes eduBodyFade {
+            from {
+                opacity: 0;
+                transform: translateY(-4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid #dfe4ee;
+            border-radius: 12px;
+            background: #fff;
+        }
+
+        .edu-table {
+            width: 100%;
+            min-width: 920px;
+            border-collapse: collapse;
+        }
+
+        .edu-table th,
+        .edu-table td {
+            padding: 13px 14px;
+            border-bottom: 1px solid #e4e7ef;
+            border-right: 1px solid #e4e7ef;
+            font-size: 14px;
+            line-height: 1.45;
+            vertical-align: top;
+            text-align: left;
+        }
+
+        .edu-table th {
+            background: #eef1f7;
+            color: #2d2b76;
+            font-weight: 700;
+        }
+
+        .edu-table td:last-child,
+        .edu-table th:last-child {
+            border-right: none;
+        }
+
+        .edu-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .doc-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .program-group-title {
+            margin: 10px 0 2px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            background: #2d2b76;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+        }
+
+        .doc-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            background: #eef1f7;
+            border: 1px solid #cfd6e2;
+            transition: 0.2s ease;
+            color: #2d2b76;
+        }
+
+        .doc-link:hover {
+            background: #ffffff;
+            border-color: #2d2b76;
+        }
+
+        .doc-link-text {
+            font-size: 16px;
+            line-height: 1.45;
+            font-weight: 600;
+        }
+
+        .doc-link-meta {
+            display: block;
+            margin-top: 4px;
+            color: #777;
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        .ep-icon {
+            width: 34px;
+            height: auto;
+            flex-shrink: 0;
+        }
+
+        .pdf-icon {
+            width: 22px;
+            height: auto;
+            flex-shrink: 0;
+        }
+
+        .doc-link-arrow {
+            margin-left: auto;
+            color: #2d2b76;
+            opacity: 0.75;
+        }
+
+        .status-pill {
+            margin-left: auto;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            white-space: nowrap;
+            background: #fff;
+            border: 1px solid #d8dce8;
+            color: #555;
+        }
+
+        .status-pill.required {
+            color: #2d2b76;
+            border-color: #2d2b76;
+        }
+
+        .doc-empty-result {
+            margin-left: 25px;
+            padding: 18px;
+            border: 1px dashed #cfd6e2;
+            border-radius: 12px;
+            background: #ffffff;
+            color: #555;
+            display: none;
+        }
+
+        .structure2 h3 {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .career-box {
+            margin: 0 0 24px 0;
+            padding: 24px;
+            border: 1px solid #cfd6e2;
+            border-left: 6px solid #d7a520;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+        }
+
+        .career-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .career-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: #2d2b76;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .career-title {
+            font-size: 22px;
+            color: #2d2b76;
+            margin: 0 0 4px;
+            font-weight: 700;
+        }
+
+        .career-subtitle {
+            font-size: 15px;
+            color: #666;
+            margin: 0;
+            line-height: 1.45;
+        }
+
+        .career-text {
+            font-size: 16px;
+            line-height: 1.65;
+            color: #333;
+            margin-bottom: 18px;
+        }
+
+        .career-text strong {
+            color: #2d2b76;
+            font-weight: 700;
+        }
+
+        .career-contact {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 12px;
+            align-items: center;
+            padding: 16px;
+            border-radius: 14px;
+            background: #eef1f7;
+            border: 1px solid #cfd6e2;
+        }
+
+        .career-contact-item {
+            font-size: 15px;
+            color: #333;
+        }
+
+        .career-contact-label {
+            display: block;
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .career-phone {
+            color: #2d2b76;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .career-phone:hover {
+            color: #c4951a;
+        }
+
+        .graduate-table-title {
+            margin: 0 0 12px;
+            font-size: 20px;
+            color: #2d2b76;
+            font-weight: 700;
+        }
+
+        .career-tabs {
+            margin-top: 24px;
+        }
+
+        .career-tabs-nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            padding: 8px;
+            border-radius: 14px;
+            background: #eef1f7;
+            border: 1px solid #cfd6e2;
+        }
+
+        .career-tab-btn {
+            border: none;
+            padding: 12px 16px;
+            border-radius: 12px;
+            background: transparent;
+            color: #2d2b76;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .career-tab-btn:hover {
+            background: #ffffff;
+        }
+
+        .career-tab-btn.active {
+            background: #2d2b76;
+            color: #ffffff;
+            box-shadow: 0 6px 14px rgba(45, 43, 118, 0.18);
+        }
+
+        .career-tab-panel {
+            display: none;
+        }
+
+        .career-tab-panel.active {
+            display: block;
+            animation: eduBodyFade 0.22s ease;
+        }
+
+        .career-doc-box {
+            padding: 20px;
+            border: 1px solid #cfd6e2;
+            border-radius: 16px;
+            background: #ffffff;
+        }
+
+        .career-doc-title {
+            margin: 0 0 14px;
+            font-size: 20px;
+            color: #2d2b76;
+            font-weight: 700;
+        }
+
+        @media (max-width: 600px) {
+            .career-tab-btn {
+                width: 100%;
+                text-align: left;
+            }
+        }
+
+        .contacts-block {
+            background: #ffffff;
+            padding: 60px 0;
+        }
+
+        .contacts-container {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .contacts-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            max-width: 600px;
+        }
+
+        .contacts-logo {
+            width: 140px;
+            border-radius: 12px;
+        }
+
+        .contacts-subtitle {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .contacts-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: -10px;
+        }
+
+        .contacts-right {
+            flex: 1;
+        }
+
+        .contacts-heading {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .contacts-columns {
+            display: flex;
+            gap: 40px;
+            border-left: 2px solid #ccc;
+            padding-left: 30px;
+        }
+
+        .contacts-col p {
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .contacts-col i {
+            margin-right: 8px;
+        }
+
+        /* ================= ВЫПАДАЮЩЕЕ МЕНЮ "О КОЛЛЕДЖЕ" ================= */
+        .nav-item.has-dropdown {
+            position: relative;
+        }
+
+        .nav-item.has-dropdown:hover .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 22px;
+            width: 100%;
+            height: 4px;
+            background: #d7a520;
+            border-radius: 2px;
+        }
+
+        .dropdown-about {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            background: white;
+            border-top: 3px solid #d7a520;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.25s ease;
+            border-radius: 0 0 14px 14px;
+            z-index: 1001;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-about {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .dropdown-about a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #444;
+            font-size: 17px;
+            padding: 13px 18px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .dropdown-about a:last-child {
+            margin-bottom: 0;
+        }
+
+        .dropdown-about a:hover {
+            background: #f5f7ff;
+            color: #171b48;
+            transform: translateX(6px);
+        }
+
+        .dropdown-about a i {
+            width: 22px;
+            text-align: center;
+            color: #d7a520;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+        /* ================= АДАПТИВНОСТЬ ================= */
+        @media (max-width: 1200px) {
+            .mini-sveden-fixed {
+                width: 260px;
+            }
+            .menu-content {
+                gap: 25px;
+                flex-direction: column;
+                align-items: center;
+            }
+            .nav-list {
+                justify-content: center;
+                gap: 24px;
+            }
+            .nav-link {
+                padding: 18px 0;
+            }
+            .nav-item.has-mega:hover .nav-link::after {
+                bottom: 6px;
+            }
+            .mega-menu {
+                position: static;
+                transform: none;
+                width: 100%;
+                box-shadow: none;
+                border: 1px solid #ececec;
+                margin-top: 10px;
+                padding: 24px;
+                display: none;
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                flex-wrap: wrap;
+            }
+            .nav-item.has-mega:hover .mega-menu {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .dropdown-about {
+                position: static;
+                transform: none;
+                width: 100%;
+                box-shadow: none;
+                border: 1px solid #ececec;
+                margin-top: 8px;
+                padding: 15px;
+                display: none;
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                border-radius: 12px;
+            }
+            
+            .nav-item.has-dropdown:hover .dropdown-about {
+                display: block;
+            }
+            
+            .dropdown-about a {
+                padding: 12px 15px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .official-layout {
+                display: block;
+            }
+            .mini-sveden-fixed {
+                position: static;
+                width: 100%;
+                margin: 0 0 20px 0;
+            }
+            .mini-sveden-card {
+                border-left: 1px solid #d7dbe6;
+                border-radius: 14px;
+            }
+            .title-card {
+                margin-left: 0;
+                width: 100%;
+            }
+            .table-card {
+                margin-left: 0;
+            }
+            .info-section {
+                margin-left: 0;
+            }
+            .table-inner {
+                margin-top: 0;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .nav-list {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+                width: 100%;
+                margin-left: 0;
+            }
+            .nav-item {
+                width: 100%;
+                text-align: center;
+            }
+            .nav-link {
+                width: 100%;
+                padding: 14px 0;
+                font-size: 18px;
+            }
+            .mega-menu {
+                flex-direction: column;
+                gap: 24px;
+                text-align: left;
+            }
+            .docs-toolbar {
+                grid-template-columns: 1fr;
+            }
+            .career-contact {
+                grid-template-columns: 1fr;
+            }
+            .contacts-container,
+            .contacts-columns {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .table-card {
+                padding: 20px;
+            }
+            .mini-sveden-title {
+                font-size: 20px;
+            }
+            .mini-sveden-table td {
+                font-size: 14px;
+            }
+            .title-card h1 {
+                font-size: 22px;
+            }
+            .status-pill {
+                display: none;
+            }
+        }
+
+        /* ================= МОБИЛЬНАЯ АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (до 480px) ================= */
+        @media (max-width: 480px) {
+            * {
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            }
+
+            .top-bar {
+                padding: 10px 0;
+            }
+
+            .top-bar-content {
+                width: 95%;
+                margin: 0 auto;
+            }
+
+            .top-left {
+                width: 100%;
+                justify-content: center;
+                font-size: 14px;
+                gap: 15px;
+            }
+
+            .menu {
+                position: static;
+                z-index: 999;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .menu-content {
+                width: 100%;
+                padding: 10px 8px;
+                gap: 8px;
+            }
+
+            .nav-list {
+                width: 100%;
+                flex-direction: column;
+                gap: 0;
+                margin: 0;
+                padding: 0;
+            }
+
+            .nav-item {
+                width: 100%;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .nav-link {
+                width: 100%;
+                padding: 16px 12px;
+                font-size: 16px;
+                text-align: center;
+            }
+
+            .nav-item.has-mega:hover .mega-menu,
+            .nav-item.has-dropdown:hover .dropdown-about {
+                display: block;
+                position: static;
+                transform: none;
+                width: 100%;
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+            }
+
+            .mega-menu, .dropdown-about {
+                display: none;
+                border: none;
+                border-top: 1px solid #f0f0f0;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .menu-icons {
+                width: 100%;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .menu-icon-link {
+                width: 44px;
+                height: 44px;
+                font-size: 20px;
+            }
+
+            .info-section {
+                margin: 0;
+                padding: 12px;
+            }
+
+            .title-card {
+                padding: 16px;
+                margin: 0 0 16px 0;
+                width: 100%;
+            }
+
+            .title-card h1 {
+                font-size: 22px;
+            }
+
+            .table-card {
+                padding: 16px;
+                margin: 0 0 20px 0;
+            }
+
+            .requirement-note,
+            .docs-toolbar,
+            .education-blocks .edu-card,
+            .doc-empty-result {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .requirement-note {
+                padding: 14px 16px;
+                font-size: 14px;
+            }
+
+            .edu-card-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .edu-card-title {
+                font-size: 16px;
+            }
+
+            .edu-card-subtitle {
+                font-size: 13px;
+            }
+
+            .edu-card-body {
+                padding: 16px;
+            }
+
+            .program-group-title {
+                font-size: 14px;
+                padding: 10px 12px;
+            }
+
+            .doc-link-text {
+                font-size: 14px;
+            }
+
+            .doc-link-meta {
+                font-size: 12px;
+            }
+
+            .ep-icon {
+                width: 26px;
+            }
+
+            .pdf-icon {
+                width: 18px;
+            }
+
+            .career-box {
+                padding: 18px;
+                border-left-width: 5px;
+            }
+
+            .career-icon {
+                width: 44px;
+                height: 44px;
+                font-size: 20px;
+            }
+
+            .career-title {
+                font-size: 18px;
+            }
+
+            .career-subtitle {
+                font-size: 14px;
+            }
+
+            .career-text {
+                font-size: 14px;
+            }
+
+            .career-tab-btn {
+                font-size: 14px;
+                padding: 10px 12px;
+            }
+
+            .contacts-block {
+                padding: 40px 0;
+            }
+
+            .contacts-container {
+                width: 100%;
+                padding: 0 12px;
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .contacts-left {
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .contacts-logo {
+                width: 100px;
+            }
+
+            .contacts-text {
+                text-align: center;
+            }
+
+            .contacts-subtitle {
+                font-size: 14px;
+            }
+
+            .contacts-title {
+                font-size: 18px;
+            }
+
+            .contacts-heading {
+                font-size: 22px;
+                margin-bottom: 16px;
+            }
+
+            .contacts-columns {
+                flex-direction: column;
+                gap: 16px;
+                border-left: none;
+                padding-left: 0;
+            }
+
+            .contacts-col p {
+                font-size: 14px;
+            }
+
+            .nav-item.has-mega:hover .nav-link::after,
+            .nav-item.has-dropdown:hover .nav-link::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .title-card h1 {
+                font-size: 20px;
+            }
+
+            .requirement-note {
+                font-size: 13px;
+            }
+
+            .edu-card-title {
+                font-size: 14px;
+            }
+
+            .doc-link-text {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="top-left">
+                <a href="#" aria-label="Версия для слабовидящих">
+                    <i class="fa-solid fa-eye"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu">
+        <div class="menu-content">
+            <a href="index.html" style="text-decoration:none; color: rgb(40, 60, 120);" aria-label="Главная">
+                <i class="fa-solid fa-house"></i>
+            </a>
+
+            <ul class="nav-list">
+                <li class="nav-item has-dropdown">
+                    <a class="nav-link">О колледже</a>
+                    <div class="dropdown-menu dropdown-about">
+                        <a href="about.html">
+                            <i class="fa-solid fa-building-columns"></i> О колледже
+                        </a>
+                        <a href="news.html">
+                            <i class="fa-solid fa-newspaper"></i> Новости
+                        </a>
+                        <a href="gallery.html">
+                            <i class="fa-solid fa-bullhorn"></i> Фотогалерея
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item has-mega">
+                    <a href="basic_information.html" class="nav-link">Сведения об ОО</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="basic_information.html"><i class="fa-solid fa-circle-info"></i> Основные сведения</a>
+                            <a href="information_founder.html"><i class="fa-solid fa-sitemap"></i> Структура и органы управления</a>
+                            <a href="document.html"><i class="fa-solid fa-file-lines"></i> Документы</a>
+                            <a href="education.html"><i class="fa-solid fa-graduation-cap"></i> Образование</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="management.html"><i class="fa-solid fa-user-tie"></i> Руководство</a>
+                            <a href="teaching_staff.html"><i class="fa-solid fa-chalkboard-user"></i> Педагогический состав</a>
+                            <a href="logistics.html"><i class="fa-solid fa-building"></i> Материально-техническое обеспечение</a>
+                            <a href="paid_services.html"><i class="fa-solid fa-credit-card"></i> Платные образовательные услуги</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="activities.html"><i class="fa-solid fa-chart-line"></i> Финансово-хозяйственная деятельность</a>
+                            <a href="vacancies.html"><i class="fa-solid fa-user-plus"></i> Вакантные места</a>
+                            <a href="international_cooperation.html"><i class="fa-solid fa-globe"></i> Международное сотрудничество</a>
+                            <a href="catering.html"><i class="fa-solid fa-utensils"></i> Организация питания</a>
+                            <a href="scholarship.html"><i class="fa-solid fa-hand-holding-heart"></i> Образовательные стандарты и требования</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item has-mega">
+                    <a href="company.html" class="nav-link">Поступающим</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="company.html"><i class="fa-solid fa-clipboard-list"></i> Приёмная кампания 2026</a>
+                            <a href="direction_training.html"><i class="fa-solid fa-compass"></i> Направления подготовки</a>
+                            <a href="open_door.html"><i class="fa-solid fa-calendar-check"></i> Дни открытых дверей</a>
+                            <a href="accept_doc.html"><i class="fa-solid fa-file-lines"></i> Документы для поступления</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="paid_services2.html"><i class="fa-solid fa-ruble-sign"></i> Платное обучение</a>
+                            <a href="translation.html"><i class="fa-solid fa-rotate"></i> Перевод и восстановление</a>
+                            <a href="question.html"><i class="fa-solid fa-circle-question"></i> Часто задаваемые вопросы</a>
+                            <a href="professional.html"><i class="fa-solid fa-person-chalkboard"></i> Профориентация</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="order.html"><i class="fa-solid fa-file-circle-check"></i> Приказы о зачислении</a>
+                            <a href="full_education.html"><i class="fa-solid fa-bullseye"></i> Целевое обучение</a>
+                            <a href="Образовательное кредитование.pdf"><i class="fa-solid fa-sack-dollar"></i> Образовательный кредит</a>
+                            <a href="capital.html"><i class="fa-solid fa-hand-holding-heart"></i> О материнском капитале</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item"><a class="nav-link" href="ordering_certificates.html">Студентам</a></li>
+                <li class="nav-item"><a class="nav-link" href="graduates.html">Выпускникам</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Контакты</a></li>
+            </ul>
+
+            <div class="menu-icons">
+                <a class="menu-icon-link" href="https://vk.ru/business_college95" aria-label="ВКонтакте">
+                    <i class="fa-brands fa-vk"></i>
+                </a>
+                <a class="menu-icon-link" href="https://max.ru/u/f9LHodD0cOITJW3XHPLMW4Rd8XyF5o___UQuasgI59JfFIf45iwgcq-7UDM" aria-label="MAX">
+                    <img src="max-icon.png" alt="MAX">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section class="info-section">
+        <div class="page-section">
+            <div class="table-card">
+                <div class="official-layout">
+                    <div class="title-card">
+                        <h1>Образование</h1>
+                    </div>
+
+                    <div class="mini-sveden-fixed">
+                        <aside class="mini-sveden-card">
+                            <div class="mini-sveden-title">Сведения об ОО</div>
+                            <table class="mini-sveden-table">
+                                <tr><td><a href="basic_information.html">Основные сведения</a></td></tr>
+                                <tr><td><a href="information_founder.html">Структура и органы управления</a></td></tr>
+                                <tr><td><a href="document.html">Документы</a></td></tr>
+                                <tr class="active-link"><td><a href="education.html">Образование</a></td></tr>
+                                <tr><td><a href="management.html">Руководство</a></td></tr>
+                                <tr><td><a href="teaching_staff.html">Педагогический состав</a></td></tr>
+                                <tr><td><a href="logistics.html">Материально-техническое обеспечение</a></td></tr>
+                                <tr><td><a href="paid_services.html">Платные образовательные услуги</a></td></tr>
+                                <tr><td><a href="activities.html">Финансово-хозяйственная деятельность</a></td></tr>
+                                <tr><td><a href="vacancies.html">Вакантные места</a></td></tr>
+                                <tr><td><a href="international_cooperation.html">Международное сотрудничество</a></td></tr>
+                                <tr><td><a href="catering.html">Организация питания</a></td></tr>
+                                <tr><td><a href="scholarship.html">Образовательные стандарты и требования</a></td></tr>
+                            </table>
+                        </aside>
+                    </div>
+
+                    <div class="official-content">
+                        <div class="table-inner">
+
+                            <div class="requirement-note">
+                                <strong>Важно:</strong> с 1 марта 2026 года сведения о наличии или отсутствии государственной аккредитации 
+                                образовательной деятельности по реализуемым образовательным программам размещаются в подразделе «Образование».
+                            </div>
+
+                            <div class="docs-toolbar">
+                                <div class="docs-search-box">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <input class="docs-search-input" id="eduSearch" type="text" placeholder="Поиск по подразделу «Образование»">
+                                </div>
+                                <div class="docs-count" id="eduCount">Блоков: 0</div>
+                            </div>
+
+                            <div class="education-blocks" id="educationBlocks">
+                                <article class="edu-card" data-edu-block>
+                                    <button class="edu-card-header" type="button">
+                                        <div class="edu-card-header-left">
+                                            <div class="edu-card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                                            <div>
+                                                <span class="edu-card-title">Реализуемые образовательные программы</span>
+                                                <span class="edu-card-subtitle">Уровень образования, специальность, срок обучения, форма обучения, аккредитация</span>
+                                            </div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-down edu-card-chevron"></i>
+                                    </button>
+
+                                    <div class="edu-card-body">
+                                        <div class="table-wrapper">
+                                            <table class="edu-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Код</th>
+                                                        <th>Наименование специальности</th>
+                                                        <th>Образовательная программа</th>
+                                                        <th>Уровень образования</th>
+                                                        <th>Форма обучения</th>
+                                                        <th>Срок обучения</th>
+                                                        <th>Государственная аккредитация</th>
+                                                        <th>Учебные предметы, курсы, дисциплины</th>
+                                                        <th>Практики</th>
+                                                        <th>ЭО и ДОТ</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr itemprop="eduAccred" data-edu-item>
+                                                        <td itemprop="eduCode">54.02.01</td>
+                                                        <td itemprop="eduName">Дизайн (по отраслям)</td>
+                                                        <td itemprop="eduProf">Дизайн интерьера</td>
+                                                        <td itemprop="eduLevel">Среднее профессиональное образование</td>
+                                                        <td itemprop="eduForm">очная</td>
+                                                        <td itemprop="learningTerm">3 года 10 месяцев на базе основного общего образования</td>
+                                                        <td itemprop="dateEnd">Бессрочно <a href="Реестровая выписка аккредитация.pdf" style="color: #0d00ff;">Выписка из реестра акредитованных организаций № А007-01275-20/01174939</a></td>
+                                                        <td><a href="rabochie-programmy-54-02-01-dizayn-interera.pdf" itemprop="eduPred">Рабочие программы</a></td>
+                                                        <td><a href="praktiki-54-02-01-dizayn-interera.pdf" itemprop="eduPrac">Практики</a></td>
+                                                        <td itemprop="eduEl">указать сведения о применении ЭО и ДОТ</td>
+                                                    </tr>
+                                                    <tr itemprop="eduAccred" data-edu-item>
+                                                        <td itemprop="eduCode">54.02.01</td>
+                                                        <td itemprop="eduName">Дизайн (по отраслям)</td>
+                                                        <td itemprop="eduProf">Дизайн одежды</td>
+                                                        <td itemprop="eduLevel">Среднее профессиональное образование</td>
+                                                        <td itemprop="eduForm">очная</td>
+                                                        <td itemprop="learningTerm">3 года 10 месяцев на базе основного общего образования</td>
+                                                        <td itemprop="dateEnd">Бессрочно <a href="Реестровая выписка аккредитация.pdf" style="color: #0d00ff;">Выписка из реестра акредитованных организаций № А007-01275-20/01174939</a></td>
+                                                        <td><a href="rabochie-programmy-54-02-01-dizayn-odezhdy.pdf" itemprop="eduPred">Рабочие программы</a></td>
+                                                        <td><a href="praktiki-54-02-01-dizayn-odezhdy.pdf" itemprop="eduPrac">Практики</a></td>
+                                                        <td itemprop="eduEl">указать сведения о применении ЭО и ДОТ</td>
+                                                    </tr>
+                                                    <tr itemprop="eduAccred" data-edu-item>
+                                                        <td itemprop="eduCode">42.02.01</td>
+                                                        <td itemprop="eduName">Реклама</td>
+                                                        <td itemprop="eduProf">Реклама</td>
+                                                        <td itemprop="eduLevel">Среднее профессиональное образование</td>
+                                                        <td itemprop="eduForm">очная</td>
+                                                        <td itemprop="learningTerm">2 года 10 месяцев</td>
+                                                        <td itemprop="dateEnd">Бессрочно <a href="Реестровая выписка аккредитация.pdf" style="color: #0d00ff;">Выписка из реестра акредитованных организаций № А007-01275-20/01174939</a></td>
+                                                        <td><a href="rabochie-programmy-42-02-01-reklama.pdf" itemprop="eduPred">Рабочие программы</a></td>
+                                                        <td><a href="praktiki-42-02-01-reklama.pdf" itemprop="eduPrac">Практики</a></td>
+                                                        <td itemprop="eduEl">указать сведения о применении ЭО и ДОТ</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="edu-card" data-edu-block>
+                                    <button class="edu-card-header" type="button">
+                                        <div class="edu-card-header-left">
+                                            <div class="edu-card-icon"><i class="fa-solid fa-file-circle-check"></i></div>
+                                            <div>
+                                                <span class="edu-card-title">Документы образовательных программ</span>
+                                                <span class="edu-card-subtitle">Образовательные программы и их компоненты в виде электронных документов или активных ссылок</span>
+                                            </div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-down edu-card-chevron"></i>
+                                    </button>
+
+                                    <div class="edu-card-body">
+                                        <ul class="doc-links">
+                                            <li class="program-group-title" data-edu-item>54.02.01 Дизайн интерьера</li>
+
+                                            <li data-edu-item>
+                                                <a href="#" class="doc-link" itemprop="addRef">
+                                                    <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                    <span class="doc-link-text">Образовательная программа — Дизайн интерьера<span class="doc-link-meta">54.02.01 · электронный документ</span></span>
+                                                    <span class="status-pill required">ОП</span>
+                                                    <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                </a>
+                                            </li>
+
+                                            <li data-edu-item>
+                                                <a href="uchebny-plan-54-02-01-dizayn-interera.pdf" class="doc-link" itemprop="addRef">
+                                                    <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                    <span class="doc-link-text">Учебный план — Дизайн интерьера<span class="doc-link-meta">54.02.01</span></span>
+                                                    <span class="status-pill required">план</span>
+                                                    <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                </a>
+                                            </li>
+
+                                            <li data-edu-item>
+                                                <a href="calendar-54-02-01-dizayn-interera.pdf" class="doc-link" itemprop="addRef">
+                                                    <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                    <span class="doc-link-text">Календарный учебный график — Дизайн интерьера<span class="doc-link-meta">54.02.01</span></span>
+                                                    <span class="status-pill required">график</span>
+                                                    <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                </a>
+                                            </li>
+
+                                            <li class="program-group-title" data-edu-item>54.02.01 Дизайн одежды</li>
+
+                                            <li data-edu-item>
+                                                <a href="#" class="doc-link" itemprop="addRef">
+                                                    <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                    <span class="doc-link-text">Образовательная программа — Дизайн одежды<span class="doc-link-meta">54.02.01 · электронный документ</span></span>
+                                                    <span class="status-pill required">ОП</span>
+                                                    <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                </a>
+                                            </li>
+
+                                            <li data-edu-item>
+                                                <a href="uchebny-plan-54-02-01-dizayn-odezhdy.pdf" class="doc-link" itemprop="addRef">
+                                                    <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                    <span class="doc-link-text">Учебный план — Дизайн одежды<span class="doc-link-meta">54.02.01</span></span>
+                                                    <span class="status-pill required">план</span>
+                                                    <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                </a>
+                                            </li>
+
+                                            <li data-edu-item>
+                                                <a href="calendar-54-02-01-dizayn-odezhdy.pdf" class="doc-link" itemprop="addRef">
+                                                    <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                    <span class="doc-link-text">Календарный учебный график — Дизайн одежды<span class="doc-link-meta">54.02.01</span></span>
+                                                    <span class="status-pill required">график</span>
+                                                    <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                </a>
+                                            </li>
+
+                                            <li class="program-group-title" data-edu-item>42.02.01 Реклама</li>
+
+                                            <li data-edu-item>
+                                                <a href="#" class="doc-link" itemprop="addRef">
+                                                    <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                    <span class="doc-link-text">Образовательная программа — Реклама<span class="doc-link-meta">42.02.01 · электронный документ</span></span>
+                                                    <span class="status-pill required">ОП</span>
+                                                    <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                </a>
+                                            </li>
+
+                                            <li data-edu-item>
+                                                <a href="uchebny-plan-42-02-01-reklama.pdf" class="doc-link" itemprop="addRef">
+                                                    <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                    <span class="doc-link-text">Учебный план — Реклама<span class="doc-link-meta">42.02.01</span></span>
+                                                    <span class="status-pill required">план</span>
+                                                    <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                </a>
+                                            </li>
+
+                                            <li data-edu-item>
+                                                <a href="calendar-42-02-01-reklama.pdf" class="doc-link" itemprop="addRef">
+                                                    <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                    <span class="doc-link-text">Календарный учебный график — Реклама<span class="doc-link-meta">42.02.01</span></span>
+                                                    <span class="status-pill required">график</span>
+                                                    <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                </a>
+                                            </li>
+
+                                            <li class="program-group-title" data-edu-item>Государственная аккредитация</li>
+
+                                            <li data-edu-item>
+                                                <a href="Реестровая выписка аккредитация.pdf" class="doc-link">
+                                                    <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                    <span class="doc-link-text">Выписка из ГИС «Реестр организаций, осуществляющих образовательную деятельность по имеющим государственную аккредитацию образовательным программам»<span class="doc-link-meta">актуально с 1 марта 2026 года</span></span>
+                                                    <span class="status-pill required">аккредитация</span>
+                                                    <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </article>
+
+                                <article class="edu-card" data-edu-block>
+                                    <button class="edu-card-header" type="button">
+                                        <div class="edu-card-header-left">
+                                            <div class="edu-card-icon"><i class="fa-solid fa-users"></i></div>
+                                            <div>
+                                                <span class="edu-card-title">Численность обучающихся</span>
+                                                <span class="edu-card-subtitle">По источникам финансирования и по договорам об образовании</span>
+                                            </div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-down edu-card-chevron"></i>
+                                    </button>
+
+                                    <div class="edu-card-body">
+                                        <div class="table-wrapper">
+                                            <table class="edu-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Код</th>
+                                                        <th>Наименование специальности</th>
+                                                        <th>Уровень образования</th>
+                                                        <th>Форма обучения</th>
+                                                        <th>Федеральный бюджет</th>
+                                                        <th>Бюджет субъекта РФ</th>
+                                                        <th>Местный бюджет</th>
+                                                        <th>По договорам</th>
+                                                        <th>Иностранные граждане</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr itemprop="eduChislen" data-edu-item>
+                                                        <td itemprop="eduCode">54.02.01</td>
+                                                        <td itemprop="eduName">Дизайн интерьера</td>
+                                                        <td itemprop="eduLevel">Среднее профессиональное образование</td>
+                                                        <td itemprop="eduForm">очная</td>
+                                                        <td itemprop="numberBF">0</td>
+                                                        <td itemprop="numberBR">0</td>
+                                                        <td itemprop="numberBM">0</td>
+                                                        <td itemprop="numberP">указать</td>
+                                                        <td itemprop="numberF">0</td>
+                                                    </tr>
+                                                    <tr itemprop="eduChislen" data-edu-item>
+                                                        <td itemprop="eduCode">54.02.01</td>
+                                                        <td itemprop="eduName">Дизайн одежды</td>
+                                                        <td itemprop="eduLevel">Среднее профессиональное образование</td>
+                                                        <td itemprop="eduForm">очная</td>
+                                                        <td itemprop="numberBF">0</td>
+                                                        <td itemprop="numberBR">0</td>
+                                                        <td itemprop="numberBM">0</td>
+                                                        <td itemprop="numberP">указать</td>
+                                                        <td itemprop="numberF">0</td>
+                                                    </tr>
+                                                    <tr itemprop="eduChislen" data-edu-item>
+                                                        <td itemprop="eduCode">42.02.01</td>
+                                                        <td itemprop="eduName">Реклама</td>
+                                                        <td itemprop="eduLevel">Среднее профессиональное образование</td>
+                                                        <td itemprop="eduForm">очная</td>
+                                                        <td itemprop="numberBF">0</td>
+                                                        <td itemprop="numberBR">0</td>
+                                                        <td itemprop="numberBM">0</td>
+                                                        <td itemprop="numberP">указать</td>
+                                                        <td itemprop="numberF">0</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="edu-card" data-edu-block>
+                                    <button class="edu-card-header" type="button">
+                                        <div class="edu-card-header-left">
+                                            <div class="edu-card-icon"><i class="fa-solid fa-language"></i></div>
+                                            <div>
+                                                <span class="edu-card-title">Языки образования</span>
+                                                <span class="edu-card-subtitle">Информация о языках, на которых осуществляется образование</span>
+                                            </div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-down edu-card-chevron"></i>
+                                    </button>
+
+                                    <div class="edu-card-body">
+                                        <ul class="doc-links">
+                                            <li data-edu-item>
+                                                <a href="ПОЛОЖЕНИЕ О ЯЗЫКЕ ОБРАЗОВАНИЯ 25.pdf" class="doc-link" itemprop="language">
+                                                    <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                    <span class="doc-link-text">Языки образования<span class="doc-link-meta">Образовательная деятельность осуществляется на русском языке</span></span>
+                                                    <span class="status-pill required">обязательный</span>
+                                                    <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </article>
+
+                                <article class="edu-card" data-edu-block>
+                                    <button class="edu-card-header" type="button">
+                                        <div class="edu-card-header-left">
+                                            <div class="edu-card-icon"><i class="fa-solid fa-right-left"></i></div>
+                                            <div>
+                                                <span class="edu-card-title">Результаты приема, перевода, восстановления и отчисления</span>
+                                                <span class="edu-card-subtitle">По каждой профессии и специальности среднего профессионального образования</span>
+                                            </div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-down edu-card-chevron"></i>
+                                    </button>
+
+                                    <div class="edu-card-body">
+                                        <div class="table-wrapper">
+                                            <table class="edu-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Код</th>
+                                                        <th>Наименование специальности</th>
+                                                        <th>Форма обучения</th>
+                                                        <th>Бюджетные места</th>
+                                                        <th>По договорам</th>
+                                                        <th>Средняя сумма баллов</th>
+                                                        <th>Переведено</th>
+                                                        <th>Восстановлено</th>
+                                                        <th>Отчислено</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr itemprop="eduPriem" data-edu-item>
+                                                        <td itemprop="eduCode">54.02.01</td>
+                                                        <td itemprop="eduName">Дизайн интерьера</td>
+                                                        <td itemprop="eduForm">очная</td>
+                                                        <td itemprop="numberBF">0</td>
+                                                        <td itemprop="numberP">указать</td>
+                                                        <td itemprop="score">указать средний балл</td>
+                                                        <td itemprop="numberOutPerevod">0</td>
+                                                        <td itemprop="numberRes">0</td>
+                                                        <td itemprop="numberExp">0</td>
+                                                    </tr>
+                                                    <tr itemprop="eduPriem" data-edu-item>
+                                                        <td itemprop="eduCode">54.02.01</td>
+                                                        <td itemprop="eduName">Дизайн одежды</td>
+                                                        <td itemprop="eduForm">очная</td>
+                                                        <td itemprop="numberBF">0</td>
+                                                        <td itemprop="numberP">указать</td>
+                                                        <td itemprop="score">указать средний балл</td>
+                                                        <td itemprop="numberOutPerevod">0</td>
+                                                        <td itemprop="numberRes">0</td>
+                                                        <td itemprop="numberExp">0</td>
+                                                    </tr>
+                                                    <tr itemprop="eduPriem" data-edu-item>
+                                                        <td itemprop="eduCode">42.02.01</td>
+                                                        <td itemprop="eduName">Реклама</td>
+                                                        <td itemprop="eduForm">очная</td>
+                                                        <td itemprop="numberBF">0</td>
+                                                        <td itemprop="numberP">указать</td>
+                                                        <td itemprop="score">указать средний балл</td>
+                                                        <td itemprop="numberOutPerevod">0</td>
+                                                        <td itemprop="numberRes">0</td>
+                                                        <td itemprop="numberExp">0</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="edu-card" data-edu-block>
+                                    <button class="edu-card-header" type="button">
+                                        <div class="edu-card-header-left">
+                                            <div class="edu-card-icon"><i class="fa-solid fa-briefcase"></i></div>
+                                            <div>
+                                                <span class="edu-card-title">Трудоустройство выпускников</span>
+                                                <span class="edu-card-subtitle">Численность трудоустроенных выпускников прошлого учебного года</span>
+                                            </div>
+                                        </div>
+                                        <i class="fa-solid fa-chevron-down edu-card-chevron"></i>
+                                    </button>
+
+                                    <div class="edu-card-body">
+                                        <div class="career-box">
+                                            <div class="career-header">
+                                                <div class="career-icon">
+                                                    <i class="fa-solid fa-handshake"></i>
+                                                </div>
+                                                <div>
+                                                    <h3 class="career-title">Центр карьеры ЧПОУ «КУД»</h3>
+                                                    <p class="career-subtitle">Содействие трудоустройству обучающихся и выпускников</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="career-text">
+                                                <p>
+                                                    <strong>Центр карьеры ЧПОУ «КУД»</strong> — структурное подразделение колледжа,
+                                                    реализующее задачи содействия в трудоустройстве обучающихся и выпускников.
+                                                </p>
+                                                <p>
+                                                    Деятельность центра карьеры выстраивается на нормативно-правовых актах
+                                                    в области содействия занятости. По всем вопросам обращаться:
+                                                </p>
+                                            </div>
+
+                                            <div class="career-contact">
+                                                <div class="career-contact-item">
+                                                    <span class="career-contact-label">Должность</span>
+                                                    Руководитель Центра карьеры
+                                                </div>
+
+                                                <div class="career-contact-item">
+                                                    <span class="career-contact-label">ФИО</span>
+                                                    Абубакарова Амнат Аптиевна
+                                                </div>
+
+                                                <div class="career-contact-item">
+                                                    <span class="career-contact-label">Телефон</span>
+                                                    <a href="tel:+79380239185" class="career-phone">+7 (938) 023-91-85</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="career-tabs" data-career-tabs>
+                                            <div class="career-tabs-nav" role="tablist" aria-label="Разделы трудоустройства выпускников">
+                                                <button class="career-tab-btn active" type="button" role="tab" aria-selected="true" data-career-tab-btn="graduates">
+                                                    Сведения о выпускниках
+                                                </button>
+                                                <button class="career-tab-btn" type="button" role="tab" aria-selected="false" data-career-tab-btn="vacancies">
+                                                    Банк вакансий от центра занятости населения
+                                                </button>
+                                                <button class="career-tab-btn" type="button" role="tab" aria-selected="false" data-career-tab-btn="documents">
+                                                    Документы
+                                                </button>
+                                            </div>
+
+                                            <div class="career-tab-panel active" role="tabpanel" data-career-tab-panel="graduates">
+                                                <h3 class="graduate-table-title">Сведения о выпускниках</h3>
+
+                                                <div class="table-wrapper">
+                                                    <table class="edu-table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Код</th>
+                                                                <th>Наименование специальности</th>
+                                                                <th>Образовательная программа</th>
+                                                                <th>Выпускников</th>
+                                                                <th>Трудоустроено</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr itemprop="graduateJob" data-edu-item>
+                                                                <td itemprop="eduCode">54.02.01</td>
+                                                                <td itemprop="eduName">Дизайн интерьера</td>
+                                                                <td itemprop="eduProf">Дизайн интерьера</td>
+                                                                <td itemprop="v1">0</td>
+                                                                <td itemprop="t1">0</td>
+                                                            </tr>
+                                                            <tr itemprop="graduateJob" data-edu-item>
+                                                                <td itemprop="eduCode">54.02.01</td>
+                                                                <td itemprop="eduName">Дизайн одежды</td>
+                                                                <td itemprop="eduProf">Дизайн одежды</td>
+                                                                <td itemprop="v1">0</td>
+                                                                <td itemprop="t1">0</td>
+                                                            </tr>
+                                                            <tr itemprop="graduateJob" data-edu-item>
+                                                                <td itemprop="eduCode">42.02.01</td>
+                                                                <td itemprop="eduName">Реклама</td>
+                                                                <td itemprop="eduProf">Реклама</td>
+                                                                <td itemprop="v1">0</td>
+                                                                <td itemprop="t1">0</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div class="career-tab-panel" role="tabpanel" data-career-tab-panel="vacancies">
+                                                <div class="career-doc-box">
+                                                    <h3 class="career-doc-title">Банк вакансий от центра занятости населения</h3>
+
+                                                    <ul class="doc-links">
+                                                        <li data-edu-item>
+                                                            <a href="Вакансии в чуващской республике.docx" class="doc-link">
+                                                                <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                                <span class="doc-link-text">Банк вакансий от Чуващской республики<span class="doc-link-meta">Электронный документ</span></span>
+                                                                <span class="status-pill required">вакансии</span>
+                                                                <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li data-edu-item>
+                                                            <a href="ЦЗН Пензенской области.pdf" class="doc-link">
+                                                                <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                                <span class="doc-link-text">Банк вакансий от Пензенской области<span class="doc-link-meta">Электронный документ</span></span>
+                                                                <span class="status-pill required">вакансии</span>
+                                                                <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div class="career-tab-panel" role="tabpanel" data-career-tab-panel="documents">
+                                                <div class="career-doc-box">
+                                                    <h3 class="career-doc-title">Документы</h3>
+
+                                                    <ul class="doc-links">
+                                                        <li data-edu-item>
+                                                            <a href="ПОЛОЖЕНИЕ О ЦК 2025.pdf" class="doc-link">
+                                                                <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                                <span class="doc-link-text">Положение о центре карьеры<span class="doc-link-meta">Электронный документ</span></span>
+                                                                <span class="status-pill required">положение</span>
+                                                                <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li data-edu-item>
+                                                            <a href="Информация о реализации программы межрегинональной академической мобильности.pdf" class="doc-link">
+                                                                <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                                <span class="doc-link-text">Информация о реализации программы межрегинональной академической мобильности студентов<span class="doc-link-meta">Электронный документ</span></span>
+                                                                <span class="status-pill required">программа</span>
+                                                                <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li data-edu-item>
+                                                            <a href="План работы ЦК на 2025.pdf" class="doc-link">
+                                                                <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                                <span class="doc-link-text">План работы центра карьеры на 2026<span class="doc-link-meta">Электронный документ</span></span>
+                                                                <span class="status-pill required">план</span>
+                                                                <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li data-edu-item>
+                                                            <a href="Соглашение с ГБУ Управлящий центр занятости населения.pdf" class="doc-link">
+                                                                <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                                <span class="doc-link-text">Соглашние о взаимодествии<span class="doc-link-meta">Электронный документ</span></span>
+                                                                <span class="status-pill required">соглашение</span>
+                                                                <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li data-edu-item>
+                                                            <a href="Методические рекомендации по профориентации.pdf" class="doc-link">
+                                                                <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                                <span class="doc-link-text">Методические рекомендации по профориентации<span class="doc-link-meta">Электронный документ</span></span>
+                                                                <span class="status-pill required">рекомендации</span>
+                                                                <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li data-edu-item>
+                                                            <a href="Памятка маршрутизации выпускников.pdf" class="doc-link">
+                                                                <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                                <span class="doc-link-text">Памятка по маршрутизации выпускников<span class="doc-link-meta">Электронный документ</span></span>
+                                                                <span class="status-pill required">памятка</span>
+                                                                <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li data-edu-item>
+                                                            <a href="Карьерная карта.pdf" class="doc-link">
+                                                                <img src="ep.png" class="ep-icon" alt="ЭП">
+                                                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" class="pdf-icon" alt="PDF">
+                                                                <span class="doc-link-text">Карьерная карта выпускника<span class="doc-link-meta">Электронный документ</span></span>
+                                                                <span class="status-pill required">памятка</span>
+                                                                <i class="fa-solid fa-arrow-up-right-from-square doc-link-arrow"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+
+                            <div class="doc-empty-result" id="emptyResult">По вашему запросу сведения не найдены.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="contacts-block">
+        <div class="contacts-container">
+            <div class="contacts-left">
+                <a href="index.html">
+                    <img src="favicon.png" alt="Лого" class="contacts-logo">
+                </a>
+                <div class="contacts-text">
+                    <p class="contacts-subtitle">Частное профессиональное образовательное учреждение</p>
+                    <h2 class="contacts-title">Колледж управления<br>и дизайна</h2>
+                </div>
+            </div>
+
+            <div class="contacts-right">
+                <h2 class="contacts-heading">Контакты</h2>
+                <div class="contacts-columns">
+                    <div class="contacts-col">
+                        <p><i class="fa-solid fa-location-dot"></i> г. Грозный, ул. Старопромысловское шоссе, д.26 Б</p>
+                        <p><i class="fa-solid fa-phone"></i> +7 (938) 902-12-22</p>
+                        <p><i class="fa-solid fa-phone"></i> +7 (929) 890-22-22</p>
+                    </div>
+                    <div class="contacts-col">
+                        <p><i class="fa-regular fa-envelope"></i> <b>Приёмная комиссия:</b><br>college-95@mail.ru</p>
+                        <p><i class="fa-regular fa-envelope"></i> <b>Директор:</b><br>college-95@yandex.ru</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function normalizeText(text) {
+            return String(text || '').toLowerCase().replace(/ё/g, 'е').trim();
+        }
+
+        function closeEducationCard(card) {
+            if (!card) return;
+            card.classList.remove('active');
+            const header = card.querySelector('.edu-card-header');
+            if (header) header.setAttribute('aria-expanded', 'false');
+        }
+
+        function openEducationCard(card) {
+            if (!card) return;
+            card.classList.add('active');
+            const header = card.querySelector('.edu-card-header');
+            if (header) header.setAttribute('aria-expanded', 'true');
+        }
+
+        function initEducationPopups() {
+            const cards = document.querySelectorAll('[data-edu-block]');
+
+            cards.forEach((card, index) => {
+                const header = card.querySelector('.edu-card-header');
+                const body = card.querySelector('.edu-card-body');
+                if (!header || !body) return;
+
+                const bodyId = 'edu-card-body-' + (index + 1);
+                body.id = bodyId;
+                header.setAttribute('aria-controls', bodyId);
+                header.setAttribute('aria-expanded', 'false');
+
+                header.addEventListener('click', function() {
+                    const isActive = card.classList.contains('active');
+                    cards.forEach(closeEducationCard);
+                    if (!isActive) openEducationCard(card);
+                });
+            });
+        }
+
+        function initEducationSearch() {
+            const input = document.getElementById('eduSearch');
+            const blocks = document.querySelectorAll('[data-edu-block]');
+            const empty = document.getElementById('emptyResult');
+            const count = document.getElementById('eduCount');
+
+            function applySearch() {
+                const query = normalizeText(input.value);
+                let visibleBlocks = 0;
+                let visibleItems = 0;
+
+                blocks.forEach(block => {
+                    const title = normalizeText(block.querySelector('.edu-card-title').textContent);
+                    const subtitle = normalizeText(block.querySelector('.edu-card-subtitle').textContent);
+                    const items = block.querySelectorAll('[data-edu-item]');
+                    let blockHasVisibleItems = false;
+
+                    items.forEach(item => {
+                        const text = normalizeText(item.textContent);
+                        const match = !query || text.includes(query) || title.includes(query) || subtitle.includes(query);
+
+                        item.style.display = match ? '' : 'none';
+
+                        if (match) {
+                            visibleItems++;
+                            blockHasVisibleItems = true;
+                        }
+                    });
+
+                    block.style.display = blockHasVisibleItems ? '' : 'none';
+
+                    if (query && blockHasVisibleItems) {
+                        openEducationCard(block);
+                    }
+
+                    if (!query) {
+                        block.querySelectorAll('[data-edu-item]').forEach(item => item.style.display = '');
+                    }
+
+                    if (blockHasVisibleItems) visibleBlocks++;
+                });
+
+                empty.style.display = visibleItems === 0 ? 'block' : 'none';
+                count.textContent = query ? `Найдено: ${visibleItems}` : `Блоков: ${visibleBlocks}`;
+            }
+
+            input.addEventListener('input', applySearch);
+            applySearch();
+        }
+
+        function initCareerTabs() {
+            const tabBlocks = document.querySelectorAll('[data-career-tabs]');
+
+            tabBlocks.forEach(tabBlock => {
+                const buttons = tabBlock.querySelectorAll('[data-career-tab-btn]');
+                const panels = tabBlock.querySelectorAll('[data-career-tab-panel]');
+
+                buttons.forEach(button => {
+                    button.addEventListener('click', function(event) {
+                        event.stopPropagation();
+
+                        const target = button.getAttribute('data-career-tab-btn');
+
+                        buttons.forEach(btn => {
+                            btn.classList.remove('active');
+                            btn.setAttribute('aria-selected', 'false');
+                        });
+
+                        panels.forEach(panel => {
+                            panel.classList.remove('active');
+                        });
+
+                        button.classList.add('active');
+                        button.setAttribute('aria-selected', 'true');
+
+                        const activePanel = tabBlock.querySelector(`[data-career-tab-panel="${target}"]`);
+                        if (activePanel) activePanel.classList.add('active');
+                    });
+                });
+            });
+        }
+
+        initEducationPopups();
+        initEducationSearch();
+        initCareerTabs();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Финансово-хозяйственная деятельность</title>
+
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #eeeeee;
+            color: #1f1f1f;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .top-bar {
+            background-color: #ffffff;
+            background-image: url('kud_line.png');
+            background-repeat: repeat-x;
+            background-position: top center;
+            background-size: auto 100%;
+            color: white;
+            padding: 15px 0;
+        }
+
+        .top-bar::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .top-bar-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .top-left {
+            display: flex;
+            gap: 30px;
+            font-size: 18px;
+            font-weight: 500;
+            flex-wrap: wrap;
+        }
+
+        .top-left a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+        }
+
+        .top-left a:hover,
+        .top-right a:hover {
+            opacity: 0.8;
+        }
+
+        .top-right {
+            font-size: 22px;
+        }
+
+        .top-right a {
+            color: white;
+        }
+
+        .menu {
+            background-color: #fff;
+            border-bottom: 1px solid #e8e8e8;
+            position: relative;
+            z-index: 1000;
+            box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu-content {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            font-size: 20px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin-left: 55px;
+            gap: 36px;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: inline-block;
+            color: #2d2b76;
+            padding: 36px 0;
+            font-size: 20px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: #c4951a;
+        }
+
+        .nav-item.has-mega:hover .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 22px;
+            width: 100%;
+            height: 4px;
+            background: #d7a520;
+            border-radius: 2px;
+        }
+
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 980px;
+            background: white;
+            border-top: 1px solid #f0f0f0;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+            padding: 34px 34px 28px;
+            display: flex;
+            gap: 40px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+        }
+
+        .nav-item.has-mega:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .mega-column {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mega-column a {
+            display: block;
+            color: #555;
+            font-size: 16px;
+            line-height: 1.55;
+            margin-bottom: 10px;
+            transition: 0.2s;
+        }
+
+        .mega-column a:hover {
+            color: rgb(40, 60, 120);
+        }
+
+        .info-section {
+            max-width: 1200px;
+            margin-bottom: 20px;
+            margin-left: 200px;
+            padding: 20px;
+        }
+
+        .title-card {
+            background: #ffffff;
+            padding: 20px;
+            margin-right: 100px;
+            margin-bottom: auto;
+            width: calc(100% - 90px);
+            box-sizing: border-box;
+        }
+
+        .title-card h2 {
+            font-size: 32px;
+            color: #171b48;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .table-card {
+            background: #ffffff;
+            padding: 30px;
+            margin-bottom: 34px;
+            margin-left: 90px;
+            margin-top: -20px;
+        }
+
+        .table-inner {
+            margin: -480px auto 0;
+            position: relative;
+            z-index: 50;
+        }
+
+        .mini-sveden-fixed {
+            position: absolute;
+            top: 165px;
+            width: 290px;
+            margin-left: -330px;
+            margin-top: 0px;
+            z-index: 100;
+        }
+
+        .mini-sveden-card {
+            background: #eef1f7;
+            border: 1px solid #cfd6e2;
+            border-left: none;
+            border-radius: 0 16px 16px 0;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .mini-sveden-title {
+            padding: 18px 18px 16px;
+            color: #ff0000;
+            font-size: 22px;
+            font-weight: 500;
+            border-bottom: 1px solid #cfd6e2;
+        }
+
+        .mini-sveden-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .mini-sveden-table td {
+            border-bottom: 1px solid #e4e7ef;
+            padding: 12px 14px;
+            font-size: 15px;
+            line-height: 1.35;
+            vertical-align: top;
+            background: #fff;
+        }
+
+        .mini-sveden-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .mini-sveden-table a {
+            color: #000000;
+            font-size: 17px;
+            display: block;
+            line-height: 15px;
+        }
+
+        .mini-sveden-table a:hover {
+            color: #ff0000;
+        }
+
+        .mini-sveden-table .active-link td {
+            background: #f3f6fd;
+        }
+
+        .mini-sveden-table tr.active-link a {
+            color: #ff0000;
+            background: #f7f8fc;
+        }
+
+        .official-content {
+            width: 100%;
+            flex: 1;
+            min-width: 0;
+            margin-top: 450px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2d2b76;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #cfd6e2;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            color: #ff0000;
+        }
+
+        .finance-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: #fff;
+            margin: 20px 0 30px;
+            border: 1px solid #cfd6e2;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .finance-table th {
+            background: #2d2b76;
+            color: white;
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: left;
+            border: none;
+            border-bottom: 1px solid #3d3b86;
+            border-right: 1px solid #3d3b86;
+        }
+
+        .finance-table th:last-child {
+            border-right: none;
+        }
+
+        .finance-table td {
+            padding: 15px 20px;
+            border: none;
+            border-bottom: 1px solid #cfd6e2;
+            border-right: 1px solid #cfd6e2;
+            vertical-align: top;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .finance-table td:last-child {
+            border-right: none;
+        }
+
+        .finance-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .finance-table tr:nth-child(even) {
+            background: #f8fbff;
+        }
+
+        .finance-table td:first-child {
+            font-weight: 600;
+            color: #2d2b76;
+        }
+
+        .finance-table .total-row {
+            background: #eef1f7;
+            font-weight: 700;
+        }
+
+        .finance-table .total-row td {
+            color: #2d2b76;
+        }
+
+        .amount {
+            font-weight: 700;
+            color: #2d2b76;
+        }
+
+        .doc-card {
+            background: #f8fbff;
+            border: 1px solid #cfd6e2;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .doc-icon {
+            width: 60px;
+            height: 60px;
+            background: #ff0000;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .doc-icon i {
+            font-size: 28px;
+            color: white;
+        }
+
+        .doc-info {
+            flex: 1;
+        }
+
+        .doc-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d2b76;
+            margin-bottom: 8px;
+        }
+
+        .doc-meta {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .doc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #2d2b76;
+            font-weight: 600;
+            padding: 8px 16px;
+            background: #eef1f7;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .doc-link:hover {
+            background: #2d2b76;
+            color: white;
+        }
+
+        .info-box {
+            background: #eef1f7;
+            border: 1px solid #cfd6e2;
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin: 20px 0;
+        }
+
+        .info-box-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d2b76;
+            margin-bottom: 15px;
+        }
+
+        .info-box-text {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .menu-icon-link {
+            width: 52px;
+            height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: #eef1f7;
+            color: #2d2b76;
+            font-size: 24px;
+            transition: 0.2s;
+        }
+
+        .menu-icon-link:hover {
+            background: #2d2b76;
+            color: #ffffff;
+        }
+
+        .menu-icon-link img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .menu-icons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .contacts-block {
+            background: #ffffff;
+            padding: 60px 0;
+        }
+
+        .contacts-container {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .contacts-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            max-width: 600px;
+        }
+
+        .contacts-logo {
+            width: 140px;
+            border-radius: 12px;
+        }
+
+        .contacts-subtitle {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .contacts-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: -10px;
+        }
+
+        .contacts-right {
+            flex: 1;
+        }
+
+        .contacts-heading {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .contacts-columns {
+            display: flex;
+            gap: 40px;
+            border-left: 2px solid #ccc;
+            padding-left: 30px;
+        }
+
+        .contacts-col p {
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .contacts-col i {
+            margin-right: 8px;
+        }
+
+                /* ================= ВЫПАДАЮЩЕЕ МЕНЮ "О КОЛЛЕДЖЕ" ================= */
+        .nav-item.has-dropdown {
+            position: relative;
+        }
+
+        .nav-item.has-dropdown:hover .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 22px;
+            width: 100%;
+            height: 4px;
+            background: #d7a520;
+            border-radius: 2px;
+        }
+
+        .dropdown-about {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            background: white;
+            border-top: 3px solid #d7a520;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.25s ease;
+            border-radius: 0 0 14px 14px;
+            z-index: 1001;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-about {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .dropdown-about a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #444;
+            font-size: 17px;
+            padding: 13px 18px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .dropdown-about a:last-child {
+            margin-bottom: 0;
+        }
+
+        .dropdown-about a:hover {
+            background: #f5f7ff;
+            color: #171b48;
+            transform: translateX(6px);
+        }
+
+        .dropdown-about a i {
+            width: 22px;
+            text-align: center;
+            color: #d7a520;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+        /* ================= МОБИЛЬНАЯ АДАПТАЦИЯ @480px ================= */
+        @media (max-width: 480px) {
+            * {
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            }
+
+            .top-bar {
+                padding: 10px 0;
+            }
+
+            .top-bar-content {
+                width: 95%;
+                margin: 0 auto;
+            }
+
+            .top-left {
+                width: 100%;
+                justify-content: center;
+                font-size: 14px;
+                gap: 15px;
+            }
+
+            .menu {
+                position: static;
+                z-index: 999;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .menu-content {
+                width: 100%;
+                padding: 10px 8px;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .nav-list {
+                width: 100%;
+                flex-direction: column;
+                gap: 0;
+                margin: 0;
+                padding: 0;
+                margin-left: 0;
+            }
+
+            .nav-item {
+                width: 100%;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .nav-link {
+                width: 100%;
+                padding: 16px 12px;
+                font-size: 16px;
+                text-align: center;
+            }
+
+            .nav-item.has-mega:hover .mega-menu,
+            .nav-item.has-dropdown:hover .dropdown-about {
+                position: static;
+                transform: none;
+                width: 100%;
+                display: block;
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
+                border: none;
+                border-top: 1px solid #f0f0f0;
+                padding: 12px 0;
+                margin-top: 0;
+                border-radius: 0;
+                background: #f9f9f9;
+            }
+
+            .mega-menu, .dropdown-about {
+                display: none;
+            }
+
+            .mega-column {
+                flex: none;
+                width: 100%;
+                margin-bottom: 16px;
+            }
+
+            .mega-column a {
+                padding: 12px 24px;
+                font-size: 15px;
+            }
+
+            .menu-icons {
+                width: 100%;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .menu-icon-link {
+                width: 44px;
+                height: 44px;
+                font-size: 20px;
+            }
+
+            .info-section {
+                margin-bottom: 20px;
+                margin-left: 0;
+                margin-top: 0;
+                padding: 12px;
+            }
+
+            .title-card {
+                background: #ffffff;
+                padding: 16px;
+                margin-left: 0;
+                margin-bottom: 16px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .title-card h2 {
+                font-size: 22px;
+                margin-bottom: 12px;
+            }
+
+            .table-card {
+                background: #ffffff;
+                padding: 16px;
+                margin-bottom: 20px;
+                margin-left: 0;
+                margin-top: 0;
+            }
+
+            .mini-sveden-fixed {
+                position: static;
+                width: 100%;
+                margin: 0 0 16px 0;
+            }
+
+            .mini-sveden-card {
+                border-left: 1px solid #d7dbe6;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            }
+
+            .mini-sveden-title {
+                padding: 14px 14px 12px;
+                font-size: 18px;
+            }
+
+            .mini-sveden-table td {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+
+            .mini-sveden-table a {
+                font-size: 14px;
+            }
+
+            .mto-main-table {
+                margin-bottom: 20px;
+                border-radius: 10px;
+            }
+
+            .mto-main-table th {
+                padding: 12px 14px;
+                font-size: 14px;
+            }
+
+            .mto-main-table td {
+                padding: 12px 14px;
+                font-size: 13px;
+            }
+
+            .mto-main-table td:first-child {
+                font-size: 13px;
+            }
+
+            .section-title {
+                font-size: 18px;
+                margin: 3px 0 14px 0;
+                padding-bottom: 8px;
+            }
+
+            .section-title i {
+                margin-right: 8px;
+            }
+
+            .sub-section-title {
+                font-size: 16px;
+                margin: 16px 0 10px 0;
+            }
+
+            .equipment-list li {
+                padding: 4px 0;
+                gap: 8px;
+            }
+
+            .equipment-list i {
+                font-size: 13px;
+                margin-top: 2px;
+            }
+
+            .badge-access {
+                padding: 2px 8px;
+                font-size: 11px;
+                margin-left: 6px;
+            }
+
+            .badge-partial {
+                padding: 2px 8px;
+                font-size: 11px;
+                margin-left: 6px;
+            }
+
+            .contacts-block {
+                padding: 40px 0;
+                margin-top: 30px;
+            }
+
+            .contacts-container {
+                width: 100%;
+                padding: 0 12px;
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .contacts-left {
+                width: 100%;
+                gap: 15px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contacts-logo {
+                width: 100px;
+            }
+
+            .contacts-text {
+                text-align: center;
+            }
+
+            .contacts-subtitle {
+                font-size: 14px;
+            }
+
+            .contacts-title {
+                font-size: 18px;
+            }
+
+            .contacts-heading {
+                font-size: 22px;
+                margin-bottom: 16px;
+            }
+
+            .contacts-columns {
+                flex-direction: column;
+                gap: 16px;
+                border-left: none;
+                padding-left: 0;
+            }
+
+            .contacts-col p {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+
+            .nav-item.has-mega:hover .nav-link::after,
+            .nav-item.has-dropdown:hover .nav-link::after {
+                display: none;
+            }
+        }
+
+        /* ================= ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ @380px ================= */
+        @media (max-width: 380px) {
+            .title-card h2 {
+                font-size: 19px;
+                margin-bottom: 10px;
+            }
+
+            .mto-main-table th {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+
+            .mto-main-table td {
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+
+            .section-title {
+                font-size: 16px;
+                margin: 2px 0 12px 0;
+            }
+
+            .section-title i {
+                margin-right: 6px;
+                font-size: 16px;
+            }
+
+            .sub-section-title {
+                font-size: 15px;
+                margin: 14px 0 8px 0;
+            }
+
+            .equipment-list li {
+                padding: 3px 0;
+                gap: 6px;
+                font-size: 12px;
+            }
+
+            .equipment-list i {
+                font-size: 12px;
+                margin-top: 1px;
+            }
+
+            .mini-sveden-title {
+                font-size: 16px;
+                padding: 12px 12px 10px;
+            }
+
+            .mini-sveden-table td {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
+            .mini-sveden-table a {
+                font-size: 13px;
+            }
+
+            .contacts-col p {
+                font-size: 13px;
+            }
+
+            .badge-access {
+                padding: 2px 6px;
+                font-size: 10px;
+            }
+
+            .badge-partial {
+                padding: 2px 6px;
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="top-left">
+                <a href="mailto:college-95@mail.ru">
+                <i class="fa-solid fa-eye"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu">
+        <div class="menu-content">
+            <a href="index.html" style="text-decoration:none; color: rgb(40, 60, 120);"><i class="fa-solid fa-house"></i></a>
+
+            <ul class="nav-list">
+                <!-- Пункт "О колледже" с выпадающим меню -->
+                <li class="nav-item has-dropdown">
+                    <a class="nav-link">О колледже</a>
+                    <div class="dropdown-menu dropdown-about">
+                        <a href="about.html">
+                            <i class="fa-solid fa-building-columns"></i> О колледже
+                        </a>
+                        <a href="news.html">
+                            <i class="fa-solid fa-newspaper"></i> Новости
+                        </a>
+                        <a href="gallery.html">
+                            <i class="fa-solid fa-bullhorn"></i> Фотогалерея
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item has-mega">
+                    <a href="basic_information.html" class="nav-link">Сведения об ОО</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="basic_information.html"><i class="fa-solid fa-circle-info"></i> Основные сведения</a>
+                            <a href="information_founder.html"><i class="fa-solid fa-sitemap"></i> Структура и органы управления</a>
+                            <a href="document.html"><i class="fa-solid fa-file-lines"></i> Документы</a>
+                            <a href="education.html"><i class="fa-solid fa-graduation-cap"></i> Образование</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="management.html"><i class="fa-solid fa-user-tie"></i> Руководство</a>
+                            <a href="teaching_staff.html"><i class="fa-solid fa-chalkboard-user"></i> Педагогический состав</a>
+                            <a href="logistics.html"><i class="fa-solid fa-building"></i> Материально-техническое обеспечение</a>
+                            <a href="paid_services.html"><i class="fa-solid fa-credit-card"></i> Платные образовательные услуги</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="activities.html"><i class="fa-solid fa-chart-line"></i> Финансово-хозяйственная деятельность</a>
+                            <a href="vacancies.html"><i class="fa-solid fa-user-plus"></i> Вакантные места</a>
+                            <a href="international_cooperation.html"><i class="fa-solid fa-globe"></i> Международное сотрудничество</a>
+                            <a href="catering.html"><i class="fa-solid fa-utensils"></i> Организация питания</a>
+                            <a href="scholarship.html"><i class="fa-solid fa-hand-holding-heart"></i> Образовательные стандарты и требования</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item has-mega">
+                    <a href="company.html" class="nav-link">Поступающим</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="company.html"><i class="fa-solid fa-clipboard-list"></i> Приёмная кампания 2026</a>
+                            <a href="direction_training.html"><i class="fa-solid fa-compass"></i> Направления подготовки</a>
+                            <a href="open_door.html"><i class="fa-solid fa-calendar-check"></i> Дни открытых дверей</a>
+                            <a href="accept_doc.html"><i class="fa-solid fa-file-lines"></i> Документы для поступления</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="paid_services2.html"><i class="fa-solid fa-ruble-sign"></i> Платное обучение</a>
+                            <a href="translation.html"><i class="fa-solid fa-rotate"></i> Перевод и восстановление</a>
+                            <a href="question.html"><i class="fa-solid fa-circle-question"></i> Часто задаваемые вопросы</a>
+                            <a href="professional.html"><i class="fa-solid fa-person-chalkboard"></i> Профориентация</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="order.html"><i class="fa-solid fa-file-circle-check"></i> Приказы о зачислении</a>
+                            <a href="full_education.html"><i class="fa-solid fa-bullseye"></i> Целевое обучение</a>
+                            <a href="Образовательное кредитование.pdf"><i class="fa-solid fa-sack-dollar"></i> Образовательный кредит</a>
+                            <a href="capital.html"><i class="fa-solid fa-hand-holding-heart"></i> О материнском капитале</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="ordering_certificates.html">Студентам</a></li>
+                <li class="nav-item"><a class="nav-link" href="graduates.html">Выпускникам</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Контакты</a></li>
+            </ul>
+
+            <div class="menu-icons">
+                <a class="menu-icon-link" href="https://vk.ru/business_college95" aria-label="ВКонтакте">
+                    <i class="fa-brands fa-vk"></i>
+                </a>
+                <a class="menu-icon-link" href="https://max.ru/u/f9LHodD0cOITJW3XHPLMW4Rd8XyF5o___UQuasgI59JfFIf45iwgcq-7UDM" aria-label="MAX">
+                    <img src="max-icon.png" alt="MAX" style="width: 26px; height: 26px; object-fit: contain;">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section class="info-section">
+        <div class="page-section">  
+            <div class="table-card">
+                <div class="title-card">
+                    <h2>Финансово-хозяйственная деятельность</h2>
+                </div>
+                <div class="official-layout">
+
+                    <div class="mini-sveden-fixed">
+                        <aside class="mini-sveden-card">
+                            <div class="mini-sveden-title">Сведения об ОО</div>
+                            <table class="mini-sveden-table">
+                                <tr><td><a href="basic_information.html">Основные сведения</a></td></tr>
+                                <tr><td><a href="information_founder.html">Структура и органы управления</a></td></tr>
+                                <tr><td><a href="document.html">Документы</a></td></tr>
+                                <tr><td><a href="education.html">Образование</a></td></tr>
+                                <tr><td><a href="management.html">Руководство</a></td></tr>
+                                <tr><td><a href="teaching_staff.html">Педагогический состав</a></td></tr>
+                                <tr><td><a href="logistics.html">Материально-техническое обеспечение</a></td></tr>
+                                <tr><td><a href="paid_services.html">Платные образовательные услуги</a></td></tr>
+                                <tr class="active-link"><td><a href="activities.html">Финансово-хозяйственная деятельность</a></td></tr>
+                                <tr><td><a href="vacancies.html">Вакантные места</a></td></tr>
+                                <tr><td><a href="international_cooperation.html">Международное сотрудничество</a></td></tr>
+                                <tr><td><a href="catering.html">Организация питания</a></td></tr>
+                                <tr><td><a href="scholarship.html">Образовательные стандарты и требования</a></td></tr>
+                            </table>
+                        </aside>                        
+                    </div>
+
+                    <div class="official-content">
+                        <div class="table-inner">
+                            <!-- Раздел А: Объем образовательной деятельности -->
+                            <h3 class="section-title">
+                                <i class="fa-solid fa-chart-pie"></i>
+                                Объем образовательной деятельности
+                            </h3>
+
+                            <table class="finance-table">
+                                <tr>
+                                    <th>Источник финансирования</th>
+                                    <th>Количество обучающихся</th>
+                                    <th>Сумма (тыс. руб.)</th>
+                                </tr>
+                                <tr>
+                                    <td>За счет бюджетных ассигнований федерального бюджета</td>
+                                    <td>0</td>
+                                    <td class="amount">0 ₽</td>
+                                </tr>
+                                <tr>
+                                    <td>За счет бюджетов субъектов Российской Федерации</td>
+                                    <td>0</td>
+                                    <td class="amount">0 ₽</td>
+                                </tr>
+                                <tr>
+                                    <td>За счет местных бюджетов</td>
+                                    <td>0</td>
+                                    <td class="amount">0 ₽</td>
+                                </tr>
+                                <tr>
+                                    <td>По договорам об оказании платных образовательных услуг за счет средств физических и (или) юридических лиц</td>
+                                    <td>245</td>
+                                    <td class="amount">18 620 000 ₽</td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td><strong>ИТОГО</strong></td>
+                                    <td><strong>245</strong></td>
+                                    <td class="amount"><strong>18 620 000 ₽</strong></td>
+                                </tr>
+                            </table>
+
+                            <div class="info-box">
+                                <div class="info-box-title">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                    Примечание
+                                </div>
+                                <div class="info-box-text">
+                                    ЧПОУ «Колледж управления и дизайна» не получает бюджетного финансирования. 
+                                    Образовательная деятельность осуществляется полностью за счет средств, поступающих 
+                                    от приносящей доход деятельности (платные образовательные услуги).
+                                </div>
+                            </div>
+
+                            <!-- Раздел Б: Поступление финансовых и материальных средств -->
+                            <h3 class="section-title">
+                                <i class="fa-solid fa-arrow-down"></i>
+                                Поступление финансовых и материальных средств по итогам 2025 года
+                            </h3>
+
+                            <table class="finance-table">
+                                <tr>
+                                    <th>Вид поступлений</th>
+                                    <th>Сумма (тыс. руб.)</th>
+                                    <th>Доля (%)</th>
+                                </tr>
+                                <tr>
+                                    <td>Поступления от оказания платных образовательных услуг</td>
+                                    <td class="amount">18 620 000 ₽</td>
+                                    <td>92,4%</td>
+                                </tr>
+                                <tr>
+                                    <td>Поступления от дополнительных образовательных услуг (курсы, семинары)</td>
+                                    <td class="amount">980 000 ₽</td>
+                                    <td>4,9%</td>
+                                </tr>
+                                <tr>
+                                    <td>Поступления от сдачи имущества в аренду</td>
+                                    <td class="amount">420 000 ₽</td>
+                                    <td>2,1%</td>
+                                </tr>
+                                <tr>
+                                    <td>Прочие поступления (пожертвования, гранты)</td>
+                                    <td class="amount">130 000 ₽</td>
+                                    <td>0,6%</td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td><strong>ИТОГО поступлений</strong></td>
+                                    <td class="amount"><strong>20 150 000 ₽</strong></td>
+                                    <td><strong>100%</strong></td>
+                                </tr>
+                            </table>
+
+                            <!-- Раздел В: Расходование финансовых и материальных средств -->
+                            <h3 class="section-title">
+                                <i class="fa-solid fa-arrow-up"></i>
+                                Расходование финансовых и материальных средств по итогам 2025 года
+                            </h3>
+
+                            <table class="finance-table">
+                                <tr>
+                                    <th>Статья расходов</th>
+                                    <th>Сумма (тыс. руб.)</th>
+                                    <th>Доля (%)</th>
+                                </tr>
+                                <tr>
+                                    <td>Оплата труда и начисления на оплату труда</td>
+                                    <td class="amount">10 850 000 ₽</td>
+                                    <td>55,8%</td>
+                                </tr>
+                                <tr>
+                                    <td>Коммунальные услуги</td>
+                                    <td class="amount">1 620 000 ₽</td>
+                                    <td>8,3%</td>
+                                </tr>
+                                <tr>
+                                    <td>Содержание и ремонт зданий и помещений</td>
+                                    <td class="amount">1 450 000 ₽</td>
+                                    <td>7,5%</td>
+                                </tr>
+                                <tr>
+                                    <td>Приобретение учебного оборудования и литературы</td>
+                                    <td class="amount">1 980 000 ₽</td>
+                                    <td>10,2%</td>
+                                </tr>
+                                <tr>
+                                    <td>Информатизация и программное обеспечение</td>
+                                    <td class="amount">850 000 ₽</td>
+                                    <td>4,4%</td>
+                                </tr>
+                                <tr>
+                                    <td>Повышение квалификации сотрудников</td>
+                                    <td class="amount">320 000 ₽</td>
+                                    <td>1,6%</td>
+                                </tr>
+                                <tr>
+                                    <td>Прочие расходы</td>
+                                    <td class="amount">1 530 000 ₽</td>
+                                    <td>7,9%</td>
+                                </tr>
+                                <tr>
+                                    <td>Налоги и сборы</td>
+                                    <td class="amount">850 000 ₽</td>
+                                    <td>4,4%</td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td><strong>ИТОГО расходов</strong></td>
+                                    <td class="amount"><strong>19 450 000 ₽</strong></td>
+                                    <td><strong>100%</strong></td>
+                                </tr>
+                            </table>
+
+                            <div class="info-box">
+                                <div class="info-box-title">
+                                    <i class="fa-solid fa-scale-balanced"></i>
+                                    Профицит / Остаток средств
+                                </div>
+                                <div class="info-box-text">
+                                    По итогам 2025 финансового года образовавшаяся экономия (профицит) в размере 
+                                    <strong>700 000 рублей</strong> направлена на развитие материально-технической базы колледжа 
+                                    в 2026 году.
+                                </div>
+                            </div>
+
+                            <!-- План ФХД -->
+                            <h3 class="section-title">
+                                <i class="fa-regular fa-file-lines"></i>
+                                План финансово-хозяйственной деятельности
+                            </h3>
+
+                            <div class="doc-card">
+                                <div class="doc-icon">
+                                    <i class="fa-regular fa-file-lines"></i>
+                                </div>
+                                <div class="doc-info">
+                                    <div class="doc-title">План финансово-хозяйственной деятельности на 2025 год</div>
+                                    <div class="doc-meta">
+                                        <i class="fa-regular fa-calendar"></i> Утвержден: 25.12.2024<br>
+                                        <i class="fa-regular fa-file"></i> PDF, 1.2 МБ
+                                    </div>
+                                    <a href="#" class="doc-link">
+                                        <i class="fa-solid fa-download"></i> Скачать документ
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="doc-card">
+                                <div class="doc-icon">
+                                    <i class="fa-regular fa-file-lines"></i>
+                                </div>
+                                <div class="doc-info">
+                                    <div class="doc-title">План финансово-хозяйственной деятельности на 2026 год</div>
+                                    <div class="doc-meta">
+                                        <i class="fa-regular fa-calendar"></i> Утвержден: 20.12.2025<br>
+                                        <i class="fa-regular fa-file"></i> PDF, 1.3 МБ
+                                    </div>
+                                    <a href="План финансово-хозяйственной деятельности на 2026 год.pdf" class="doc-link">
+                                        <i class="fa-solid fa-download"></i> Скачать документ
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="doc-card">
+                                <div class="doc-icon">
+                                    <i class="fa-regular fa-file-lines"></i>
+                                </div>
+                                <div class="doc-info">
+                                    <div class="doc-title">Отчет о выполнении плана ФХД за 2025 год</div>
+                                    <div class="doc-meta">
+                                        <i class="fa-regular fa-calendar"></i> Утвержден: 15.02.2026<br>
+                                        <i class="fa-regular fa-file"></i> PDF, 980 КБ
+                                    </div>
+                                    <a href="#" class="doc-link">
+                                        <i class="fa-solid fa-download"></i> Скачать документ
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Бюджетная смета -->
+                            <h3 class="section-title">
+                                <i class="fa-solid fa-calculator"></i>
+                                Бюджетная смета
+                            </h3>
+
+                            <div class="info-box">
+                                <div class="info-box-title">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                    Информация о бюджетной смете
+                                </div>
+                                <div class="info-box-text">
+                                    ЧПОУ «Колледж управления и дизайна» является частной образовательной организацией 
+                                    и не получает бюджетного финансирования. Бюджетная смета не формируется.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="contacts-block">
+        <div class="contacts-container">
+            <div class="contacts-left">
+                <a href="index.html">
+                    <img src="favicon.png" alt="Лого" class="contacts-logo">
+                </a>
+                <div class="contacts-text">
+                    <p class="contacts-subtitle">Частное профессиональное образовательное учреждение</p>
+                    <h2 class="contacts-title">Колледж управления<br>и дизайна</h2>
+                </div>
+            </div>
+            <div class="contacts-right">
+                <h2 class="contacts-heading">Контакты</h2>
+                <div class="contacts-columns">
+                    <div class="contacts-col">
+                        <p><i class="fa-solid fa-location-dot"></i> г. Грозный, ул. Старопромысловское шоссе, д.26 Б</p>
+                        <p><i class="fa-solid fa-phone"></i> +7 (938) 902-12-22</p>
+                        <p><i class="fa-solid fa-phone"></i> +7 (929) 890-22-22</p>
+                    </div>
+                    <div class="contacts-col">
+                        <p><i class="fa-regular fa-envelope"></i> <b>Приёмная комиссия:</b><br>college-95@mail.ru</p>
+                        <p><i class="fa-regular fa-envelope"></i> <b>Директор:</b><br>college-95@yandex.ru</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

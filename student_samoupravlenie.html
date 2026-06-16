@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Студенческое самоуправление</title>
+
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #eeeeee;
+            color: #1f1f1f;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000000;
+        }
+
+        /* ================= ВЕРХНЯЯ ПАНЕЛЬ ================= */
+        .top-bar {
+            background-color: #ffffff;
+            background-image: url('kud_line.png');
+            background-repeat: repeat-x;
+            background-position: top center;
+            background-size: auto 100%;
+            color: white;
+            padding: 15px 0;
+        }
+
+        .top-bar-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .top-left {
+            display: flex;
+            gap: 30px;
+            font-size: 18px;
+            flex-wrap: wrap;
+        }
+
+        .top-left a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+        }
+
+        /* ================= МЕНЮ ================= */
+        .menu {
+            background-color: #fff;
+            border-bottom: 1px solid #e8e8e8;
+            position: relative;
+            z-index: 1000;
+            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.15);
+        }
+
+        .menu-content {
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            font-size: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin-left: 55px;
+            gap: 36px;
+            flex-wrap: wrap;
+        }
+
+        .nav-item { position: relative; }
+
+        .nav-link {
+            display: inline-block;
+            color: #2d2b76;
+            padding: 36px 0;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .nav-link:hover { color: #c4951a; }
+
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 980px;
+            background: white;
+            border-top: 1px solid #f0f0f0;
+            box-shadow: 0 16px 35px rgba(0,0,0,0.12);
+            padding: 34px;
+            display: flex;
+            gap: 40px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: 0.25s;
+        }
+
+        .nav-item:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .mega-column { flex: 1; }
+
+        .mega-column a {
+            display: block;
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .mega-column a:hover { color: #2d2b76; }
+
+        /* ================= ОСНОВНАЯ СЕКЦИЯ ================= */
+        .info-section {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            padding-right: 40px;
+            margin-left: 220px;
+        }
+
+        .title-card {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            margin-right: 100px;
+            width: calc(100% - 90px);
+            box-sizing: border-box;
+        }
+
+        .title-card h2 {
+            font-size: 32px;
+            color: #171b48;
+            font-weight: 700;
+        }
+
+        .table-card {
+            background: #fff;
+            padding: 30px;
+            margin-left: 90px;
+            margin-bottom: 34px;
+        }
+
+        /* ================= ЛЕВАЯ БОКОВАЯ ПАНЕЛЬ ================= */
+        .mini-sveden-fixed {
+            position: absolute;
+            top: 165px;
+            width: 290px;
+            margin-left: -330px;
+            margin-top: 0px;
+            z-index: 100;
+        }
+
+        .mini-sveden-card {
+            background: #eef1f7;
+            border: 1px solid #cfd6e2;
+            border-left: none;
+            border-radius: 0 16px 16px 0;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        .mini-sveden-title {
+            padding: 18px;
+            color: #ff0000;
+            font-size: 22px;
+            font-weight: 500;
+            border-bottom: 1px solid #cfd6e2;
+        }
+
+        .mini-sveden-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .mini-sveden-table td {
+            border-bottom: 1px solid #e4e7ef;
+            padding: 12px 14px;
+            font-size: 15px;
+            background: #fff;
+        }
+
+        .mini-sveden-table a {
+            color: #000;
+            font-size: 17px;
+            display: block;
+            line-height: 15px;
+        }
+
+        .mini-sveden-table a:hover { color: #ff0000; }
+        .active-link td { background: #f3f6fd; }
+        .active-link a { color: #ff0000 !important; }
+
+        /* ================= КОНТЕНТ ================= */
+        .official-content {
+            width: 100%;
+            flex: 1;
+            margin-top: 330px;
+        }
+
+        .table-inner {
+            margin: -320px auto 0;
+            position: relative;
+            z-index: 50;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2d2b76;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #cfd6e2;
+        }
+
+        .section-title:first-of-type { margin-top: 0; }
+        .section-title i { margin-right: 10px; color: #ff0000; }
+
+        .info-box {
+            background: #eef1f7;
+            border: 1px solid #cfd6e2;
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin: 20px 0;
+        }
+
+        .info-box-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d2b76;
+            margin-bottom: 15px;
+        }
+
+        .info-box-text {
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .info-box-text strong { color: #171b48; }
+        .info-box-text a { color: #2d2b76; text-decoration: underline; }
+        .info-box-text a:hover { color: #ff0000; }
+
+        .info-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #cfd6e2;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .info-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #cfd6e2;
+            font-size: 15px;
+            color: #333;
+        }
+
+        .info-table tr:last-child td { border-bottom: none; }
+        .info-table td:first-child { font-weight: 600; color: #2d2b76; width: 35%; }
+
+        /* Стили для баннеров */
+        .attestation-banners {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .att-banner {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            background: linear-gradient(135deg, #f8fbff 0%, #eef1f7 100%);
+            border: 1px solid #cfd6e2;
+            border-radius: 16px;
+            padding: 25px 30px;
+            transition: 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        .att-banner:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+            border-color: #2d2b76;
+        }
+
+        .att-banner-icon {
+            width: 70px;
+            height: 70px;
+            min-width: 70px;
+            background: #2d2b76;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: white;
+        }
+
+        .att-banner-content h3 {
+            font-size: 20px;
+            color: #2d2b76;
+            margin-bottom: 8px;
+        }
+
+        .att-banner-content p {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .att-banner-arrow {
+            margin-left: auto;
+            color: #2d2b76;
+            font-size: 22px;
+            opacity: 0.5;
+            transition: 0.3s;
+        }
+
+        .att-banner:hover .att-banner-arrow {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .menu-icon-link {
+            width: 52px;
+            height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: #eef1f7;
+            color: #2d2b76;
+            font-size: 24px;
+            transition: 0.2s;
+        }
+
+        .menu-icon-link:hover {
+            background: #2d2b76;
+            color: #ffffff;
+        }
+
+        .menu-icon-link img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .menu-icons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .image img {
+            width: 450px;
+            height: 300px;
+        }
+
+        /* ================= НИЖНЯЯ ПАНЕЛЬ ================= */
+        .contacts-block { background: #fff; padding: 60px 0; }
+        .contacts-container { width: 90%; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 40px; }
+        .contacts-left { display: flex; align-items: center; gap: 30px; max-width: 600px; }
+        .contacts-logo { width: 140px; border-radius: 12px; }
+        .contacts-subtitle { font-size: 16px; color: #333; margin-bottom: 20px; }
+        .contacts-title { font-size: 24px; font-weight: 700; }
+        .contacts-right { flex: 1; }
+        .contacts-heading { font-size: 28px; margin-bottom: 20px; }
+        .contacts-columns { display: flex; gap: 40px; border-left: 2px solid #ccc; padding-left: 30px; }
+        .contacts-col p { margin-bottom: 12px; font-size: 16px; }
+        .contacts-col i { margin-right: 8px; }
+
+                /* ================= ВЫПАДАЮЩЕЕ МЕНЮ "О КОЛЛЕДЖЕ" ================= */
+        .nav-item.has-dropdown {
+            position: relative;
+        }
+
+        .nav-item.has-dropdown:hover .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 22px;
+            width: 100%;
+            height: 4px;
+            background: #d7a520;
+            border-radius: 2px;
+        }
+
+        .dropdown-about {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            background: white;
+            border-top: 3px solid #d7a520;
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.25s ease;
+            border-radius: 0 0 14px 14px;
+            z-index: 1001;
+        }
+
+        .nav-item.has-dropdown:hover .dropdown-about {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .dropdown-about a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #444;
+            font-size: 17px;
+            padding: 13px 18px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .dropdown-about a:last-child {
+            margin-bottom: 0;
+        }
+
+        .dropdown-about a:hover {
+            background: #f5f7ff;
+            color: #171b48;
+            transform: translateX(6px);
+        }
+
+        .dropdown-about a i {
+            width: 22px;
+            text-align: center;
+            color: #d7a520;
+            font-size: 17px;
+            flex-shrink: 0;
+        }
+
+/* ================= АДАПТАЦИЯ ДЛЯ ПЛАНШЕТОВ (до 1100px) ================= */
+@media (max-width: 1100px) {
+    .menu-content {
+        gap: 20px;
+    }
+
+    .nav-list {
+        gap: 14px;
+        margin-left: 10px;
+    }
+
+    .nav-link {
+        padding: 24px 0;
+        font-size: 17px;
+    }
+
+    .mega-menu {
+        width: 600px;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .mega-column a {
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    .dropdown-about {
+        width: 240px;
+    }
+
+    .dropdown-about a {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    .info-section {
+        margin-left: 0 !important;
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    .table-card {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 20px;
+    }
+
+    .title-card {
+        margin-right: 0 !important;
+        width: 100% !important;
+    }
+
+    .mini-sveden-fixed {
+        position: relative !important;
+        top: auto !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-bottom: 25px;
+    }
+
+    .mini-sveden-card {
+        border-left: 1px solid #cfd6e2 !important;
+        border-radius: 14px !important;
+    }
+
+    .official-content {
+        margin-top: 0 !important;
+    }
+
+    .contacts-logo {
+        width: 110px;
+    }
+}
+
+/* ================= ТЕЛЕФОНЫ (до 768px) ================= */
+@media (max-width: 768px) {
+    /* Верхняя полоса */
+    .top-bar {
+        padding: 8px 0;
+    }
+
+    .top-left {
+        justify-content: center;
+        font-size: 14px;
+        gap: 15px;
+        padding: 0 10px;
+    }
+
+    /* Меню */
+    .menu {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .menu-content {
+        width: 100%;
+        padding: 8px 12px;
+        gap: 8px;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .home-link {
+        font-size: 20px;
+        order: 1;
+        flex-shrink: 0;
+    }
+
+    .menu-icons {
+        order: 2;
+        gap: 5px;
+        flex-shrink: 0;
+    }
+
+    .menu-icon-link {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+
+    .menu-icon-link img {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Кнопка бургер */
+    .menu-toggle {
+        display: flex !important;
+        order: 3;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: #eef1f7;
+        color: #2d2b76;
+        font-size: 18px;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: none;
+        transition: 0.2s;
+        flex-shrink: 0;
+    }
+
+    .menu-toggle:active {
+        background: #2d2b76;
+        color: white;
+    }
+
+    /* Навигация */
+    .nav-list {
+        display: none;
+        order: 4;
+        width: 100%;
+        flex-direction: column;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        margin: 5px 0 0 0;
+        padding: 5px 0;
+        max-height: 65vh;
+        overflow-y: auto;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 999;
+    }
+
+    .nav-list.active {
+        display: flex;
+    }
+
+    .nav-item {
+        width: 100%;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .nav-item:last-child {
+        border-bottom: none;
+    }
+
+    .nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 13px 16px !important;
+        font-size: 15px;
+        color: #2d2b76;
+        width: 100%;
+        text-align: left;
+    }
+
+    .nav-link::after {
+        content: '\f105';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        font-size: 13px;
+        color: #ccc;
+    }
+
+    .nav-item.open .nav-link::after {
+        content: '\f107';
+    }
+
+    .nav-item.has-dropdown:hover .nav-link::after {
+        content: '\f105';
+        position: static;
+        width: auto;
+        height: auto;
+        background: none;
+    }
+
+    /* Подменю */
+    .mega-menu,
+    .dropdown-about {
+        display: none !important;
+        position: static !important;
+        transform: none !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 5px 16px 10px !important;
+        background: #f8f9fc !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        flex-direction: column !important;
+    }
+
+    .nav-item.open .mega-menu,
+    .nav-item.open .dropdown-about {
+        display: flex !important;
+    }
+
+    .mega-column {
+        width: 100%;
+    }
+
+    .mega-column a,
+    .dropdown-about a {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 0;
+        font-size: 14px;
+        color: #555;
+        border-bottom: 1px solid #e8e8f0;
+        margin: 0;
+        border-radius: 0;
+        transform: none !important;
+    }
+
+    .mega-column a:last-child,
+    .dropdown-about a:last-child {
+        border-bottom: none;
+    }
+
+    .mega-column a i,
+    .dropdown-about a i {
+        width: 18px;
+        font-size: 13px;
+        color: #d7a520;
+        text-align: center;
+    }
+
+    /* ========== КОНТЕНТ НА ВСЮ ШИРИНУ ========== */
+    html, body {
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
+
+    .info-section {
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    .page-section {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .table-card {
+        margin: 0 !important;
+        padding: 20px 12px !important;
+        width: 100% !important;
+        border-radius: 0 !important;
+        background: #ffffff;
+        box-sizing: border-box;
+    }
+
+    .title-card {
+        margin: 0 0 20px 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        background: transparent;
+    }
+
+    .title-card h2,
+    .title-card h1 {
+        font-size: 24px !important;
+        margin-bottom: 10px;
+        color: #171b48;
+    }
+
+    .title-card p {
+        font-size: 15px !important;
+        line-height: 1.5;
+        color: #333;
+    }
+
+    /* Левая панель */
+    .official-layout {
+        display: flex;
+        flex-direction: column;
+        width: 100% !important;
+    }
+
+    .mini-sveden-fixed {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        width: 100% !important;
+        margin: 0 0 20px 0 !important;
+        padding: 0 !important;
+    }
+
+    .mini-sveden-card {
+        border: 1px solid #cfd6e2 !important;
+        border-radius: 12px !important;
+        border-left: 1px solid #cfd6e2 !important;
+        width: 100% !important;
+    }
+
+    .mini-sveden-title {
+        font-size: 18px !important;
+        padding: 14px 16px !important;
+    }
+
+    .mini-sveden-table td {
+        padding: 12px 16px !important;
+        font-size: 15px !important;
+    }
+
+    .mini-sveden-table a {
+        font-size: 15px !important;
+        line-height: 1.4 !important;
+    }
+
+    /* Правый контент */
+    .official-content {
+        margin-top: 0 !important;
+        width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .section-title {
+        font-size: 20px !important;
+        margin: 25px 0 15px 0 !important;
+        padding-bottom: 10px;
+    }
+
+    .section-title i {
+        margin-right: 10px;
+    }
+
+    /* Инфо блоки */
+    .info-box {
+        padding: 16px !important;
+        margin: 15px 0 !important;
+        border-radius: 10px;
+        width: 100% !important;
+    }
+
+    .info-box-text {
+        font-size: 15px !important;
+        line-height: 1.6 !important;
+    }
+
+    /* Таблицы */
+    .info-table {
+        width: 100% !important;
+        border: 1px solid #cfd6e2 !important;
+        border-radius: 12px !important;
+        margin: 15px 0 !important;
+    }
+
+    .info-table thead {
+        display: none;
+    }
+
+    .info-table tr {
+        display: block;
+        border-bottom: 1px solid #cfd6e2;
+    }
+
+    .info-table tr:last-child {
+        border-bottom: none;
+    }
+
+    .info-table td {
+        display: block;
+        width: 100% !important;
+        padding: 12px 16px !important;
+        border: none !important;
+        border-bottom: 1px solid #f0f0f0 !important;
+        font-size: 15px !important;
+    }
+
+    .info-table td:last-child {
+        border-bottom: none !important;
+    }
+
+    .info-table td:first-child {
+        font-weight: 700 !important;
+        color: #2d2b76 !important;
+        background: #eef1f7 !important;
+    }
+
+    .info-table th {
+        display: none;
+    }
+
+    /* Карточки документов */
+    .doc-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .doc-card {
+        padding: 16px !important;
+        gap: 14px;
+        margin: 5px 0 !important;
+        width: 100% !important;
+    }
+
+    .doc-icon {
+        width: 50px !important;
+        height: 50px !important;
+        min-width: 50px !important;
+    }
+
+    .doc-icon i {
+        font-size: 24px !important;
+    }
+
+    .doc-title {
+        font-size: 16px !important;
+    }
+
+    .doc-meta {
+        font-size: 13px !important;
+    }
+
+    .doc-link {
+        font-size: 14px !important;
+        padding: 8px 14px !important;
+    }
+
+    /* Список заметок */
+    .notes-list li {
+        padding: 14px 16px;
+        font-size: 14px;
+    }
+
+    /* Контакты */
+    .contacts-block {
+        padding: 40px 0 !important;
+        margin-top: 30px;
+    }
+
+    .contacts-container {
+        width: 90% !important;
+        flex-direction: column !important;
+        gap: 25px !important;
+    }
+
+    .contacts-left {
+        flex-direction: row !important;
+        gap: 15px !important;
+        max-width: 100% !important;
+    }
+
+    .contacts-logo {
+        width: 90px !important;
+    }
+
+    .contacts-subtitle {
+        font-size: 14px !important;
+        margin-bottom: 5px;
+    }
+
+    .contacts-title {
+        font-size: 20px !important;
+    }
+
+    .contacts-right {
+        width: 100% !important;
+    }
+
+    .contacts-heading {
+        font-size: 22px !important;
+        margin-bottom: 15px;
+    }
+
+    .contacts-columns {
+        flex-direction: column !important;
+        gap: 15px !important;
+        border-left: none !important;
+        padding-left: 0 !important;
+    }
+
+    .contacts-col p {
+        font-size: 15px !important;
+        margin-bottom: 10px;
+    }
+}
+
+/* ================= МАЛЕНЬКИЕ ТЕЛЕФОНЫ (до 400px) ================= */
+@media (max-width: 400px) {
+    .table-card {
+        padding: 15px 8px !important;
+    }
+
+    .title-card h2,
+    .title-card h1 {
+        font-size: 20px !important;
+    }
+
+    .section-title {
+        font-size: 18px !important;
+    }
+
+    .info-box {
+        padding: 14px !important;
+    }
+
+    .info-box-text {
+        font-size: 14px !important;
+    }
+
+    .info-table td {
+        padding: 10px 12px !important;
+        font-size: 14px !important;
+    }
+
+    .doc-card {
+        padding: 14px !important;
+    }
+
+    .doc-icon {
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+    }
+
+    .doc-icon i {
+        font-size: 20px !important;
+    }
+
+    .contacts-logo {
+        width: 70px !important;
+    }
+}
+    </style>
+</head>
+
+<body>
+
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="top-left">
+                <a href="mailto:college-95@mail.ru"><i class="fa-solid fa-eye"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu">
+        <div class="menu-content">
+            <a href="index.html" style="text-decoration:none; color: rgb(40, 60, 120);"><i class="fa-solid fa-house"></i></a>
+
+            <ul class="nav-list">
+                <!-- Пункт "О колледже" с выпадающим меню -->
+                <li class="nav-item has-dropdown">
+                    <a class="nav-link">О колледже</a>
+                    <div class="dropdown-menu dropdown-about">
+                        <a href="about.html">
+                            <i class="fa-solid fa-building-columns"></i> О колледже
+                        </a>
+                        <a href="news.html">
+                            <i class="fa-solid fa-newspaper"></i> Новости
+                        </a>
+                        <a href="gallery.html">
+                            <i class="fa-solid fa-bullhorn"></i> Фотогалерея
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item has-mega">
+                    <a href="basic_information.html" class="nav-link">Сведения об ОО</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="basic_information.html"><i class="fa-solid fa-circle-info"></i> Основные сведения</a>
+                            <a href="information_founder.html"><i class="fa-solid fa-sitemap"></i> Структура и органы управления</a>
+                            <a href="document.html"><i class="fa-solid fa-file-lines"></i> Документы</a>
+                            <a href="education.html"><i class="fa-solid fa-graduation-cap"></i> Образование</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="management.html"><i class="fa-solid fa-user-tie"></i> Руководство</a>
+                            <a href="teaching_staff.html"><i class="fa-solid fa-chalkboard-user"></i> Педагогический состав</a>
+                            <a href="logistics.html"><i class="fa-solid fa-building"></i> Материально-техническое обеспечение</a>
+                            <a href="paid_services.html"><i class="fa-solid fa-credit-card"></i> Платные образовательные услуги</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="activities.html"><i class="fa-solid fa-chart-line"></i> Финансово-хозяйственная деятельность</a>
+                            <a href="vacancies.html"><i class="fa-solid fa-user-plus"></i> Вакантные места</a>
+                            <a href="international_cooperation.html"><i class="fa-solid fa-globe"></i> Международное сотрудничество</a>
+                            <a href="catering.html"><i class="fa-solid fa-utensils"></i> Организация питания</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item has-mega">
+                    <a href="company.html" class="nav-link">Поступающим</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <a href="company.html"><i class="fa-solid fa-clipboard-list"></i> Приёмная кампания 2026</a>
+                            <a href="direction_training.html"><i class="fa-solid fa-compass"></i> Направления подготовки</a>
+                            <a href="open_door.html"><i class="fa-solid fa-calendar-check"></i> Дни открытых дверей</a>
+                            <a href="accept_doc.html"><i class="fa-solid fa-file-lines"></i> Документы для поступления</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="paid_services2.html"><i class="fa-solid fa-ruble-sign"></i> Платное обучение</a>
+                            <a href="translation.html"><i class="fa-solid fa-rotate"></i> Перевод и восстановление</a>
+                            <a href="question.html"><i class="fa-solid fa-circle-question"></i> Часто задаваемые вопросы</a>
+                            <a href="professional.html"><i class="fa-solid fa-person-chalkboard"></i> Профориентация</a>
+                        </div>
+                        <div class="mega-column">
+                            <a href="order.html"><i class="fa-solid fa-file-circle-check"></i> Приказы о зачислении</a>
+                            <a href="full_education.html"><i class="fa-solid fa-bullseye"></i> Целевое обучение</a>
+                            <a href="Образовательное кредитование.pdf"><i class="fa-solid fa-sack-dollar"></i> Образовательный кредит</a>
+                            <a href="capital.html"><i class="fa-solid fa-hand-holding-heart"></i> О материнском капитале</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="ordering_certificates.html">Студентам</a></li>
+                <li class="nav-item"><a class="nav-link" href="graduates.html">Выпускникам</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Контакты</a></li>
+            </ul>
+
+            <div class="menu-icons">
+                <a class="menu-icon-link" href="https://vk.ru/business_college95" aria-label="ВКонтакте">
+                    <i class="fa-brands fa-vk"></i>
+                </a>
+                <a class="menu-icon-link" href="https://max.ru/u/f9LHodD0cOITJW3XHPLMW4Rd8XyF5o___UQuasgI59JfFIf45iwgcq-7UDM" aria-label="MAX">
+                    <img src="max-icon.png" alt="MAX" style="width: 26px; height: 26px; object-fit: contain;">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section class="info-section">
+        <div class="page-section">
+            <div class="table-card">
+            <div class="title-card"><h2>Студенческое самоуправление</h2></div>
+                <div class="official-layout">
+                    <div class="mini-sveden-fixed">
+                        <aside class="mini-sveden-card">
+                            <div class="mini-sveden-title">Студентам</div>
+                            <table class="mini-sveden-table">
+                                <tr><td><a href="raspisaniye.html">Расписание звонков</a></td></tr>
+                                <tr><td><a href="raspisaniye2.html">Расписание занятий</a></td></tr>
+                                <tr><td><a href="https://dnevnik.ru/">Электронный журнал</a></td></tr>
+                                <tr><td><a href="https://profspo.ru">Библиотека</a></td></tr>
+                                <tr><td><a href="attestation.html">Промежуточная аттестация</a></td></tr>
+                                <tr><td><a href="speak_neceary.html">Разговоры о важном</a></td></tr>
+                                <tr class="active-link"><td><a href="student_samoupravlenie.html">Студентческое самоуправления</a></td></tr>
+                                <tr><td><a href="vospitatelnaya_rabota.html">Воспитательная работа</a></td></tr>
+                                <tr><td><a href="ordering_certificates.html">Заказ справок</a></td></tr>
+                                <tr><td><a href="announcements.html">Объявления</a></td></tr>
+                                <tr><td><a href="instagramm.html">Соц-сети</a></td></tr>
+                                <tr><td><a href="menu.html">Питание</a></td></tr>
+                                <tr><td><a href="safety.html">Безопасность</a></td></tr>
+                            </table>
+                        </aside>
+                    </div>
+
+                    <div class="official-content">
+                        <div class="table-inner">
+
+                            <h3 class="section-title"><i class="fa-solid fa-users-between-lines"></i> Студенческий совет</h3>
+
+                            <!-- Нормативно-правовая база -->
+                            <div class="image">
+                                <img src="studsovet_1.png">
+                            </div>
+
+                            <!-- Баннеры -->
+                            <div class="attestation-banners">
+                                
+                                <!-- Баннер 1: Положение о Студенческом совете -->
+                                <a href="document.html" class="att-banner">
+                                    <div class="att-banner-icon">
+                                        <i class="fa-solid fa-file-contract"></i>
+                                    </div>
+                                    <div class="att-banner-content">
+                                        <h3>Положение о Студенческом совете</h3>
+                                        <p>Локальный нормативный акт, регламентирующий цели, задачи, структуру и порядок формирования Студенческого совета колледжа.</p>
+                                    </div>
+                                    <div class="att-banner-arrow">
+                                        <i class="fa-solid fa-arrow-right"></i>
+                                    </div>
+                                </a>
+
+                                <!-- Баннер 2: Состав Студенческого совета -->
+                                <a href="#" class="att-banner">
+                                    <div class="att-banner-icon">
+                                        <i class="fa-solid fa-user-group"></i>
+                                    </div>
+                                    <div class="att-banner-content">
+                                        <h3>Состав Студенческого совета</h3>
+                                        <p>Актуальный список членов Студенческого совета, председатель, руководители секторов и направлений работы.</p>
+                                    </div>
+                                    <div class="att-banner-arrow">
+                                        <i class="fa-solid fa-arrow-right"></i>
+                                    </div>
+                                </a>
+
+                                <!-- Баннер 3: План работы -->
+                                <a href="#" class="att-banner">
+                                    <div class="att-banner-icon">
+                                        <i class="fa-solid fa-list-check"></i>
+                                    </div>
+                                    <div class="att-banner-content">
+                                        <h3>План работы Студенческого совета</h3>
+                                        <p>Календарный план мероприятий, заседаний и проектов на текущий учебный год.</p>
+                                    </div>
+                                    <div class="att-banner-arrow">
+                                        <i class="fa-solid fa-arrow-right"></i>
+                                    </div>
+                                </a>
+
+                                <!-- Баннер 4: Протоколы заседаний -->
+                                <a href="#" class="att-banner">
+                                    <div class="att-banner-icon">
+                                        <i class="fa-solid fa-clipboard-list"></i>
+                                    </div>
+                                    <div class="att-banner-content">
+                                        <h3>Протоколы заседаний</h3>
+                                        <p>Протоколы и решения заседаний Студенческого совета за текущий учебный год.</p>
+                                    </div>
+                                    <div class="att-banner-arrow">
+                                        <i class="fa-solid fa-arrow-right"></i>
+                                    </div>
+                                </a>
+
+                            </div>
+
+                            <!-- Цели и задачи -->
+                            <h3 class="section-title"><i class="fa-solid fa-bullseye"></i> Цели и задачи</h3>
+                            <div class="info-box">
+                                <div class="info-box-title">
+                                    <i class="fa-solid fa-star"></i> Основные направления деятельности
+                                </div>
+                                <div class="info-box-text">
+                                    <strong>Цель:</strong> формирование активной гражданской позиции обучающихся, содействие развитию их социальной зрелости, самостоятельности, способности к самоорганизации и саморазвитию.<br><br>
+                                    <strong>Задачи:</strong>
+                                    <ul style="margin-top: 10px; padding-left: 20px;">
+                                        <li>Защита и представление прав и законных интересов обучающихся;</li>
+                                        <li>Содействие в решении образовательных, социально-бытовых и иных вопросов, затрагивающих интересы обучающихся;</li>
+                                        <li>Участие в управлении колледжем, в том числе через представительство в Педагогическом совете;</li>
+                                        <li>Организация и проведение культурно-массовых, спортивных, научных и иных мероприятий;</li>
+                                        <li>Формирование корпоративной культуры и традиций колледжа;</li>
+                                        <li>Развитие волонтёрского движения и социально значимых инициатив.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Контакты -->
+                            <h3 class="section-title"><i class="fa-solid fa-circle-info"></i> Контакты и приём</h3>
+                            <table class="info-table">
+                                <tr><td>Председатель Студенческого совета</td><td>Избирается на общем собрании обучающихся сроком на 1 год</td></tr>
+                                <tr><td>Место проведения заседаний</td><td>г. Грозный, ул. Старопромысловское шоссе, д. 26 Б, конференц-зал</td></tr>
+                                <tr><td>График заседаний</td><td>Второй и четвёртый четверг месяца, 15:00</td></tr>
+                                <tr><td>Куратор Студенческого совета</td><td>Заместитель директора по воспитательной работе</td></tr>
+                                <tr><td>Электронная почта</td><td><a href="mailto:college-95@mail.ru">college-95@mail.ru</a></td></tr>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="contacts-block">
+        <div class="contacts-container">
+            <div class="contacts-left">
+                <a href="index.html"><img src="favicon.png" alt="Лого" class="contacts-logo"></a>
+                <div class="contacts-text"><p class="contacts-subtitle">Частное профессиональное образовательное учреждение</p><h2 class="contacts-title">Колледж управления<br>и дизайна</h2></div>
+            </div>
+            <div class="contacts-right">
+                <h2 class="contacts-heading">Контакты</h2>
+                <div class="contacts-columns">
+                    <div class="contacts-col"><p><i class="fa-solid fa-location-dot"></i> г. Грозный, ул. Старопромысловское шоссе, д.26 Б</p><p><i class="fa-solid fa-phone"></i> +7 (938) 902-12-22</p><p><i class="fa-solid fa-phone"></i> +7 (929) 890-22-22</p></div>
+                    <div class="contacts-col"><p><i class="fa-regular fa-envelope"></i> <b>Приёмная комиссия:</b><br>college-95@mail.ru</p><p><i class="fa-regular fa-envelope"></i> <b>Директор:</b><br>college-95@yandex.ru</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
